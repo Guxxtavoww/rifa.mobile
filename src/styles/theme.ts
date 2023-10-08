@@ -4,6 +4,7 @@ export const THEME = {
     screen_dark_background: '#181825ff',
     dark_text_color: '#00051cff',
     light_text_color: '#ffffffff',
+    orange_color: '#e06e3fff',
   },
   fonts: {
     regular: 'Poppins-Regular',
