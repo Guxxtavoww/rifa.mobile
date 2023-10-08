@@ -3,7 +3,6 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Loader } from '@/components';
 import { THEME } from '@/styles/theme';
 import { fetchFonts } from '@/utils/fetch-fonts.util';
 
