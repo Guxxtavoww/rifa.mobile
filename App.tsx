@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
+import { NativeBaseProvider } from 'native-base';
 
 import Routes from '@/routes';
 import { THEME } from '@/styles/theme.styles';
@@ -20,12 +21,12 @@ export default function App() {
   }
 
   return (
-    <>
+    <NativeBaseProvider>
       <StatusBar
         animated
         backgroundColor={THEME.colors.screen_white_background}
       />
       <Routes />
-    </>
+    </NativeBaseProvider>
   );
 }
