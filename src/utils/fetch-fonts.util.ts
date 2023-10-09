@@ -1,6 +1,6 @@
 import { loadAsync } from 'expo-font';
 
-import { THEME } from '@/styles/theme';
+import { THEME } from '@/styles/theme.styles';
 
 export const fetchFonts = async () =>
   loadAsync({

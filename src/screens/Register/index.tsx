@@ -2,7 +2,7 @@ import { View } from 'react-native';
 
 import { Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
-import { THEME } from '@/styles/theme';
+import { THEME } from '@/styles/theme.styles';
 
 const Register: React.FC = () => {
   return (

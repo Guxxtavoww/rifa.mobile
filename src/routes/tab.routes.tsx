@@ -1,7 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { THEME } from '@/styles/theme';
+import { THEME } from '@/styles/theme.styles';
 
 import { Login, Register } from '../screens';
 

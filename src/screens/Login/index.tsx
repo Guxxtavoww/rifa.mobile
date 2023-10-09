@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
 import { Text } from '@/components';
-import { THEME } from '@/styles/theme';
+import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 
 const Login: React.FC = () => {

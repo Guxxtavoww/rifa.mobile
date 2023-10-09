@@ -3,7 +3,7 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 
 import Routes from '@/routes';
-import { THEME } from '@/styles/theme';
+import { THEME } from '@/styles/theme.styles';
 import { fetchFonts } from '@/utils/fetch-fonts.util';
 
 export default function App() {
