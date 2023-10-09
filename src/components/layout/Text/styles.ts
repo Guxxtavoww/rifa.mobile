@@ -5,10 +5,10 @@ import { THEME } from '@/styles/theme';
 export const textStyles = StyleSheet.create({
   textStyle: {
     fontFamily: THEME.fonts.medium,
-    fontSize: THEME.fontsSizes.small,
+    fontSize: THEME.fontsSizes.large,
   },
   titleStyles: {
     fontFamily: THEME.fonts.bold,
-    fontSize: THEME.fontsSizes.large,
+    fontSize: THEME.fontsSizes.extraLarge,
   },
 });
