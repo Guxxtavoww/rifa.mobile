@@ -8,10 +8,15 @@ interface iTextProps extends TextProps {
   content: string;
 }
 
-const Text: React.FC<iTextProps> = ({ type = 'text', content, ...rest }) => (
+const Text: React.FC<iTextProps> = ({
+  type = 'text',
+  content,
+  style,
+  ...rest
+}) => (
   <RNText
     style={[
-      rest.style,
+      style,
       type === 'text' ? textStyles.textStyle : textStyles.titleStyles,
     ]}
     {...rest}
