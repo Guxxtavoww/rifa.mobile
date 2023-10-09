@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
+import Routes from '@/routes';
 import { THEME } from '@/styles/theme';
 import { fetchFonts } from '@/utils/fetch-fonts.util';
+import { commonStyles } from '@/styles/common.styles';
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -20,24 +22,12 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Essa peca que vc queria ?</Text>
-      <StatusBar style="auto" />
+    <SafeAreaView style={commonStyles.container}>
+      <StatusBar
+        animated
+        backgroundColor={THEME.colors.screen_white_background}
+      />
+      <Routes />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: THEME.colors.screen_dark_background,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  text: {
-    fontSize: THEME.fontsSizes.large,
-    color: '#fff',
-    fontWeight: '600',
-    fontFamily: THEME.fonts.medium,
-  },
-});
