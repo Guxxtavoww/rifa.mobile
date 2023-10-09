@@ -2,7 +2,7 @@ import { loadAsync } from 'expo-font';
 
 import { THEME } from '@/styles/theme';
 
-export const fetchFonts = () =>
+export const fetchFonts = async () =>
   loadAsync({
     [THEME.fonts.regular]: require('../assets/fonts/Poppins-Regular.ttf'),
     [THEME.fonts.medium]: require('../assets/fonts/Poppins-Medium.ttf'),
