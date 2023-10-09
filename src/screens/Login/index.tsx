@@ -6,7 +6,15 @@ import { commonStyles } from '@/styles/common.styles';
 
 const Login: React.FC = () => {
   return (
-    <View style={commonStyles.screen_container_dark}>
+    <View
+      style={[
+        commonStyles.screen_container_dark,
+        {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      ]}
+    >
       <Text
         content="Login"
         type="title"
