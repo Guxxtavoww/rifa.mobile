@@ -40,7 +40,7 @@ const Input: React.FC<iInputProps> = ({
   );
 
   const handleChangeText = useCallback(
-    (newText: string) => {
+    (newText: string, onChange: (...event: any[]) => void) => {
       clearErrors();
 
       const isNumberType = type === 'number';
@@ -53,6 +53,7 @@ const Input: React.FC<iInputProps> = ({
       }
 
       if (onChangeText) onChangeText(newValue);
+      onChange(newValue);
     },
     [onChangeText, clearErrors, setValue, stringfyedName]
   );
@@ -79,8 +80,7 @@ const Input: React.FC<iInputProps> = ({
             color={THEME.colors.light_text_color}
             keyboardType={handleKeyboardType(type)}
             onChangeText={(newText) => {
-              handleChangeText(newText);
-              field.onChange(newText);
+              handleChangeText(newText, field.onChange);
             }}
             fontFamily={THEME.fonts.medium}
             value={field.value}
