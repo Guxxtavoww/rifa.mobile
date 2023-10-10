@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { FormControl, IInputProps, Input as NBInput } from 'native-base';
 
