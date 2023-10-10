@@ -35,7 +35,7 @@ const Input: React.FC<iInputProps> = ({
   } = useFormContext();
 
   const fieldError = useMemo(
-    () => getErrorMessage(errors, name.toString()),
+    () => getErrorMessage(errors, stringfyedName),
     [errors, stringfyedName]
   );
 
