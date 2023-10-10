@@ -5,7 +5,7 @@ import { iInputProps } from '../components/Input';
 
 export type Input<T> = {
   name: keyof T;
-  type: 'text' | 'number' | 'password';
+  type: 'text' | 'number' | 'password' | 'email';
 } & Omit<iInputProps, 'name' | 'type'>;
 
 export interface iFormProps<T extends FieldValues> {

@@ -5,6 +5,7 @@ import { FormControl, IInputProps, Input as NBInput } from 'native-base';
 import { THEME } from '@/styles/theme.styles';
 
 import { getErrorMessage } from '../../utils/get-error-message.util';
+import { handleKeyboardType } from './input.utils';
 
 export interface iInputProps
   extends Omit<
@@ -12,7 +13,7 @@ export interface iInputProps
     'fontSize' | 'type' | 'onChangeText' | 'isInvalid' | 'defaultValue'
   > {
   name: string | number | symbol;
-  type?: 'text' | 'number' | 'password';
+  type?: 'text' | 'number' | 'password' | 'email';
   onChangeText?: (newValue: string | number) => void;
   errorMessage?: Maybe<string>;
   defaultValue?: Maybe<string>;
@@ -76,6 +77,7 @@ const Input: React.FC<iInputProps> = ({
             borderRadius="full"
             borderColor="black"
             color={THEME.colors.light_text_color}
+            keyboardType={handleKeyboardType(type)}
             onChangeText={(newText) => {
               handleChangeText(newText);
               field.onChange(newText);
@@ -95,7 +97,7 @@ const Input: React.FC<iInputProps> = ({
             }}
             {...rest}
           />
-          <FormControl.ErrorMessage>
+          <FormControl.ErrorMessage ml="1/6">
             {fieldError?.message?.toString() || ''}
           </FormControl.ErrorMessage>
         </FormControl>
