@@ -8,3 +8,5 @@ export const registerFormSchema = z.object({
     .email('Insira um e-mail válido'),
   user_password: z.string().min(1, 'Senha é obrigatória'),
 });
+
+export type RegisterFormType = z.infer<typeof registerFormSchema>
