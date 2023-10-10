@@ -97,7 +97,7 @@ const Input: React.FC<iInputProps> = ({
             }}
             {...rest}
           />
-          <FormControl.ErrorMessage ml="1/6">
+          <FormControl.ErrorMessage ml="4">
             {fieldError?.message?.toString() || ''}
           </FormControl.ErrorMessage>
         </FormControl>

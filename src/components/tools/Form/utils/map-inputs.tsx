@@ -11,6 +11,7 @@ export function mapInputs<T extends FieldValues>(
     case 'number':
     case 'text':
     case 'password':
+    case 'email':
       return <Input {...input} key={index} />;
     default:
       return null;

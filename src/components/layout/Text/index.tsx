@@ -3,13 +3,12 @@ import { Text as RNText, TextProps } from 'react-native';
 
 import { THEME } from '@/styles/theme.styles';
 
-import { textStyles } from './styles';
-
 export interface iTextProps extends TextProps {
   type?: 'text' | 'title';
   content: string;
   color?: string;
   fontSize?: keyof typeof THEME.fontsSizes;
+  fontWeight?: keyof typeof THEME.fonts;
 }
 
 const Text: React.FC<iTextProps> = ({
@@ -18,6 +17,7 @@ const Text: React.FC<iTextProps> = ({
   style,
   color,
   fontSize,
+  fontWeight,
   ...rest
 }) => (
   <RNText
@@ -26,8 +26,8 @@ const Text: React.FC<iTextProps> = ({
       {
         color: color ?? THEME.colors.light_text_color,
         fontSize: THEME.fontsSizes[fontSize ?? 'normal'],
+        fontFamily: THEME.fonts[fontWeight ?? 'regular'],
       },
-      type === 'text' ? textStyles.textStyle : textStyles.titleStyles,
     ]}
     {...rest}
   >
