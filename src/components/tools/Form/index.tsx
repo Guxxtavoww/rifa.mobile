@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 
 import Button from '@/components/layout/Button';
+import { THEME } from '@/styles/theme.styles';
 
 import { iFormProps } from './types/props.types';
 import { mapInputs } from './utils/map-inputs';
-import { THEME } from '@/styles/theme.styles';
 
 function Form<T extends FieldValues>({
   handleSubmit,
