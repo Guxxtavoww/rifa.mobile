@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text as RNText } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { VStack } from 'native-base';
 
 import { Form, Text } from '@/components';
