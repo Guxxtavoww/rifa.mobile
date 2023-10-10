@@ -32,6 +32,7 @@ const Register: React.FC = () => {
             name: 'user_email',
             type: 'text',
             placeholder: 'Insira um e-mail',
+            autoComplete: 'email',
           },
           {
             name: 'user_password',
