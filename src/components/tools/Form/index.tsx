@@ -20,7 +20,10 @@ function Form<T extends FieldValues>({
     resolver: zodSchema ? zodResolver(zodSchema) : undefined,
   });
 
-  const { handleSubmit: handleHookFormSubmit } = methods;
+  const {
+    handleSubmit: handleHookFormSubmit,
+    formState: { errors },
+  } = methods;
 
   return (
     <FormProvider {...methods}>
