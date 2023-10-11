@@ -33,7 +33,7 @@ export default function StackRoutes() {
           headerLeft: () => (
             <IconButton
               icon={<Feather name="arrow-left" size={25} />}
-              onPress={navigation.goBack}
+              onPress={() => navigation.push('login')}
               borderRadius="full"
               _icon={{
                 color: THEME.colors.light_text_color,

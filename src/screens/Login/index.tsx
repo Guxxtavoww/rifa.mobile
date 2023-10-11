@@ -32,6 +32,7 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
             placeholder: 'Insira um e-mail',
             autoComplete: 'email',
             autoCapitalize: 'none',
+            autoFocus: true,
           },
           {
             name: 'user_password',
