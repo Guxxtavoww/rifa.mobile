@@ -5,5 +5,6 @@ export const registerStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 26,
   },
 });

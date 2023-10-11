@@ -20,7 +20,6 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
         content="Login"
         type="title"
         style={{
-          color: THEME.colors.light_text_color,
           marginBottom: 10,
         }}
         fontSize="extraLarge"

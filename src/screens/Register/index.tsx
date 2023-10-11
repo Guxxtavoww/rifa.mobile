@@ -16,9 +16,9 @@ const Register: React.FC = () => {
     >
       <Text
         content="Cadastrar-se"
-        style={{ marginBottom: 6 }}
+        style={{ marginBottom: 10 }}
         type="title"
-        fontSize="large"
+        fontSize="extraLarge"
       />
       <Form
         inputs={[
