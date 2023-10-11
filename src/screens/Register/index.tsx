@@ -33,6 +33,7 @@ const Register: React.FC = () => {
             type: 'email',
             placeholder: 'Insira um e-mail',
             autoComplete: 'email',
+            autoCapitalize: 'none',
           },
           {
             name: 'user_password',
