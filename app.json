@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/png/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "rifa.apk"
     },
     "web": {
       "favicon": "./src/assets/png/favicon.png"

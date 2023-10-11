@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { Provider } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import Routes from '@/routes';
 import { THEME } from '@/styles/theme.styles';
 import { fetchFonts } from '@/utils/fetch-fonts.util';
+import { persistedStore, store } from '@/redux/store.redux';
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -21,12 +24,16 @@ export default function App() {
   }
 
   return (
-    <NativeBaseProvider>
-      <StatusBar
-        animated
-        backgroundColor={THEME.colors.screen_white_background}
-      />
-      <Routes />
-    </NativeBaseProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistedStore}>
+        <NativeBaseProvider>
+          <StatusBar
+            animated
+            backgroundColor={THEME.colors.screen_white_background}
+          />
+          <Routes />
+        </NativeBaseProvider>
+      </PersistGate>
+    </Provider>
   );
 }
