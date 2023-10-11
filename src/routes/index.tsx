@@ -13,8 +13,8 @@ export default function Routes() {
   return (
     <Contexts>
       <NavigationContainer>
-      {hasUserData ? null : <StackRoutes />}
-    </NavigationContainer>
+        {hasUserData ? null : <StackRoutes />}
+      </NavigationContainer>
     </Contexts>
   );
 }
