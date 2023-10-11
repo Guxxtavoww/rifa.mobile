@@ -43,7 +43,7 @@ export const CustomToastProvider: FCWithChildren<{}, true> = ({ children }) => {
         fontFamily: THEME.fonts.medium,
       },
     });
-  }, []);
+  }, [nbToast]);
 
   return (
     <CustomToastContext.Provider value={{ toast }}>
