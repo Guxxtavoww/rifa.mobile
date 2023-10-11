@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
 import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Routes from '@/routes';
 import { THEME } from '@/styles/theme.styles';
@@ -26,13 +27,15 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistedStore}>
-        <NativeBaseProvider>
-          <StatusBar
-            animated
-            backgroundColor={THEME.colors.screen_white_background}
-          />
-          <Routes />
-        </NativeBaseProvider>
+        <QueryClientProvider client={new QueryClient()}>
+          <NativeBaseProvider>
+            <StatusBar
+              animated
+              backgroundColor={THEME.colors.screen_white_background}
+            />
+            <Routes />
+          </NativeBaseProvider>
+        </QueryClientProvider>
       </PersistGate>
     </Provider>
   );
