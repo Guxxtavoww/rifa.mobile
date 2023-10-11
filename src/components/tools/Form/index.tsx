@@ -34,7 +34,13 @@ function Form<T extends FieldValues>({
         />
       </VStack>
       <Button
-        buttonProps={{ onPress: handleHookFormSubmit(handleSubmit), isLoading }}
+        buttonProps={{
+          onPress: handleHookFormSubmit(handleSubmit),
+          isLoading,
+          _pressed: {
+            backgroundColor: 'orange.900',
+          },
+        }}
         textProps={{
           content: submitButtonText || 'Enviar',
           type: 'text',

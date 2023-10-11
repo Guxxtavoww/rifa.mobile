@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
+import { IconButton } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { THEME } from '@/styles/theme.styles';
@@ -28,14 +29,25 @@ export default function StackRoutes() {
         component={Register}
         options={({ navigation }) => ({
           headerShown: true,
-          headerTitle: () => null,
+          headerTitle: undefined,
           headerLeft: () => (
-            <Feather
-              name="arrow-left"
-              color={THEME.colors.light_text_color}
-              style={{ marginLeft: 8 }}
-              size={25}
-              onPress={() => navigation.goBack()}
+            <IconButton
+              icon={<Feather name="arrow-left" size={25} />}
+              onPress={navigation.goBack}
+              borderRadius="full"
+              _icon={{
+                color: THEME.colors.light_text_color,
+                size: 'lg',
+              }}
+              _pressed={{
+                bg: 'gray.600',
+                _ios: {
+                  _icon: {
+                    size: '2xl',
+                  },
+                },
+              }}
+              ml="2"
             />
           ),
         })}
