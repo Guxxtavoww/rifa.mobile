@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Provider } from 'react-redux';
+import 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';

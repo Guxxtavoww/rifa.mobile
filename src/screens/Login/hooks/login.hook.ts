@@ -1,17 +1,27 @@
 import { useCallback } from 'react';
 
 import { useRedux } from '@/hooks';
+import { login } from '@/redux/actions.redux';
 import { useCustomToast } from '@/contexts/CustomToastContext';
 
 import { LoginFormType } from '../types/form.types';
 
 export function useLogin() {
   const { toast } = useCustomToast();
-  const authState = useRedux().useAppSelector((state) => state.auth);
+  const appDispatch = useRedux().useAppDispatch()
+
 
   const handleSubmit = useCallback(
     (data: LoginFormType) => {
-      console.log({ data, authState });
+      appDispatch(login({ access_token: 'fodase', user_data: {
+        created_at: '',
+        funds: 0,
+        updated_at: null,
+        user_email: 'dsadas',
+        user_id: '23123213213',
+        user_name: 'Fodase',
+        user_photo_url: 'dassadsadsad'
+      }}))
       toast('Logado com sucesso!');
     },
     [toast]

@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import { IconButton } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
