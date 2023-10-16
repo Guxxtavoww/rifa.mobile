@@ -9,6 +9,7 @@ import {
 
 import { useRedux } from '@/hooks';
 import { THEME } from '@/styles/theme.styles';
+import { formatToDate } from '@/utils/date.utils';
 
 import Text from '../Text';
 
@@ -17,9 +18,8 @@ interface iUserInfoProps {
 }
 
 const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
-  const { user_photo_url, user_email, user_name } = useRedux().useAppSelector(
-    (state) => state.auth.user_data!
-  );
+  const { user_photo_url, user_email, user_name, created_at } =
+    useRedux().useAppSelector((state) => state.auth.user_data!);
 
   return (
     <SafeAreaView>
@@ -48,7 +48,6 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             defaultSource={{
               uri: 'https://i.pinimg.com/564x/13/b4/08/13b408f0ad453542c0d8fa8e62602245.jpg',
             }}
-            onError={(e) => console.log('Image Error', e)}
             style={{
               height: 130,
               width: 130,
@@ -62,6 +61,15 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
           color={THEME.colors.dark_text_color}
           fontWeight="medium"
           fontSize="large"
+          style={{
+            marginBottom: 6,
+          }}
+        />
+        <Text
+          content={`Criado em: ${formatToDate(created_at, true)}`}
+          color={THEME.colors.subtitle_color}
+          fontSize="small"
+          fontWeight="regular"
         />
       </VStack>
       <DrawerItemList {...drawerProps} />

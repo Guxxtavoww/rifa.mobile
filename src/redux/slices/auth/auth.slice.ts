@@ -30,9 +30,14 @@ const authSlice = createSlice({
         state.user_data.user_photo_url = action.payload;
       }
     },
+    loginError: (state) => {
+      state.user_data = null;
+      state.isFetchingUser = false;
+      state.access_token = null;
+    },
   },
 });
 
 export default authSlice.reducer;
-export const { logOut, login, loginStart, updateUserPhotoUrl } =
+export const { logOut, login, loginStart, updateUserPhotoUrl, loginError } =
   authSlice.actions;

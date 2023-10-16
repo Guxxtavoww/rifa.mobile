@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const registerFormSchema = z.object({
-  name: z.string({ required_error: 'Insira um nome válido' }),
+  user_name: z.string({ required_error: 'Insira um nome válido' }),
   user_email: z
     .string({ required_error: 'Insira um e-mail' })
     .email('Insira um e-mail válido'),

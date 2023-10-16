@@ -1,8 +1,9 @@
+import { IconButton } from 'native-base';
 import { Feather } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Raffles } from '@/screens';
-import { UserInfo, Text } from '@/components';
+import { UserInfo } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import UserSettings from '@/screens/UserSettings';
 
@@ -12,7 +13,7 @@ function DrawerRoutes() {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <UserInfo drawerProps={props} />}
-      screenOptions={{
+      screenOptions={(navigation) => ({
         headerStyle: {
           backgroundColor: THEME.colors.screen_white_background,
         },
@@ -33,7 +34,29 @@ function DrawerRoutes() {
           backgroundColor: THEME.colors.screen_white_background,
         },
         headerTitle: 'Rifas',
-      }}
+        headerLeft: () => (
+          <IconButton
+            icon={<Feather name="menu" size={25} />}
+            onPress={navigation.navigation.toggleDrawer}
+            borderRadius="full"
+            _icon={{
+              color: THEME.colors.dark_text_color,
+              size: '6xl',
+            }}
+            _pressed={{
+              bg: 'gray.200',
+              _ios: {
+                _icon: {
+                  size: '2xl',
+                },
+              },
+            }}
+            ml="2"
+            alignItems="center"
+            justifyContent="center"
+          />
+        ),
+      })}
     >
       <Drawer.Screen
         name="raffles"

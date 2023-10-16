@@ -3,10 +3,13 @@ import { View } from 'react-native';
 import { Form, Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
 
-import { registerFormSchema } from './types/form.types';
 import { registerStyles } from './styles';
+import { useRegister } from './hooks/register.hook';
+import { registerFormSchema } from './types/form.types';
 
 const Register: React.FC = () => {
+  const { handleSubmit, isLoading } = useRegister();
+
   return (
     <View
       style={[
@@ -23,7 +26,7 @@ const Register: React.FC = () => {
       <Form
         inputs={[
           {
-            name: 'name',
+            name: 'user_name',
             type: 'text',
             placeholder: 'Insira um nome de usuário',
             autoFocus: true,
@@ -42,8 +45,9 @@ const Register: React.FC = () => {
           },
         ]}
         zodSchema={registerFormSchema}
-        handleSubmit={(data) => console.log(data)}
+        handleSubmit={handleSubmit}
         submitButtonText="Fazer Cadastro"
+        isLoading={isLoading}
       />
     </View>
   );

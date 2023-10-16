@@ -5,6 +5,7 @@ export const THEME = {
     dark_text_color: '#00051cff',
     light_text_color: '#ffffffff',
     orange_color: '#e06e3fff',
+    subtitle_color: '#C0C0C0',
   },
   fonts: {
     regular: 'Poppins-Regular',

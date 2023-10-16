@@ -10,7 +10,7 @@ import { useLogin } from './hooks/login.hook';
 import { loginFormSchema } from './types/form.types';
 
 const Login: React.FC<ScreenProps> = ({ navigation }) => {
-  const { handleSubmit } = useLogin();
+  const { handleSubmit, isLoading } = useLogin();
 
   return (
     <View
@@ -43,6 +43,7 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
         zodSchema={loginFormSchema}
         submitButtonText="Fazer Login"
         handleSubmit={handleSubmit}
+        isLoading={isLoading}
       />
       <VStack alignItems="center" w="full" px="1" mt="5">
         <Text

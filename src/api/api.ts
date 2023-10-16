@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { store } from '@/redux/store.redux';
 import { ENV_VARIABLES } from '@/config/env.config';
@@ -17,7 +17,21 @@ api.interceptors.request.use(
 
     return Promise.resolve(req);
   },
-  (error) => {}
+  (error: AxiosError) => {
+    return Promise.reject(error.response?.data);
+  }
+);
+
+api.interceptors.response.use(
+  (res) => {
+    console.info(res.config.url + ':');
+    console.info(JSON.stringify(res.data, null, 2));
+
+    return Promise.resolve(res);
+  },
+  (error) => {
+    return Promise.reject(error.response?.data);
+  }
 );
 
 export default api;
