@@ -38,6 +38,7 @@ const Login: React.FC<ScreenProps> = ({ navigation }) => {
             name: 'user_password',
             type: 'password',
             placeholder: 'Insira uma senha',
+            autoCapitalize: 'none',
           },
         ]}
         zodSchema={loginFormSchema}

@@ -27,6 +27,8 @@ const Text: React.FC<iTextProps> = ({
         color: color ?? THEME.colors.light_text_color,
         fontSize: THEME.fontsSizes[fontSize ?? 'normal'],
         fontFamily: THEME.fonts[fontWeight ?? 'regular'],
+        flexDirection: 'row',
+        alignItems: 'center',
       },
     ]}
     {...rest}

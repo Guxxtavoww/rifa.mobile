@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
 import { VStack } from 'native-base';
+import { Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   DrawerContentComponentProps,

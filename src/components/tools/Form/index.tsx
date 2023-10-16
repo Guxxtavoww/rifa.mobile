@@ -15,6 +15,7 @@ function Form<T extends FieldValues>({
   zodSchema,
   submitButtonText,
   isLoading,
+  formActions,
 }: iFormProps<T>) {
   const methods = useForm<T>({
     resolver: zodSchema ? zodResolver(zodSchema) : undefined,
@@ -33,6 +34,30 @@ function Form<T extends FieldValues>({
           scrollEnabled
         />
       </VStack>
+      {formActions?.length ? (
+        <FlatList
+          w="full"
+          h="container"
+          data={formActions}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={({ item, index }) => (
+            <Button
+              buttonProps={{
+                isLoading,
+                _pressed: {
+                  backgroundColor: 'orange.900',
+                },
+                ...item.buttonProps,
+              }}
+              textProps={item.textProps}
+              key={index}
+            />
+          )}
+          mb="1"
+          maxH="1/2"
+          scrollEnabled
+        />
+      ) : null}
       <Button
         buttonProps={{
           onPress: handleHookFormSubmit(handleSubmit),

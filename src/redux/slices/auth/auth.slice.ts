@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { iUpdateUserResponse } from '@/screens/UserSettings/types/responses.types';
+
 import { AuthResponseType, AuthStateType } from './auth.types';
 
 const authSlice = createSlice({
@@ -25,9 +27,13 @@ const authSlice = createSlice({
       state.access_token = null;
       state.user_data = null;
     },
-    updateUserPhotoUrl: (state, action: PayloadAction<string>) => {
+    updateUser: (state, action: PayloadAction<iUpdateUserResponse>) => {
       if (state.user_data) {
-        state.user_data.user_photo_url = action.payload;
+        state.user_data.user_photo_url = action.payload.user_photo_url;
+        state.user_data.updated_at = String(action.payload.updated_at);
+        state.user_data.funds = action.payload.funds;
+        state.user_data.user_name = action.payload.user_name;
+        state.user_data.user_email = action.payload.user_email;
       }
     },
     loginError: (state) => {
@@ -39,5 +45,5 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { logOut, login, loginStart, updateUserPhotoUrl, loginError } =
+export const { logOut, login, loginStart, updateUser, loginError } =
   authSlice.actions;

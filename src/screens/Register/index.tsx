@@ -42,6 +42,13 @@ const Register: React.FC = () => {
             name: 'user_password',
             type: 'password',
             placeholder: 'Insira uma senha',
+            autoCapitalize: 'none',
+          },
+          {
+            name: 'user_password_confirmation',
+            type: 'password',
+            placeholder: 'Confirme sua senha',
+            autoCapitalize: 'none',
           },
         ]}
         zodSchema={registerFormSchema}

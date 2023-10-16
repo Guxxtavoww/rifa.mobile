@@ -18,7 +18,11 @@ export const registerUserAPI = async (
     endpoint: '/auth/register',
     zodSchema: authRequestSchema,
     method: 'POST',
-    body: data,
+    body: {
+      user_name: data.user_name,
+      user_email: data.user_email,
+      user_password: data.user_password,
+    },
   })
     .then((response) => {
       dispatch(login(response));

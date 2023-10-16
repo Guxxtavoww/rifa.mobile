@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { FieldValues } from 'react-hook-form';
 
+import { ButtonProps } from '@/components/layout/Button';
+
 import { iInputProps } from '../components/Input';
 
 export type Input<T> = {
@@ -14,4 +16,5 @@ export interface iFormProps<T extends FieldValues> {
   zodSchema?: z.Schema<T>;
   submitButtonText?: string;
   isLoading?: boolean;
+  formActions?: ButtonProps[];
 }

@@ -30,6 +30,7 @@ api.interceptors.response.use(
     return Promise.resolve(res);
   },
   (error) => {
+    console.error(JSON.stringify(error.response, null, 2));
     return Promise.reject(error.response?.data);
   }
 );
