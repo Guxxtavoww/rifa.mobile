@@ -3,7 +3,7 @@ import * as Localization from 'expo-localization';
 const deviceLanguage = Localization.locale;
 
 export const formatToDate = (
-  currentDate: any,
+  currentDate: string | number | Date,
   hasMinutesAndHoursAndSecounds?: boolean
 ): string => {
   const showSubValues = hasMinutesAndHoursAndSecounds ? '2-digit' : undefined;
@@ -17,9 +17,7 @@ export const formatToDate = (
     second: showSubValues,
   });
 
-  if (currentDate) return dateFormatter.format(new Date(currentDate));
-
-  return '--/--/--';
+  return dateFormatter.format(new Date(currentDate));
 };
 
 export const formatRelativeTime = (
