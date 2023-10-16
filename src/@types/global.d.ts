@@ -3,6 +3,11 @@ import { FC, ReactNode } from 'react';
 import { EnvType } from '@/config/env.config';
 
 declare global {
+  declare module '*.jpg' {
+    const value: string;
+    export default value;
+  }
+
   namespace NodeJS {
     export interface ProcessEnv extends EnvType {}
   }
