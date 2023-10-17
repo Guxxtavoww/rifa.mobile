@@ -10,10 +10,7 @@ const Raffles: React.FC = () => {
   return (
     <View style={[commonStyles.screen_container_light]}>
       <Text content="Fodase" color={THEME.colors.dark_text_color} />
-      <Button
-        textProps={{ content: 'Sair' }}
-        buttonProps={{ onPress: signOut }}
-      />
+      <Button onPress={signOut} content="Sair" />
     </View>
   );
 };
