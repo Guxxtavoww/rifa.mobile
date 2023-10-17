@@ -1,11 +1,21 @@
 import axios, { AxiosError } from 'axios';
 
 import { store } from '@/redux/store.redux';
+import { logOut } from '@/redux/actions.redux';
 import { ENV_VARIABLES } from '@/config/env.config';
 
 const api = axios.create({
   baseURL: ENV_VARIABLES.EXPO_BASE_API_URL,
 });
+
+function handleErrorStatus(error: AxiosError) {
+  if (error.status !== 401) {
+    return Promise.reject(error.response?.data);
+  }
+
+  store.dispatch(logOut());
+  return Promise.reject();
+}
 
 api.interceptors.request.use(
   (req) => {
@@ -18,7 +28,7 @@ api.interceptors.request.use(
     return Promise.resolve(req);
   },
   (error: AxiosError) => {
-    return Promise.reject(error.response?.data);
+    return handleErrorStatus(error);
   }
 );
 
@@ -31,7 +41,7 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error(JSON.stringify(error.response, null, 2));
-    return Promise.reject(error.response?.data);
+    return handleErrorStatus(error);
   }
 );
 

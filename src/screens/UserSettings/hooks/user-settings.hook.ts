@@ -18,6 +18,10 @@ export function useUserSettings() {
   const [isLoading, setIsLoading] = useState(false);
   const [userPhotoUri, setUserPhotoUri] = useState<string>();
 
+  const clearUserPhotoUri = useCallback(() => {
+    setUserPhotoUri(undefined);
+  }, [setUserPhotoUri]);
+
   const handlePickUserImage = useCallback(async () => {
     if (Platform.OS !== 'web') {
       const status = (await ImagePicker.requestMediaLibraryPermissionsAsync())
@@ -60,6 +64,7 @@ export function useUserSettings() {
         user_photo_url: user_photo_url || undefined,
       })
         .then(() => {
+          clearUserPhotoUri();
           toast('Usuario Atualizado com sucesso!');
         })
         .catch((err) => {
@@ -71,7 +76,7 @@ export function useUserSettings() {
           setIsLoading(false);
         });
     },
-    [toast, userPhotoUri]
+    [toast, userPhotoUri, clearUserPhotoUri]
   );
 
   return {
@@ -81,5 +86,6 @@ export function useUserSettings() {
     user_name,
     handleUpdateUser,
     hasPhoto: !!userPhotoUri,
+    clearUserPhotoUri,
   };
 }

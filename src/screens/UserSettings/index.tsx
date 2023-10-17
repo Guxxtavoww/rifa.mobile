@@ -17,6 +17,7 @@ const UserSettings: React.FC = () => {
     user_name,
     handleUpdateUser,
     hasPhoto,
+    clearUserPhotoUri,
   } = useUserSettings();
 
   return (
@@ -49,11 +50,29 @@ const UserSettings: React.FC = () => {
         handleSubmit={handleUpdateUser}
         themeType="light"
         customAction1={{
-          icon: <Feather name="upload" size={20} color="#fff" />,
+          icon: (
+            <Feather
+              name={!hasPhoto ? 'upload' : 'check'}
+              size={20}
+              color="#fff"
+            />
+          ),
           onPress: handlePickUserImage,
           isDisabled: hasPhoto,
-          content: 'Importar foto de usuário',
+          content: !hasPhoto
+            ? 'Importar foto de usuário'
+            : 'Foto Importada com sucesso',
         }}
+        customAction2={
+          hasPhoto
+            ? {
+                icon: <Feather name="trash" size={20} color="#fff" />,
+                content: 'Limpar Foto',
+                onPress: clearUserPhotoUri,
+                isLoading,
+              }
+            : undefined
+        }
         isLoading={isLoading}
         submitButtonText="Salvar Alterações"
       />
