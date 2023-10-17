@@ -17,6 +17,7 @@ export interface iInputProps
   onChangeText?: (newValue: string | number) => void;
   errorMessage?: Maybe<string>;
   defaultValue?: Maybe<string>;
+  themeType?: 'dark' | 'light';
 }
 
 const Input: React.FC<iInputProps> = ({
@@ -24,6 +25,7 @@ const Input: React.FC<iInputProps> = ({
   type = 'text',
   onChangeText,
   defaultValue,
+  themeType = 'dark',
   ...rest
 }) => {
   const stringfyedName = useMemo(() => name.toString(), [name]);
@@ -77,7 +79,14 @@ const Input: React.FC<iInputProps> = ({
             h="full"
             borderRadius="full"
             borderColor="black"
-            color={THEME.colors.light_text_color}
+            backgroundColor={
+              themeType === 'dark' ? 'gray.400' : THEME.colors.screen_white_background
+            }
+            color={
+              themeType === 'dark'
+                ? THEME.colors.light_text_color
+                : THEME.colors.dark_text_color
+            }
             keyboardType={handleKeyboardType(type)}
             onChangeText={(newText) => {
               handleChangeText(newText, field.onChange);
@@ -90,10 +99,9 @@ const Input: React.FC<iInputProps> = ({
               color: 'red.500',
             }}
             _focus={{
-              bgColor: 'gray.200',
+              bgColor: themeType === 'dark' ? 'gray.200' : 'gray.100',
               borderWidth: 2,
               borderColor: THEME.colors.orange_color,
-              color: THEME.colors.dark_text_color,
             }}
             {...rest}
           />

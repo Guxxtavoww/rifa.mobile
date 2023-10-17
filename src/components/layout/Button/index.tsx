@@ -1,43 +1,54 @@
 import React from 'react';
-import { IButtonProps, Button as NBButton } from 'native-base';
+import { IButtonProps, Button as NBButton, View } from 'native-base';
 
 import { THEME } from '@/styles/theme.styles';
 
-import Text, { iTextProps } from '../Text';
-import { View } from 'react-native';
+import Text from '../Text';
 
-export type ButtonProps = {
-  buttonProps?: IButtonProps & {
-    renderIcon?: (color: string) => React.ReactNode;
-  };
-  textProps: iTextProps;
+export type ButtonProps = Omit<IButtonProps, 'children'> & {
+  icon?: JSX.Element;
+  content?: string;
+  children?: React.ReactNode;
 };
 
-const Button: React.FC<ButtonProps> = ({ buttonProps, textProps }) => (
+const Button: React.FC<ButtonProps> = ({
+  icon: Icon,
+  children,
+  content,
+  ...buttonProps
+}) => (
   <NBButton
     w={buttonProps?.w ?? 'full'}
     h={buttonProps?.h ?? '12'}
     bg={buttonProps?.bg ?? THEME.colors.orange_color}
-    // display="inline-flex"
-    // flexDirection="row"
-    // alignItems="center"
-    // justifyContent="center"
+    alignItems="center"
+    justifyContent="center"
+    textAlign="center"
+    _pressed={{
+      backgroundColor: buttonProps._pressed?.backgroundColor || 'orange.900',
+      ...buttonProps._pressed,
+    }}
     {...buttonProps}
   >
     <View
-      style={{
-        flexDirection: 'row',
-      }}
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
     >
-      {buttonProps?.renderIcon
-        ? buttonProps.renderIcon(
-            textProps.color || THEME.colors.light_text_color
-          )
-        : null}
-      <Text
-        {...textProps}
-        style={{ marginLeft: !!buttonProps?.renderIcon ? 8 : undefined }}
-      />
+      {Icon ? Icon : null}
+      {children ? (
+        children
+      ) : (
+        <Text
+          content={content || 'Pressione'}
+          color={THEME.colors.light_text_color}
+          fontWeight="bold"
+          style={{
+            marginLeft: Icon ? 8 : undefined,
+          }}
+        />
+      )}
     </View>
   </NBButton>
 );

@@ -15,7 +15,7 @@ export const updateUserAPI = async (
       user_photo_url: data.user_photo_url,
       user_id: userData.user_id,
       user_name: data.user_name,
-      user_email: data.user_email,
+      user_email: data.user_email || null,
     })
     .then((res) => {
       store.dispatch(updateUser(res.data));

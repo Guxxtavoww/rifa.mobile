@@ -47,21 +47,13 @@ const UserSettings: React.FC = () => {
         ]}
         zodSchema={editUserFormSchema}
         handleSubmit={handleUpdateUser}
-        formActions={[
-          {
-            textProps: {
-              content: !hasPhoto ? 'Enviar Foto' : 'Foto importada',
-            },
-            buttonProps: {
-              renderIcon: () =>
-                !hasPhoto ? (
-                  <Feather name="upload-cloud" size={25} color="#fff" />
-                ) : null,
-              onPress: handlePickUserImage,
-              isDisabled: hasPhoto,
-            },
-          },
-        ]}
+        themeType="light"
+        customAction1={{
+          icon: <Feather name="upload" size={20} color="#fff" />,
+          onPress: handlePickUserImage,
+          isDisabled: hasPhoto,
+          content: 'Importar foto de usuário',
+        }}
         isLoading={isLoading}
         submitButtonText="Salvar Alterações"
       />

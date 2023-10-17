@@ -8,7 +8,7 @@ import { iInputProps } from '../components/Input';
 export type Input<T> = {
   name: keyof T;
   type: 'text' | 'number' | 'password' | 'email';
-} & Omit<iInputProps, 'name' | 'type'>;
+} & Omit<iInputProps, 'name' | 'type' | 'themeType'>;
 
 export interface iFormProps<T extends FieldValues> {
   inputs: Input<T>[];
@@ -16,5 +16,7 @@ export interface iFormProps<T extends FieldValues> {
   zodSchema?: z.Schema<T>;
   submitButtonText?: string;
   isLoading?: boolean;
-  formActions?: ButtonProps[];
+  customAction1?: ButtonProps;
+  customAction2?: ButtonProps;
+  themeType?: iInputProps['themeType'];
 }
