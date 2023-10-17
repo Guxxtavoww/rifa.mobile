@@ -34,5 +34,7 @@ export const updateUserAPI = async (
       toast(err.message, {
         status: 'error',
       });
+
+      return Promise.reject(err);
     });
 };
