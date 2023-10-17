@@ -62,7 +62,13 @@ export function useUserSettings() {
       let user_photo_url: string = '';
 
       if (userPhotoUri) {
-        user_photo_url = await uploadImageAsync(userPhotoUri);
+        user_photo_url = await uploadImageAsync(userPhotoUri).catch(() => {
+          toast('Falha ao enviar a foto', {
+            status: 'error',
+          });
+
+          return Promise.reject();
+        });
       }
 
       mutation.mutate({ ...data, user_photo_url });

@@ -29,5 +29,10 @@ export const updateUserAPI = async (
       toast('Usuario Editado com sucesso!');
 
       return Promise.resolve(res.data);
+    })
+    .catch((err) => {
+      toast(err.message, {
+        status: 'error',
+      });
     });
 };
