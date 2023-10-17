@@ -8,6 +8,12 @@ declare global {
     export default value;
   }
 
+  declare module '*.png' {
+    const value: string;
+    export default value;
+  }
+
+
   namespace NodeJS {
     export interface ProcessEnv extends EnvType {}
   }

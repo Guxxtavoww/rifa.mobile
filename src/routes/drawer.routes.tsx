@@ -1,9 +1,9 @@
-import { IconButton } from 'native-base';
+import { IconButton, HStack, Image } from 'native-base';
 import { Feather } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Raffles } from '@/screens';
-import { UserInfo } from '@/components';
+import { UserInfo, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import UserSettings from '@/screens/UserSettings';
 
@@ -33,7 +33,29 @@ function DrawerRoutes() {
         drawerStyle: {
           backgroundColor: THEME.colors.screen_white_background,
         },
-        headerTitle: 'Rifas',
+        headerTitle: () => (
+          <HStack
+            h="full"
+            w="container"
+            space={2}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Image
+              defaultSource={require('../assets/png/Logo.png')}
+              source={require('../assets/png/Logo.png')}
+              w="9"
+              h="8"
+              alt="Logo"
+            />
+            <Text
+              content="RifaMaster"
+              fontWeight="extraBold"
+              fontSize="normalLarge"
+              color={THEME.colors.header_logo_color}
+            />
+          </HStack>
+        ),
         headerLeft: () => (
           <IconButton
             icon={<Feather name="menu" size={25} />}
