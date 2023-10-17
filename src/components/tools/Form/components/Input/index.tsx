@@ -80,7 +80,9 @@ const Input: React.FC<iInputProps> = ({
             borderRadius="full"
             borderColor="black"
             backgroundColor={
-              themeType === 'dark' ? 'gray.400' : THEME.colors.screen_white_background
+              themeType === 'dark'
+                ? 'gray.700'
+                : THEME.colors.screen_white_background
             }
             color={
               themeType === 'dark'
@@ -99,9 +101,13 @@ const Input: React.FC<iInputProps> = ({
               color: 'red.500',
             }}
             _focus={{
-              bgColor: themeType === 'dark' ? 'gray.200' : 'gray.100',
+              bgColor:
+                themeType === 'dark'
+                  ? 'gray.200'
+                  : THEME.colors.light_text_color,
               borderWidth: 2,
               borderColor: THEME.colors.orange_color,
+              color: THEME.colors.dark_text_color,
             }}
             {...rest}
           />

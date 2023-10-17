@@ -1,7 +1,7 @@
 import { FieldValues } from 'react-hook-form';
 
-import { Input } from '../components';
 import { iInputProps } from '../components/Input';
+import { Input, PasswordInput } from '../components';
 import { Input as InputType } from '../types/props.types';
 
 export function mapInputs<T extends FieldValues>(
@@ -12,9 +12,17 @@ export function mapInputs<T extends FieldValues>(
   switch (input.type) {
     case 'number':
     case 'text':
-    case 'password':
     case 'email':
       return <Input {...input} themeType={themeType} key={index} />;
+    case 'password':
+      return (
+        <PasswordInput
+          {...input}
+          type="password"
+          themeType={themeType}
+          key={index}
+        />
+      );
     default:
       return null;
   }
