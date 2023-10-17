@@ -22,7 +22,7 @@ export interface iFormProps<T extends FieldValues> {
   zodSchema?: z.Schema<T>;
   submitButtonText?: string;
   isLoading?: boolean;
-  customAction1?: ButtonProps;
-  customAction2?: ButtonProps;
+  customAction1?: Omit<ButtonProps, 'isLoading'>;
+  customAction2?: Omit<ButtonProps, 'isLoading'>;
   themeType?: iInputProps['themeType'];
 }

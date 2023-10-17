@@ -69,7 +69,6 @@ const UserSettings: React.FC = () => {
                 icon: <Feather name="trash" size={20} color="#fff" />,
                 content: 'Limpar Foto',
                 onPress: clearUserPhotoUri,
-                isLoading,
               }
             : undefined
         }

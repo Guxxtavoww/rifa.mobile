@@ -35,8 +35,12 @@ function Form<T extends FieldValues>({
           scrollEnabled
         />
       </VStack>
-      {customAction1 ? <Button {...customAction1} mb="3" /> : null}
-      {customAction2 ? <Button {...customAction2} mb="3" /> : null}
+      {customAction1 ? (
+        <Button {...customAction1} isLoading={isLoading} mb="3" />
+      ) : null}
+      {customAction2 ? (
+        <Button {...customAction2} isLoading={isLoading} mb="3" />
+      ) : null}
       <Button
         onPress={handleHookFormSubmit(handleSubmit)}
         isLoading={isLoading}
