@@ -1,7 +1,7 @@
 import api from '@/api';
 import { store } from '@/redux/store.redux';
 import { signOut } from '@/utils/app.utils';
-import { logOut, updateUser } from '@/redux/actions.redux';
+import { updateUser } from '@/redux/actions.redux';
 import { ToastFuncType } from '@/contexts/CustomToastContext/custom-toast.types';
 
 import { iUpdateUserResponse } from '../types/responses.types';
