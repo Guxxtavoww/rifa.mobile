@@ -9,12 +9,18 @@ export type ButtonProps = Omit<IButtonProps, 'children'> & {
   icon?: JSX.Element;
   content?: string;
   children?: React.ReactNode;
+  textColor?: string;
+  textFontSize?: keyof typeof THEME.fontsSizes;
+  textFontWeight?: keyof typeof THEME.fonts;
 };
 
 const Button: React.FC<ButtonProps> = ({
   icon: Icon,
   children,
   content,
+  textColor,
+  textFontSize,
+  textFontWeight,
   ...buttonProps
 }) => (
   <NBButton
@@ -47,8 +53,9 @@ const Button: React.FC<ButtonProps> = ({
       ) : (
         <Text
           content={content || 'Pressione'}
-          color={THEME.colors.light_text_color}
-          fontWeight="bold"
+          color={textColor || THEME.colors.light_text_color}
+          fontWeight={textFontWeight || 'bold'}
+          fontSize={textFontSize}
           style={{
             marginLeft: Icon ? 8 : undefined,
           }}
