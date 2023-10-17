@@ -26,7 +26,7 @@ export const loginUserAPI = async (
         status: 'sucess',
       });
 
-      return Promise.resolve();
+      return Promise.resolve(response);
     })
     .catch((err) => {
       dispatch(loginError());
