@@ -1,6 +1,7 @@
 import api from '@/api';
 import { store } from '@/redux/store.redux';
-import { updateUser } from '@/redux/actions.redux';
+import { signOut } from '@/utils/app.utils';
+import { logOut, updateUser } from '@/redux/actions.redux';
 import { ToastFuncType } from '@/contexts/CustomToastContext/custom-toast.types';
 
 import { iUpdateUserResponse } from '../types/responses.types';
@@ -36,5 +37,21 @@ export const updateUserAPI = async (
       });
 
       return Promise.reject(err);
+    });
+};
+
+export const deleteUserAPI = async (toast: ToastFuncType) => {
+  const user_id = store.getState().auth.user_data!.user_id;
+
+  return api
+    .delete(`/users/${user_id}`)
+    .then(() => {
+      signOut();
+      toast('Usuario Deletado com sucesso!');
+    })
+    .catch((err) => {
+      toast(err.message, {
+        status: 'error',
+      });
     });
 };

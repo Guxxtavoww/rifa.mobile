@@ -35,8 +35,13 @@ const Button: React.FC<ButtonProps> = ({
       alignItems="center"
       justifyContent="center"
       textAlign="center"
+      h="full"
     >
-      {Icon ? Icon : null}
+      {Icon ? (
+        <View justifyContent="center" alignItems="center" mb="1">
+          {Icon}
+        </View>
+      ) : null}
       {children ? (
         children
       ) : (

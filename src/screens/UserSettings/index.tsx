@@ -1,8 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { View as NBView } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { Form, Text } from '@/components';
+import { Button, Form, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 
@@ -18,6 +20,7 @@ const UserSettings: React.FC = () => {
     handleUpdateUser,
     hasPhoto,
     clearUserPhotoUri,
+    handleDeleteUser,
   } = useUserSettings();
 
   return (
@@ -75,6 +78,27 @@ const UserSettings: React.FC = () => {
         isLoading={isLoading}
         submitButtonText="Salvar Alterações"
       />
+      <NBView
+        h="container"
+        flex="1"
+        pb={1}
+        w="full"
+        justifyContent="flex-end"
+        pt="5"
+      >
+        <Button
+          content="Deletar Conta"
+          icon={<MaterialIcons name="delete-forever" color="#fff" size={18} />}
+          bg="red.600"
+          borderColor="red.600"
+          borderWidth="1"
+          isLoading={isLoading}
+          onPress={handleDeleteUser}
+          _pressed={{
+            backgroundColor: 'red.700',
+          }}
+        />
+      </NBView>
     </View>
   );
 };
