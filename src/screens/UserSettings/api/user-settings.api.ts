@@ -1,4 +1,4 @@
-import api from '@/api/api';
+import api from '@/api';
 import { store } from '@/redux/store.redux';
 import { updateUser } from '@/redux/actions.redux';
 import { ToastFuncType } from '@/contexts/CustomToastContext/custom-toast.types';
