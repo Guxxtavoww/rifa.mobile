@@ -18,7 +18,7 @@ interface iUserInfoProps {
 }
 
 const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
-  const { user_photo_url, user_email, user_name, created_at } =
+  const { user_photo_url, user_email, user_name, created_at, updated_at } =
     useRedux().useAppSelector((state) => state.auth.user_data!);
 
   return (
@@ -70,7 +70,18 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
           color={THEME.colors.subtitle_color}
           fontSize="small"
           fontWeight="regular"
+          style={{
+            marginBottom: 6,
+          }}
         />
+        {updated_at ? (
+          <Text
+            content={`Editado em: ${formatToDate(updated_at, true)}`}
+            color={THEME.colors.subtitle_color}
+            fontSize="small"
+            fontWeight="regular"
+          />
+        ) : null}
       </VStack>
       <DrawerItemList {...drawerProps} />
     </SafeAreaView>
