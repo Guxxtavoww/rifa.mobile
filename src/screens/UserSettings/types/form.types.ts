@@ -8,3 +8,5 @@ export const editUserFormSchema = z.object({
 });
 
 export type EditUserFormType = z.infer<typeof editUserFormSchema>;
+
+export type UpdatePayload = EditUserFormType & { user_photo_url?: string };
