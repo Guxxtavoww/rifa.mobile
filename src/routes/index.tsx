@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 
 import { useRedux } from '@/hooks';
-import Contexts from '@/contexts';
 
 import StackRoutes from './stack.routes';
 import DrawerRoutes from './drawer.routes';
@@ -12,10 +11,8 @@ export default function Routes() {
   );
 
   return (
-    <Contexts>
-      <NavigationContainer>
-        {hasUserData ? <DrawerRoutes /> : <StackRoutes />}
-      </NavigationContainer>
-    </Contexts>
+    <NavigationContainer>
+      {hasUserData ? <DrawerRoutes /> : <StackRoutes />}
+    </NavigationContainer>
   );
 }

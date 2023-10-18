@@ -1,39 +1,42 @@
 import { useCallback, useState } from 'react';
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useMutation } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
-import { useCustomToast } from '@/contexts/CustomToastContext';
+import { toast } from '@/utils/app.utils';
 import { uploadImageAsync } from '@/utils/upload-image-async.util';
 
-import { deleteUserAPI, updateUserAPI } from '../api/user-settings.api';
+import { updateUserAPI } from '../api/user-settings.api';
 import { EditUserFormType, UpdatePayload } from '../types/form.types';
 
 export function useUserSettings() {
-  const { toast } = useCustomToast();
   const { user_email, user_name } = useRedux().useAppSelector(
     (state) => state.auth.user_data!
   );
 
   const [isLoading, setIsLoading] = useState(false);
   const [userPhotoUri, setUserPhotoUri] = useState<string>();
+  const [wasFormEdited, setWasFormEdited] = useState(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const clearUserPhotoUri = useCallback(() => {
     setUserPhotoUri(undefined);
   }, [setUserPhotoUri]);
+
+  const handleCloseConfirmationModal = useCallback(() => {
+    setIsConfirmationModalOpen(false);
+  }, []);
+
+  const handleOpenConfirmationModal = useCallback(() => {
+    setIsConfirmationModalOpen(true);
+  }, []);
 
   const mutation = useMutation({
     mutationFn: (userPayload: UpdatePayload) =>
       updateUserAPI(userPayload, toast)
         .then(clearUserPhotoUri)
         .finally(() => setIsLoading(false)),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: async () => {
-      return deleteUserAPI(toast).finally(() => setIsLoading(false));
-    },
   });
 
   const handlePickUserImage = useCallback(async () => {
@@ -61,6 +64,7 @@ export function useUserSettings() {
     if (result.canceled) return;
 
     setUserPhotoUri(result.assets[0]!.uri);
+    setWasFormEdited(true);
   }, [toast]);
 
   const handleUpdateUser = useCallback(
@@ -84,20 +88,6 @@ export function useUserSettings() {
     [toast, userPhotoUri, clearUserPhotoUri]
   );
 
-  const handleDeleteUser = useCallback(async () => {
-    Alert.alert('Desaja deletar seu usuário ?', 'Confirme abaixo', [
-      {
-        text: 'Cancelar',
-      },
-      {
-        text: 'Confirmar',
-        onPress: () => {
-          deleteMutation.mutate();
-        },
-      },
-    ]);
-  }, []);
-
   return {
     handlePickUserImage,
     isLoading,
@@ -106,6 +96,10 @@ export function useUserSettings() {
     handleUpdateUser,
     hasPhoto: !!userPhotoUri,
     clearUserPhotoUri,
-    handleDeleteUser,
+    handleCloseConfirmationModal,
+    isConfirmationModalOpen,
+    handleOpenConfirmationModal,
+    wasFormEdited,
+    setWasFormEdited,
   };
 }

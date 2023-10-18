@@ -25,4 +25,5 @@ export interface iFormProps<T extends FieldValues> {
   customAction1?: Omit<ButtonProps, 'isLoading'>;
   customAction2?: Omit<ButtonProps, 'isLoading'>;
   themeType?: iInputProps['themeType'];
+  hideSubmitButton?: boolean;
 }

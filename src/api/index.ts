@@ -1,19 +1,25 @@
 import axios, { AxiosError } from 'axios';
 
 import { store } from '@/redux/store.redux';
-import { logOut } from '@/redux/actions.redux';
+import { signOut, toast } from '@/utils/app.utils';
 import { ENV_VARIABLES } from '@/config/env.config';
 
 const api = axios.create({
   baseURL: ENV_VARIABLES.EXPO_BASE_API_URL,
 });
 
-function handleErrorStatus(error: AxiosError) {
+function handleErrorStatus(
+  error: AxiosError<{ message: string; status: number }>
+) {
   if (error.status !== 401) {
+    toast(error.response?.data.message || 'Erro', {
+      status: 'error',
+    });
+
     return Promise.reject(error.response?.data);
   }
 
-  store.dispatch(logOut());
+  signOut();
   return Promise.reject();
 }
 
@@ -27,20 +33,24 @@ api.interceptors.request.use(
 
     return Promise.resolve(req);
   },
-  (error: AxiosError) => {
+  (error: AxiosError<{ message: string; status: number }>) => {
     return handleErrorStatus(error);
   }
 );
 
 api.interceptors.response.use(
   (res) => {
+    console.info(res.config.method);
     console.info(res.config.url + ':');
     console.info(JSON.stringify(res.data, null, 2));
 
     return Promise.resolve(res);
   },
   (error) => {
-    console.error(JSON.stringify(error.response, null, 2));
+    console.info(error.config.method);
+    console.info(error.config.url + ':');
+    console.info(JSON.stringify(error.response, null, 2));
+
     return handleErrorStatus(error);
   }
 );

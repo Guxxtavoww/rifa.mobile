@@ -4,12 +4,13 @@ import { Feather } from '@expo/vector-icons';
 import { View as NBView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import { Button, Form, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
+import { Button, Form, Modal, Text } from '@/components';
 
-import { useUserSettings } from './hooks/user-settings.hook';
 import { editUserFormSchema } from './types/form.types';
+import DeleteUserModal from './components/DeleteUserModal';
+import { useUserSettings } from './hooks/user-settings.hook';
 
 const UserSettings: React.FC = () => {
   const {
@@ -20,7 +21,11 @@ const UserSettings: React.FC = () => {
     handleUpdateUser,
     hasPhoto,
     clearUserPhotoUri,
-    handleDeleteUser,
+    handleCloseConfirmationModal,
+    isConfirmationModalOpen,
+    handleOpenConfirmationModal,
+    setWasFormEdited,
+    wasFormEdited,
   } = useUserSettings();
 
   return (
@@ -41,16 +46,19 @@ const UserSettings: React.FC = () => {
             type: 'email',
             defaultValue: user_email,
             placeholder: 'Email',
+            onChangeText: () => setWasFormEdited(true),
           },
           {
             name: 'user_name',
             type: 'text',
             defaultValue: user_name,
             placeholder: 'Nome de Usuário',
+            onChangeText: () => setWasFormEdited(true),
           },
         ]}
         zodSchema={editUserFormSchema}
         handleSubmit={handleUpdateUser}
+        hideSubmitButton={!wasFormEdited}
         themeType="light"
         customAction1={{
           icon: (
@@ -93,12 +101,16 @@ const UserSettings: React.FC = () => {
           borderColor="red.600"
           borderWidth="1"
           isLoading={isLoading}
-          onPress={handleDeleteUser}
+          onPress={handleOpenConfirmationModal}
           _pressed={{
             backgroundColor: 'red.700',
           }}
         />
       </NBView>
+      <DeleteUserModal
+        handleClose={handleCloseConfirmationModal}
+        isOpen={isConfirmationModalOpen}
+      />
     </View>
   );
 };

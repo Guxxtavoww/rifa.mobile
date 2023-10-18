@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { IToastProps } from 'native-base';
 
 import { EnvType } from '@/config/env.config';
 
@@ -41,4 +42,18 @@ declare global {
       ? ComponentProps & Children
       : ComponentProps & Partial<Children>
   >;
+
+  export type ToastStatus = 'sucess' | 'warning' | 'error' | 'info';
+
+export type ToastArgType = {
+  status?: ToastStatus;
+  placement?: IToastProps['placement'];
+};
+
+export type ToastFuncType = (message: string, options?: ToastArgType) => void;
+
+export type CustomToastContextProps = {
+  toast: ToastFuncType;
+};
+
 }

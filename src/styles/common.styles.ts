@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { THEME } from './theme.styles';
 
-const pagePaddingTop = Constants.statusBarHeight + 10;
+export const pagePaddingTop = Constants.statusBarHeight + 10;
 
 export const commonStyles = StyleSheet.create({
   screen_container_dark: {

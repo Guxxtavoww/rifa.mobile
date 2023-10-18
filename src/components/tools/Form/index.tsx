@@ -17,6 +17,7 @@ function Form<T extends FieldValues>({
   themeType,
   customAction1,
   customAction2,
+  hideSubmitButton,
 }: iFormProps<T>) {
   const methods = useForm<T>({
     resolver: zodSchema ? zodResolver(zodSchema) : undefined,
@@ -41,11 +42,13 @@ function Form<T extends FieldValues>({
       {customAction2 ? (
         <Button {...customAction2} isLoading={isLoading} mb="3" />
       ) : null}
-      <Button
-        onPress={handleHookFormSubmit(handleSubmit)}
-        isLoading={isLoading}
-        content={submitButtonText || 'Enviar'}
-      />
+      {hideSubmitButton ? null : (
+        <Button
+          onPress={handleHookFormSubmit(handleSubmit)}
+          isLoading={isLoading}
+          content={submitButtonText || 'Enviar'}
+        />
+      )}
     </FormProvider>
   );
 }

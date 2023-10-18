@@ -2,13 +2,12 @@ import { useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
-import { useCustomToast } from '@/contexts/CustomToastContext';
+import { toast } from '@/utils/app.utils';
 
 import { LoginFormType } from '../types/form.types';
 import { loginUserAPI } from '../api/login.api';
 
 export function useLogin() {
-  const { toast } = useCustomToast();
   const isLoading = useRedux().useAppSelector(
     (state) => state.auth.isFetchingUser
   );

@@ -1,5 +1,5 @@
 import { IconButton, HStack, Image } from 'native-base';
-import { Feather } from '@expo/vector-icons';
+import { Feather, MaterialIcons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Raffles } from '@/screens';
@@ -58,7 +58,7 @@ function DrawerRoutes() {
         ),
         headerLeft: () => (
           <IconButton
-            icon={<Feather name="menu" size={25} />}
+            icon={<MaterialIcons name="menu" size={25} />}
             onPress={navigation.navigation.toggleDrawer}
             borderRadius="full"
             _icon={{

@@ -1,4 +1,3 @@
-import { CustomToastContextProps } from '@/contexts/CustomToastContext/custom-toast.types';
 import { validateApiCall } from '@/utils/validate-api-call.util';
 import { authRequestSchema } from '@/redux/slices/auth/auth.types';
 import { login, loginStart, loginError } from '@/redux/actions.redux';
@@ -8,7 +7,7 @@ import { LoginFormType } from '../types/form.types';
 
 export const loginUserAPI = async (
   data: LoginFormType,
-  toast: CustomToastContextProps['toast']
+  toast: ToastFuncType
 ) => {
   const dispatch = store.dispatch;
 
@@ -28,10 +27,7 @@ export const loginUserAPI = async (
 
       return Promise.resolve(response);
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(loginError());
-      toast(err.message, {
-        status: 'error',
-      });
     });
 };
