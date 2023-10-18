@@ -2,6 +2,8 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import { store } from '@/redux/store.redux';
 
+import { generateId } from './generate-id.util';
+
 export async function uploadImageAsync(uri: string, currentIndex?: number) {
   const blob: Blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -19,9 +21,7 @@ export async function uploadImageAsync(uri: string, currentIndex?: number) {
 
   const userData = store.getState().auth.user_data!;
 
-  const imageName = `${userData.user_email}-${Date.now()}-photo${
-    currentIndex ?? 1
-  }`;
+  const imageName = `${generateId(userData.user_email)}${currentIndex ?? 1}`;
 
   const fileRef = ref(getStorage(), `${imageName}-${Date.now()}`);
 
