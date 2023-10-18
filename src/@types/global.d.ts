@@ -14,7 +14,6 @@ declare global {
     export default value;
   }
 
-
   namespace NodeJS {
     export interface ProcessEnv extends EnvType {}
   }
@@ -45,15 +44,14 @@ declare global {
 
   export type ToastStatus = 'sucess' | 'warning' | 'error' | 'info';
 
-export type ToastArgType = {
-  status?: ToastStatus;
-  placement?: IToastProps['placement'];
-};
+  export type ToastArgType = {
+    status?: ToastStatus;
+    placement?: IToastProps['placement'];
+  };
 
-export type ToastFuncType = (message: string, options?: ToastArgType) => void;
+  export type ToastFuncType = (message: string, options?: ToastArgType) => void;
 
-export type CustomToastContextProps = {
-  toast: ToastFuncType;
-};
-
+  export type CustomToastContextProps = {
+    toast: ToastFuncType;
+  };
 }
