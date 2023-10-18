@@ -10,7 +10,7 @@ export async function uploadImageAsync(uri: string, currentIndex?: number) {
     xhr.onload = function () {
       resolve(xhr.response);
     };
-    xhr.onerror = function (e) {
+    xhr.onerror = function () {
       reject(new TypeError('Network request failed'));
     };
     xhr.responseType = 'blob';
