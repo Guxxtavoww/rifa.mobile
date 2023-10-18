@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
-import { toast } from '@/utils/app.utils';
 
 import { RegisterFormType } from '../types/form.types';
 import { registerUserAPI } from '../api/register.api';
@@ -13,7 +12,7 @@ export function useRegister() {
 
   const mutation = useMutation({
     mutationFn: (userPayload: RegisterFormType) =>
-      registerUserAPI(userPayload, toast),
+      registerUserAPI(userPayload),
   });
 
   const handleSubmit = useCallback(

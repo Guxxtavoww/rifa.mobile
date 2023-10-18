@@ -50,8 +50,4 @@ declare global {
   };
 
   export type ToastFuncType = (message: string, options?: ToastArgType) => void;
-
-  export type CustomToastContextProps = {
-    toast: ToastFuncType;
-  };
 }

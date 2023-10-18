@@ -1,14 +1,13 @@
-import { CustomToastContextProps } from '@/contexts/CustomToastContext/custom-toast.types';
 import { validateApiCall } from '@/utils/validate-api-call.util';
 import { authRequestSchema } from '@/redux/slices/auth/auth.types';
 import { login, loginStart, loginError } from '@/redux/actions.redux';
 import { store } from '@/redux/store.redux';
+import { toast } from '@/utils/app.utils';
 
 import { RegisterFormType } from '../types/form.types';
 
 export const registerUserAPI = async (
   data: RegisterFormType,
-  toast: CustomToastContextProps['toast']
 ) => {
   const dispatch = store.dispatch;
 
