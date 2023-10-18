@@ -12,6 +12,7 @@ export function useDeleteUserModal(handleClose: Function) {
   const deleteMutation = useMutation({
     mutationFn: async (password: string) => {
       return deleteUserAPI(password, toast)
+        .then(() => handleClose())
         .catch(() => handleClose())
         .finally(() => setIsLoading(false));
     },
