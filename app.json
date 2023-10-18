@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "rifa.mobile",
-    "slug": "Rifa Master",
+    "slug": "rifa-master",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/png/icon.png",
@@ -22,7 +22,10 @@
         "foregroundImage": "./src/assets/png/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "rifa.apk"
+      "package": "rifa.apk",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./src/assets/png/favicon.png"
@@ -38,6 +41,12 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "0c121cc3-d186-4ede-8d11-bda4c4b4411d"
+      }
+    },
+    "owner": "gustav0_w3b"
   }
 }
