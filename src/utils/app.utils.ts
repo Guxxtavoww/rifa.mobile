@@ -17,6 +17,7 @@ export function isNullableValue<T>(value: T) {
 
 export const signOut = () => {
   store.dispatch(logOut());
+  toast('Saiu com sucesso!');
 };
 
 const statusHandler = (status: ToastStatus) => {
