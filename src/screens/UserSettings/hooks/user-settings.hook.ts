@@ -35,7 +35,10 @@ export function useUserSettings() {
   const mutation = useMutation({
     mutationFn: (userPayload: UpdatePayload) =>
       updateUserAPI(userPayload, toast)
-        .then(clearUserPhotoUri)
+        .then(() => {
+          clearUserPhotoUri();
+          setWasFormEdited(false);
+        })
         .finally(() => setIsLoading(false)),
   });
 
