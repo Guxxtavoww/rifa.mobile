@@ -6,12 +6,14 @@ import { toast } from '@/utils/app.utils';
 import { deleteUserAPI } from '../api/user-settings.api';
 import { DeleteUserFormType } from '../types/form.types';
 
-export function useDeleteUserModal() {
+export function useDeleteUserModal(handleClose: Function) {
   const [isLoading, setIsLoading] = useState(false);
 
   const deleteMutation = useMutation({
     mutationFn: async (password: string) => {
-      return deleteUserAPI(password, toast).finally(() => setIsLoading(false));
+      return deleteUserAPI(password, toast)
+        .catch(() => handleClose())
+        .finally(() => setIsLoading(false));
     },
   });
 

@@ -14,6 +14,7 @@ export interface iModalProps<T extends FieldValues> extends IModalProps {
   formProps?: iFormProps<T>;
 }
 
+
 function Modal<T extends FieldValues>({
   isOpen,
   onClose,
@@ -44,7 +45,13 @@ function Modal<T extends FieldValues>({
           size: 5,
         }}
       />
-      <NBModal.Content w="full" py="3">
+      <NBModal.Content
+        w="full"
+        py="3"
+        _important={{
+          zIndex: 3,
+        }}
+      >
         <VStack alignItems="center" w="full" px="3">
           <Text
             content={title ?? 'Modal'}

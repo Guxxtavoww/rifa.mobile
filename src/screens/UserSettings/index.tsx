@@ -5,8 +5,8 @@ import { View as NBView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { THEME } from '@/styles/theme.styles';
+import { Button, Form, Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
-import { Button, Form, Modal, Text } from '@/components';
 
 import { editUserFormSchema } from './types/form.types';
 import DeleteUserModal from './components/DeleteUserModal';

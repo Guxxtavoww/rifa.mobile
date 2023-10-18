@@ -45,6 +45,6 @@ export const toast: ToastFuncType = (message, options) => {
     _description: {
       fontFamily: THEME.fonts.medium,
     },
-    p: '3',
+    avoidKeyboard: true,
   });
 };

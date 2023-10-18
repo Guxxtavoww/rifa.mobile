@@ -4,6 +4,7 @@ import { Modal } from '@/components';
 
 import { useDeleteUserModal } from '../hooks/delete-user-modal.hook';
 import { DeleteUserFormType, deleteUserFormSchema } from '../types/form.types';
+import { toast } from '@/utils/app.utils';
 
 interface iDeleteUserModalProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ const DeleteUserModal: React.FC<iDeleteUserModalProps> = ({
   handleClose,
   isOpen,
 }) => {
-  const { handleDeleteUser, isLoading } = useDeleteUserModal();
+  const { handleDeleteUser, isLoading } = useDeleteUserModal(handleClose);
 
   return (
     <Modal<DeleteUserFormType>
