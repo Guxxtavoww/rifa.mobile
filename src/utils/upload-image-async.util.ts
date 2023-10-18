@@ -29,3 +29,9 @@ export async function uploadImageAsync(uri: string, currentIndex?: number) {
 
   return await getDownloadURL(fileRef);
 }
+
+export async function uploadMultipleImageAsync(
+  uris: string[]
+): Promise<string[]> {
+  return await Promise.all(uris.map(uploadImageAsync));
+}
