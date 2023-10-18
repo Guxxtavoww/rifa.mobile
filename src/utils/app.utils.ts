@@ -15,11 +15,6 @@ export function isNullableValue<T>(value: T) {
   }
 }
 
-export const signOut = () => {
-  store.dispatch(logOut());
-  toast('Saiu com sucesso!');
-};
-
 const statusHandler = (status: ToastStatus) => {
   const color = THEME.colors.light_text_color;
 
@@ -48,4 +43,9 @@ export const toast: ToastFuncType = (message, options) => {
     },
     avoidKeyboard: true,
   });
+};
+
+export const signOut = () => {
+  store.dispatch(logOut());
+  toast('Saiu com sucesso!');
 };
