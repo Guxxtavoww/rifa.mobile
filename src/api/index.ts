@@ -49,7 +49,7 @@ api.interceptors.response.use(
   (error) => {
     console.info(error.config.method);
     console.info(error.config.url + ':');
-    console.info(JSON.stringify(error.response, null, 2));
+    console.info(JSON.stringify(error.response.data, null, 2));
 
     return handleErrorStatus(error);
   }
