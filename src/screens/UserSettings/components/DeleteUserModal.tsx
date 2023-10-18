@@ -4,7 +4,6 @@ import { Modal } from '@/components';
 
 import { useDeleteUserModal } from '../hooks/delete-user-modal.hook';
 import { DeleteUserFormType, deleteUserFormSchema } from '../types/form.types';
-import { toast } from '@/utils/app.utils';
 
 interface iDeleteUserModalProps {
   isOpen: boolean;

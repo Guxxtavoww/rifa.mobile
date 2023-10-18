@@ -64,6 +64,7 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
             fontFamily={THEME.fonts.medium}
             type={isPasswordVisible ? 'text' : 'password'}
             value={field.value}
+            autoCapitalize="none"
             backgroundColor={
               isDarkTheme ? 'gray.700' : THEME.colors.screen_white_background
             }
