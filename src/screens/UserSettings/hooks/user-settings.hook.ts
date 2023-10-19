@@ -44,6 +44,7 @@ export function useUserSettings() {
           return Promise.reject();
         });
       }
+
       updateUserAPI({ ...userPayload, user_photo_url }).then(() => {
         clearUserPhotoUri();
         setWasFormEdited(false);
