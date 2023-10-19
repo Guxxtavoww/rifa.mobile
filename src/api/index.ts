@@ -19,7 +19,7 @@ function handleErrorStatus(
     return Promise.reject(error.response?.data);
   }
 
-  signOut();
+  signOut(true);
   return Promise.reject();
 }
 
@@ -43,7 +43,7 @@ api.interceptors.response.use(
     console.info(res.config.method);
     console.info(res.config.url + ':');
     console.info(JSON.stringify(res.data, null, 2));
- 
+
     return Promise.resolve(res);
   },
   (error) => {

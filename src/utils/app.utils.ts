@@ -45,7 +45,8 @@ export const toast: ToastFuncType = (message, options) => {
   });
 };
 
-export const signOut = () => {
+export const signOut = (hideToast?: boolean) => {
   store.dispatch(logOut());
-  toast('Saiu com sucesso!');
+
+  if (!hideToast) toast('Saiu com sucesso!');
 };
