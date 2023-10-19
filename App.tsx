@@ -7,7 +7,6 @@ import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
 import { getApps, initializeApp } from 'firebase/app';
 import { PersistGate } from 'redux-persist/integration/react';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import Routes from '@/routes';
