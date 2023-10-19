@@ -31,10 +31,7 @@ export const registerUserAPI = async (
 
       return Promise.resolve();
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(loginError());
-      toast(err.message, {
-        status: 'error',
-      });
     });
 };
