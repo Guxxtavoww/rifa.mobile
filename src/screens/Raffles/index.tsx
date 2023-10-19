@@ -1,16 +1,17 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import { SearchInput } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
-import { Button, Text } from '@/components';
-import { THEME } from '@/styles/theme.styles';
-import { signOut } from '@/utils/app.utils';
 
 const Raffles: React.FC = () => {
   return (
     <View style={[commonStyles.screen_container_light]}>
-      <Text content="Fodase" color={THEME.colors.dark_text_color} />
-      <Button onPress={signOut} content="Sair" />
+      <SearchInput
+        placeholder="Pesquise rifas..."
+        onPressSearchIcon={(value) => console.log({ value })}
+        onSubmitKeyboard={(value) => console.log({ value })}
+      />
     </View>
   );
 };

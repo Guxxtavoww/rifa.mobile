@@ -96,7 +96,7 @@ const UserSettings: React.FC = () => {
       >
         <Button
           content="Deletar Conta"
-          icon={<MaterialIcons name="delete-forever" color="#fff" size={18} />}
+          icon={<MaterialIcons name="delete" color="#fff" size={18} />}
           bg="red.600"
           borderColor="red.600"
           borderWidth="1"
