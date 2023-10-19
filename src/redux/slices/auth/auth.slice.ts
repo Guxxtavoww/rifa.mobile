@@ -9,7 +9,6 @@ const authSlice = createSlice({
   initialState: {
     access_token: null,
     user_data: null,
-    isFetchingUser: false,
   } as AuthStateType,
   reducers: {
     loginStart: (state) => {
