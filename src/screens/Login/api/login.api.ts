@@ -2,12 +2,12 @@ import { validateApiCall } from '@/utils/validate-api-call.util';
 import { authRequestSchema } from '@/redux/slices/auth/auth.types';
 import { login, loginStart, loginError } from '@/redux/actions.redux';
 import { store } from '@/redux/store.redux';
+import { toast } from '@/utils/app.utils';
 
 import { LoginFormType } from '../types/form.types';
 
 export const loginUserAPI = async (
   data: LoginFormType,
-  toast: ToastFuncType
 ) => {
   const dispatch = store.dispatch;
 

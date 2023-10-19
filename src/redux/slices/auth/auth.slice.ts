@@ -13,17 +13,14 @@ const authSlice = createSlice({
   } as AuthStateType,
   reducers: {
     loginStart: (state) => {
-      state.isFetchingUser = true;
       state.access_token = null;
       state.user_data = null;
     },
     login: (state, action: PayloadAction<AuthResponseType>) => {
-      state.isFetchingUser = false;
       state.user_data = action.payload.user_data;
       state.access_token = action.payload.access_token;
     },
     logOut: (state) => {
-      state.isFetchingUser = false;
       state.access_token = null;
       state.user_data = null;
     },
@@ -38,7 +35,6 @@ const authSlice = createSlice({
     },
     loginError: (state) => {
       state.user_data = null;
-      state.isFetchingUser = false;
       state.access_token = null;
     },
   },

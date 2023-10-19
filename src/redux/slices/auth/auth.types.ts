@@ -18,5 +18,4 @@ export type AuthResponseType = z.infer<typeof authRequestSchema>;
 export type AuthStateType = {
   user_data: AuthResponseType['user_data'] | null;
   access_token: AuthResponseType['access_token'] | null;
-  isFetchingUser: boolean;
 };

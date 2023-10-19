@@ -8,14 +8,13 @@ import { toast } from '@/utils/app.utils';
 import { uploadImageAsync } from '@/utils/upload-image-async.util';
 
 import { updateUserAPI } from '../api/user-settings.api';
-import { EditUserFormType, UpdatePayload } from '../types/form.types';
+import { EditUserFormType } from '../types/form.types';
 
 export function useUserSettings() {
   const { user_email, user_name } = useRedux().useAppSelector(
     (state) => state.auth.user_data!
   );
 
-  const [isLoading, setIsLoading] = useState(false);
   const [userPhotoUri, setUserPhotoUri] = useState<string>();
   const [wasFormEdited, setWasFormEdited] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -32,14 +31,24 @@ export function useUserSettings() {
     setIsConfirmationModalOpen(true);
   }, []);
 
-  const mutation = useMutation({
-    mutationFn: (userPayload: UpdatePayload) =>
-      updateUserAPI(userPayload, toast)
-        .then(() => {
-          clearUserPhotoUri();
-          setWasFormEdited(false);
-        })
-        .finally(() => setIsLoading(false)),
+  const { isLoading: isEditingUser, mutate: editUserMutation } = useMutation({
+    mutationFn: async (userPayload: EditUserFormType) => {
+      let user_photo_url: string = '';
+
+      if (userPhotoUri) {
+        user_photo_url = await uploadImageAsync(userPhotoUri).catch(() => {
+          toast('Falha ao enviar a foto', {
+            status: 'error',
+          });
+
+          return Promise.reject();
+        });
+      }
+      updateUserAPI({ ...userPayload, user_photo_url }).then(() => {
+        clearUserPhotoUri();
+        setWasFormEdited(false);
+      });
+    },
   });
 
   const handlePickUserImage = useCallback(async () => {
@@ -72,28 +81,14 @@ export function useUserSettings() {
 
   const handleUpdateUser = useCallback(
     async (data: EditUserFormType) => {
-      setIsLoading(true);
-
-      let user_photo_url: string = '';
-
-      if (userPhotoUri) {
-        user_photo_url = await uploadImageAsync(userPhotoUri).catch(() => {
-          toast('Falha ao enviar a foto', {
-            status: 'error',
-          });
-
-          return Promise.reject();
-        });
-      }
-
-      mutation.mutate({ ...data, user_photo_url });
+      editUserMutation(data);
     },
     [toast, userPhotoUri, clearUserPhotoUri]
   );
 
   return {
     handlePickUserImage,
-    isLoading,
+    isLoading: isEditingUser,
     user_email,
     user_name,
     handleUpdateUser,

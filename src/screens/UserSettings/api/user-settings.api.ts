@@ -1,6 +1,6 @@
 import api from '@/api';
 import { store } from '@/redux/store.redux';
-import { signOut } from '@/utils/app.utils';
+import { signOut, toast } from '@/utils/app.utils';
 import { updateUser } from '@/redux/actions.redux';
 
 import { iUpdateUserResponse } from '../types/responses.types';
@@ -8,7 +8,6 @@ import { UpdatePayload } from '../types/form.types';
 
 export const updateUserAPI = async (
   data: UpdatePayload,
-  toast: ToastFuncType
 ) => {
   const userData = store.getState().auth.user_data!;
 
@@ -39,7 +38,7 @@ export const updateUserAPI = async (
     });
 };
 
-export const deleteUserAPI = async (password: string, toast: ToastFuncType) => {
+export const deleteUserAPI = async (password: string) => {
   const user_id = store.getState().auth.user_data!.user_id;
 
   return api
