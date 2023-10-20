@@ -1,8 +1,8 @@
 import { FieldValues } from 'react-hook-form';
 
 import { iInputProps } from '../components/Input';
-import { Input, PasswordInput } from '../components';
 import { Input as InputType } from '../types/props.types';
+import { DateInput, Input, PasswordInput } from '../components';
 
 export function mapInputs<T extends FieldValues>(
   input: InputType<T>,
@@ -23,6 +23,8 @@ export function mapInputs<T extends FieldValues>(
           key={index}
         />
       );
+    case 'date':
+      return <DateInput {...input} key={index} />;
     default:
       return null;
   }

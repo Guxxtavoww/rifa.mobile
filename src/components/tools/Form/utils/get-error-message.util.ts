@@ -1,4 +1,7 @@
-export function getErrorMessage(obj: Record<string, any>, path: string) {
+export function getErrorMessage(
+  obj: Record<string, any>,
+  path: string
+): Maybe<Record<string, any>> {
   const travel = (regexp: RegExp) =>
     String.prototype.split
       .call(path, regexp)

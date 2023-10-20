@@ -2,10 +2,9 @@ import { IconButton, HStack, Image } from 'native-base';
 import { Feather, MaterialIcons } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { Raffles } from '@/screens';
 import { UserInfo, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
-import UserSettings from '@/screens/UserSettings';
+import { Raffles, UserSettings, CreateRaffle } from '@/screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -88,6 +87,20 @@ function DrawerRoutes() {
           drawerIcon: ({ size, color, focused }) => (
             <Feather
               name="dollar-sign"
+              color={!focused ? THEME.colors.dark_text_color : color}
+              size={size - 2}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="create-raffle"
+        component={CreateRaffle}
+        options={{
+          drawerLabel: 'Crie Sua Rifa',
+          drawerIcon: ({ size, color, focused }) => (
+            <Feather
+              name="plus-circle"
               color={!focused ? THEME.colors.dark_text_color : color}
               size={size - 2}
             />

@@ -5,6 +5,7 @@ import { ButtonProps } from '@/components/layout/Button';
 
 import { iInputProps } from '../components/Input';
 import { iPasswordInputProps } from '../components/PasswordInput';
+import { iDateInputProps } from '../components/DateInput';
 
 export type Input<T> =
   | ({
@@ -14,7 +15,11 @@ export type Input<T> =
   | ({
       name: keyof T;
       type: 'password';
-    } & Omit<iPasswordInputProps, 'name' | 'type' | 'themeType'>);
+    } & Omit<iPasswordInputProps, 'name' | 'type' | 'themeType'>)
+  | ({
+      name: keyof T;
+      type: 'date';
+    } & Omit<iDateInputProps, 'name' | 'type'>);
 
 export interface iFormProps<T extends FieldValues> {
   inputs: Input<T>[];
