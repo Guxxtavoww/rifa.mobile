@@ -14,13 +14,9 @@ export function useCreateRaffle() {
 
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationFn: async (data: CreateRaffleFormType) => {
-      let firebaseGeneratedPhotosUrls: string[] = [];
-
-      if (photosUrls.length) {
-        firebaseGeneratedPhotosUrls = await uploadMultipleImageAsync(
-          photosUrls
-        );
-      }
+      const firebaseGeneratedPhotosUrls = await uploadMultipleImageAsync(
+        photosUrls
+      );
 
       return createRaffleAPI({ ...data, photos: firebaseGeneratedPhotosUrls });
     },
@@ -59,6 +55,13 @@ export function useCreateRaffle() {
 
   const handleSubmit = useCallback(
     async (data: CreateRaffleFormType) => {
+      if (!photosUrls.length) {
+        toast('Insira alguma imagem para sua rifa', {
+          status: 'warning',
+        });
+
+        return;
+      }
       createRaffleMutation(data);
     },
     [createRaffleMutation]
