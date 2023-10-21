@@ -77,7 +77,7 @@ const DateInput: React.FC<iDateInputProps> = ({
                     name={currentDateInputValue ? 'close' : 'calendar-today'}
                   />
                 }
-                size={25}
+                size={28}
               />
             </Pressable>
             <Text
