@@ -107,9 +107,9 @@ const DateInput: React.FC<iDateInputProps> = ({
                 );
 
                 clearErrors();
-                setIsDatePickerShowing(false);
-                setCurrentDateInputValue(stringfyedValue);
                 field.onChange(stringfyedValue);
+                setCurrentDateInputValue(stringfyedValue);
+                setIsDatePickerShowing(false);
               }}
               onAccessibilityEscape={() => {
                 field.onChange(undefined);
