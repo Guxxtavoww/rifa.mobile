@@ -1,6 +1,8 @@
-import api from '../api';
 import { AxiosRequestConfig, Method } from 'axios';
 import { ZodSchema, ZodTypeDef, z } from 'zod';
+
+import api from '../api';
+import { toast } from './app.utils';
 
 interface iValidatedAPICallProps<
   TOutput = any,
@@ -43,8 +45,11 @@ export async function validateApiCall<T>({
     return Promise.resolve(responseParsedData);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.error(
-        `API não respondeu da maneira esperada cheque o ENDPOINT: ${endpoint} com o método ${method}`
+      toast(
+        `API não respondeu da maneira esperada cheque o ENDPOINT: ${endpoint} com o método ${method}`,
+        {
+          status: 'error',
+        }
       );
     }
 
