@@ -16,12 +16,14 @@ export interface iDateInputProps extends Omit<BaseProps, 'onChange' | 'value'> {
   name: string | number | symbol;
   defaultPickerShowing?: boolean;
   label?: string;
+  defaultPickerValue?: Date;
 }
 
 const DateInput: React.FC<iDateInputProps> = ({
   name,
   defaultPickerShowing,
   label,
+  defaultPickerValue,
   ...rest
 }) => {
   const [currentDateInputValue, setCurrentDateInputValue] = useState<string>();
@@ -44,7 +46,7 @@ const DateInput: React.FC<iDateInputProps> = ({
   return (
     <Controller
       name={stringfyedName}
-      defaultValue=""
+      defaultValue={defaultPickerValue}
       render={({ field }) => (
         <FormControl
           mb={!!fieldError?.message ? 8 : 4}
