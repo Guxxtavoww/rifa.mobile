@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 import { Form, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
@@ -9,8 +10,13 @@ import { createRaffleFormSchema } from './types/form.types';
 import { useCreateRaffle } from './hooks/create-raffle.hook';
 
 const CreateRaffle: React.FC = () => {
-  const { handleSubmit, clearPhotosUrls, handlePickRafflesPhotos, isLoading } =
-    useCreateRaffle();
+  const {
+    handleSubmit,
+    clearPhotosUrls,
+    handlePickRafflesPhotos,
+    isLoading,
+    hasPhotos,
+  } = useCreateRaffle();
 
   return (
     <View style={[commonStyles.screen_container_light]}>
@@ -50,9 +56,27 @@ const CreateRaffle: React.FC = () => {
         ]}
         handleSubmit={handleSubmit}
         isLoading={isLoading}
+        submitButtonText="Criar Rifa"
         customAction1={{
           content: 'Importe imagens da sua rifa',
+          onPress: handlePickRafflesPhotos,
+          icon: (
+            <Feather
+              name={!hasPhotos ? 'upload' : 'check'}
+              size={20}
+              color="#fff"
+            />
+          ),
         }}
+        customAction2={
+          hasPhotos
+            ? {
+                icon: <Feather name="trash" size={20} color="#fff" />,
+                content: 'Limpar Foto',
+                onPress: clearPhotosUrls,
+              }
+            : undefined
+        }
       />
     </View>
   );

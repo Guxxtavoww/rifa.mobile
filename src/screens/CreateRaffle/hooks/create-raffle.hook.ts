@@ -72,5 +72,6 @@ export function useCreateRaffle() {
     clearPhotosUrls,
     handlePickRafflesPhotos,
     isLoading,
+    hasPhotos: photosUrls.length > 0,
   };
 }
