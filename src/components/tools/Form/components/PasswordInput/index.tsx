@@ -104,7 +104,7 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
             }
             {...rest}
           />
-          <FormControl.ErrorMessage ml="4">
+          <FormControl.ErrorMessage ml="4" fontFamily={THEME.fonts.bold}>
             {fieldError?.message?.toString()}
           </FormControl.ErrorMessage>
         </FormControl>
