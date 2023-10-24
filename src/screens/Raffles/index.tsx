@@ -16,6 +16,7 @@ const Raffles: React.FC = () => {
         placeholder="Pesquise rifas..."
         onPressSearchIcon={searchMutation}
         onSubmitKeyboard={searchMutation}
+        isLoading={isLoading}
       />
       <ScrollView flex={1}>
         {isLoading ? (

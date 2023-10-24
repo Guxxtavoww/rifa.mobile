@@ -10,15 +10,18 @@ import {
 } from 'native-base';
 
 import { THEME } from '@/styles/theme.styles';
+import Loader from '@/components/layout/Loader';
 
-export interface iSearchInputProps extends IInputProps {
+export interface iSearchInputProps extends Omit<IInputProps, 'isLoading'> {
   onPressSearchIcon?: (value: string) => void | Promise<void>;
   onSubmitKeyboard?: (value: string) => void | Promise<void>;
+  isLoading?: boolean;
 }
 
 const SearchInput: React.FC<iSearchInputProps> = ({
   onPressSearchIcon,
   onSubmitKeyboard,
+  isLoading,
   ...nbInputProps
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
@@ -70,21 +73,25 @@ const SearchInput: React.FC<iSearchInputProps> = ({
           if (onSubmitKeyboard) onSubmitKeyboard(inputValue);
         }}
         InputRightElement={
-          <Pressable
-            onPress={() => {
-              focusOnInput();
-              if (onPressSearchIcon && inputValue)
-                onPressSearchIcon(inputValue);
-            }}
-            p="1.5"
-            mr="1"
-            borderRadius="full"
-            _pressed={{
-              bg: 'gray.200',
-            }}
-          >
-            <Icon as={<MaterialIcons name="search" />} size={25} />
-          </Pressable>
+          isLoading ? (
+            <Loader />
+          ) : (
+            <Pressable
+              onPress={() => {
+                focusOnInput();
+                if (onPressSearchIcon && inputValue)
+                  onPressSearchIcon(inputValue);
+              }}
+              p="1.5"
+              mr="1"
+              borderRadius="full"
+              _pressed={{
+                bg: 'gray.200',
+              }}
+            >
+              <Icon as={<MaterialIcons name="search" />} size={25} />
+            </Pressable>
+          )
         }
         {...nbInputProps}
       />
