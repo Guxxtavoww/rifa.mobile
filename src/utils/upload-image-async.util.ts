@@ -30,7 +30,7 @@ export async function uploadImageAsync(uri: string, currentIndex?: number) {
   return await getDownloadURL(fileRef);
 }
 
-export async function uploadMultipleImageAsync(
+export async function uploadMultipleImagesAsync(
   uris: string[]
 ): Promise<string[]> {
   return await Promise.all(uris.map(uploadImageAsync));

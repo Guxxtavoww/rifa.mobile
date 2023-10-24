@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useMutation } from '@tanstack/react-query';
 
 import { toast } from '@/utils/app.utils';
-import { uploadMultipleImageAsync } from '@/utils/upload-image-async.util';
+import { uploadMultipleImagesAsync } from '@/utils/upload-image-async.util';
 
 import { CreateRaffleFormType } from '../types/form.types';
 import { createRaffleAPI } from '../api/create-raffle.api';
@@ -14,7 +14,7 @@ export function useCreateRaffle() {
 
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationFn: async (data: CreateRaffleFormType) => {
-      const firebaseGeneratedPhotosUrls = await uploadMultipleImageAsync(
+      const firebaseGeneratedPhotosUrls = await uploadMultipleImagesAsync(
         photosUrls
       );
 
