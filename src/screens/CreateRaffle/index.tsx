@@ -58,25 +58,24 @@ const CreateRaffle: React.FC = () => {
         handleSubmit={handleSubmit}
         isLoading={isLoading}
         submitButtonText="Criar Rifa"
-        customAction1={{
-          content: 'Importe imagens da sua rifa',
-          onPress: handlePickRafflesPhotos,
-          icon: (
-            <Feather
-              name={!hasPhotos ? 'upload' : 'check'}
-              size={20}
-              color="#fff"
-            />
-          ),
-        }}
-        customAction2={
+        customAction1={
           hasPhotos
             ? {
                 icon: <Feather name="trash" size={20} color="#fff" />,
                 content: 'Limpar Fotos',
                 onPress: clearPhotosUrls,
               }
-            : undefined
+            : {
+                content: 'Importe imagens da sua rifa',
+                onPress: handlePickRafflesPhotos,
+                icon: (
+                  <Feather
+                    name={!hasPhotos ? 'upload' : 'check'}
+                    size={20}
+                    color="#fff"
+                  />
+                ),
+              }
         }
       />
     </View>

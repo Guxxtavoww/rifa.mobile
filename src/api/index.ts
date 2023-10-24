@@ -23,20 +23,15 @@ function handleErrorStatus(
   return Promise.reject();
 }
 
-api.interceptors.request.use(
-  (req) => {
-    const access_token = store.getState().auth.access_token;
+api.interceptors.request.use((req) => {
+  const access_token = store.getState().auth.access_token;
 
-    if (access_token) {
-      req.headers.Authorization = `Bearer ${access_token}`;
-    }
-
-    return Promise.resolve(req);
-  },
-  (error: AxiosError<{ message: string; status: number }>) => {
-    return handleErrorStatus(error);
+  if (access_token) {
+    req.headers.Authorization = `Bearer ${access_token}`;
   }
-);
+
+  return Promise.resolve(req);
+}, handleErrorStatus);
 
 api.interceptors.response.use(
   (res) => {
