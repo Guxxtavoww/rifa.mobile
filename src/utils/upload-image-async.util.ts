@@ -2,7 +2,10 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 import { store } from '@/redux/store.redux';
 
-export async function uploadImageAsync(uri: string, currentIndex?: number) {
+export async function uploadImageAsync(
+  uri: string,
+  currentIndex?: number
+): Promise<string> {
   const blob: Blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
