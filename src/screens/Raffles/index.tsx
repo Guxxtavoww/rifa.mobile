@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
+import { ScrollView } from 'native-base';
 
 import { Loader, SearchInput, Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
@@ -16,11 +17,16 @@ const Raffles: React.FC = () => {
         onPressSearchIcon={searchMutation}
         onSubmitKeyboard={searchMutation}
       />
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Text content={JSON.stringify(searchRafflesResult, null, 2)} />
-      )}
+      <ScrollView flex={1}>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Text
+            content={JSON.stringify(searchRafflesResult, null, 2)}
+            color="#000"
+          />
+        )}
+      </ScrollView>
     </View>
   );
 };
