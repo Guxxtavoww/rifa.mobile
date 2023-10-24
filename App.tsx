@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import 'react-native-gesture-handler';
 import * as Updates from 'expo-updates';
+import * as SplashScreen from 'expo-splash-screen';
 import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 import { NativeBaseProvider } from 'native-base';
@@ -27,6 +28,8 @@ export default function App() {
       if (process.env.NODE_ENV === 'development') {
         return;
       }
+
+      SplashScreen.preventAutoHideAsync();
 
       const { isAvailable } = await Updates.checkForUpdateAsync();
 
