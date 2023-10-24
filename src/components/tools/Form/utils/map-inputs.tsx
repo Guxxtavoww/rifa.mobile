@@ -2,7 +2,7 @@ import { FieldValues } from 'react-hook-form';
 
 import { iInputProps } from '../components/Input';
 import { Input as InputType } from '../types/props.types';
-import { DateInput, Input, PasswordInput } from '../components';
+import { DateInput, Input, PasswordInput, TextArea } from '../components';
 
 export function mapInputs<T extends FieldValues>(
   input: InputType<T>,
@@ -25,6 +25,8 @@ export function mapInputs<T extends FieldValues>(
       );
     case 'date':
       return <DateInput {...input} key={index} />;
+    case 'textarea':
+      return <TextArea themeType={themeType} key={index} {...input} />;
     default:
       return null;
   }

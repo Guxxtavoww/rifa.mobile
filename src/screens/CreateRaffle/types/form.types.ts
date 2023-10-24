@@ -6,9 +6,20 @@ export const createRaffleFormSchema = z.object({
   maximum_people_quantity: z.number({
     required_error: 'Insira a quantidade máxima de pessoas',
   }),
-  due_date: z.string({
-    required_error: 'Data fim é obrigatória',
-  }),
+  due_date: z
+    .string({
+      required_error: 'Data fim é obrigatória',
+    })
+    .refine(
+      (date) => {
+        const datefyedString = new Date(date);
+
+        return datefyedString > new Date();
+      },
+      {
+        message: 'Insira uma data válida',
+      }
+    ),
 });
 
 export type CreateRaffleFormType = z.infer<typeof createRaffleFormSchema>;

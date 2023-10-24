@@ -8,6 +8,8 @@ export function isNullableValue<T>(value: T) {
   switch (value) {
     case null:
     case undefined:
+    case 'undefined':
+    case 'null':
     case '':
       return true;
     default:

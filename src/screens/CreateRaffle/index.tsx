@@ -27,6 +27,7 @@ const CreateRaffle: React.FC = () => {
         color={THEME.colors.dark_text_color}
         style={{
           marginBottom: 10,
+          textAlign: 'center',
         }}
       />
       <Form
@@ -40,13 +41,13 @@ const CreateRaffle: React.FC = () => {
           },
           {
             name: 'raffle_description',
-            type: 'text',
+            type: 'textarea',
             placeholder: 'Insira uma pequena descrição...',
           },
           {
             name: 'maximum_people_quantity',
             type: 'number',
-            placeholder: 'Insira o número máximo de pessoas',
+            placeholder: 'Número máximo de pessoas',
           },
           {
             name: 'due_date',
@@ -72,7 +73,7 @@ const CreateRaffle: React.FC = () => {
           hasPhotos
             ? {
                 icon: <Feather name="trash" size={20} color="#fff" />,
-                content: 'Limpar Foto',
+                content: 'Limpar Fotos',
                 onPress: clearPhotosUrls,
               }
             : undefined

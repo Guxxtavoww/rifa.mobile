@@ -46,6 +46,7 @@ export function useCreateRaffle() {
       aspect: [4, 3],
       quality: 1,
       selectionLimit: 10,
+      allowsMultipleSelection: true,
     });
 
     if (result.canceled) return;
@@ -62,9 +63,10 @@ export function useCreateRaffle() {
 
         return;
       }
+
       createRaffleMutation(data);
     },
-    [createRaffleMutation]
+    [createRaffleMutation, photosUrls]
   );
 
   return {

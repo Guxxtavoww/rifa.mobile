@@ -6,6 +6,7 @@ import { THEME } from '@/styles/theme.styles';
 
 import { getErrorMessage } from '../../utils/get-error-message.util';
 import { handleKeyboardType } from './input.utils';
+import { isNullableValue } from '@/utils/app.utils';
 
 export interface iInputProps
   extends Omit<
@@ -94,7 +95,11 @@ const Input: React.FC<iInputProps> = ({
               handleChangeText(newText, field.onChange);
             }}
             fontFamily={THEME.fonts.medium}
-            value={field.value}
+            value={
+              isNullableValue(String(field.value))
+                ? undefined
+                : String(field.value)
+            }
             _invalid={{
               borderWidth: 2,
               borderColor: 'red.500',

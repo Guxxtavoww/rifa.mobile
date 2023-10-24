@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import RNDateTimePicker, {
   BaseProps,
+  DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FormControl, HStack, Icon, Pressable } from 'native-base';
@@ -26,7 +27,6 @@ const DateInput: React.FC<iDateInputProps> = ({
   defaultPickerValue,
   ...rest
 }) => {
-  const [currentDateInputValue, setCurrentDateInputValue] = useState<string>();
   const [isDatePickerShowing, setIsDatePickerShowing] = useState(
     !!defaultPickerShowing
   );
@@ -36,7 +36,21 @@ const DateInput: React.FC<iDateInputProps> = ({
   const {
     clearErrors,
     formState: { errors },
+    setValue,
   } = useFormContext();
+
+  const handleChange = useCallback(
+    (event: DateTimePickerEvent, selectedDate?: Date) => {
+      if (event.type === 'set' && selectedDate) {
+        const stringfyedValue = String(new Date(selectedDate ?? Date.now()));
+
+        clearErrors(stringfyedName);
+        setValue(stringfyedName, stringfyedValue);
+      }
+      setIsDatePickerShowing(false);
+    },
+    [clearErrors, stringfyedName, setValue]
+  );
 
   const fieldError = useMemo(
     () => getErrorMessage(errors, stringfyedName),
@@ -54,13 +68,12 @@ const DateInput: React.FC<iDateInputProps> = ({
           isInvalid={!!fieldError?.message}
           alignItems="flex-start"
         >
-          <HStack space={label ? 3 : undefined} alignItems="center">
+          <HStack space={3} alignItems="center">
             <Pressable
               onPress={() => {
                 setIsDatePickerShowing((prev) => {
-                  if (currentDateInputValue) {
-                    setCurrentDateInputValue(undefined);
-
+                  if (field.value) {
+                    clearErrors();
                     field.onChange(undefined);
 
                     return false;
@@ -76,16 +89,17 @@ const DateInput: React.FC<iDateInputProps> = ({
               <Icon
                 as={
                   <MaterialIcons
-                    name={currentDateInputValue ? 'close' : 'calendar-today'}
+                    name={field.value ? 'close' : 'calendar-today'}
                   />
                 }
                 size={28}
+                color={!!fieldError?.message ? 'red.500' : 'gray.500'}
               />
             </Pressable>
             <Text
               content={
-                currentDateInputValue
-                  ? formatToDate(currentDateInputValue)
+                field.value
+                  ? formatToDate(field.value)
                   : label || 'Insira uma data'
               }
               fontSize="small"
@@ -96,27 +110,15 @@ const DateInput: React.FC<iDateInputProps> = ({
           </HStack>
           {isDatePickerShowing ? (
             <RNDateTimePicker
-              value={new Date(field.value || Date.now())}
-              display="calendar"
+              value={new Date(field.value ?? Date.now())}
+              display="inline"
               collapsable
               focusable
+              accentColor={THEME.colors.orange_color}
               style={{
                 backgroundColor: THEME.colors.orange_color,
               }}
-              onChange={(e) => {
-                const stringfyedValue = String(
-                  new Date(e.nativeEvent?.timestamp ?? Date.now())
-                );
-
-                clearErrors();
-                field.onChange(stringfyedValue);
-                setCurrentDateInputValue(stringfyedValue);
-                setIsDatePickerShowing(false);
-              }}
-              onAccessibilityEscape={() => {
-                field.onChange(undefined);
-                setIsDatePickerShowing(false);
-              }}
+              onChange={handleChange}
               {...rest}
             />
           ) : null}
