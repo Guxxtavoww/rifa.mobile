@@ -74,7 +74,7 @@ const SearchInput: React.FC<iSearchInputProps> = ({
         }}
         InputRightElement={
           isLoading ? (
-            <Loader />
+            <Loader size={16} style={{ marginRight: 5 }} />
           ) : (
             <Pressable
               onPress={() => {
