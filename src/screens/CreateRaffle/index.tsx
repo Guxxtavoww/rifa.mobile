@@ -45,6 +45,21 @@ const CreateRaffle: React.FC = () => {
             placeholder: 'Insira uma pequena descrição...',
           },
           {
+            name: 'raffle_subscription_price',
+            type: 'decimal',
+            placeholder: 'Preço da rifa',
+            InputLeftElement: (
+              <Text
+                content="R$:"
+                fontWeight="medium"
+                color={THEME.colors.dark_text_color}
+                style={{
+                  paddingLeft: 12,
+                }}
+              />
+            ),
+          },
+          {
             name: 'maximum_people_quantity',
             type: 'number',
             placeholder: 'Número máximo de pessoas',

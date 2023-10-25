@@ -11,7 +11,7 @@ import { iPasswordInputProps } from '../components/PasswordInput';
 export type Input<T> =
   | ({
       name: keyof T;
-      type: 'text' | 'number' | 'email';
+      type: 'text' | 'number' | 'email' | 'decimal';
     } & Omit<iInputProps, 'name' | 'type' | 'themeType'>)
   | ({
       name: keyof T;

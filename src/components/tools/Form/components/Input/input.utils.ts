@@ -13,5 +13,7 @@ export const handleKeyboardType = (
     case 'password':
     case 'text':
       return 'default';
+    case 'decimal':
+      return 'decimal-pad';
   }
 };

@@ -61,7 +61,7 @@ const TextArea: React.FC<iTextAreaProps> = ({
             backgroundColor={
               themeType === 'dark'
                 ? 'gray.700'
-                : THEME.colors.screen_white_background
+                : THEME.colors.light_text_color
             }
             color={
               themeType === 'dark'

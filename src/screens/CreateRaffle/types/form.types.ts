@@ -6,6 +6,9 @@ export const createRaffleFormSchema = z.object({
   maximum_people_quantity: z.number({
     required_error: 'Insira a quantidade máxima de pessoas',
   }),
+  raffle_subscription_price: z
+    .number({ required_error: 'Insira o preço de inscrição da rifa' })
+    .positive(),
   due_date: z
     .string({
       required_error: 'Data fim é obrigatória',
@@ -13,8 +16,10 @@ export const createRaffleFormSchema = z.object({
     .refine(
       (date) => {
         const datefyedString = new Date(date);
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
 
-        return datefyedString > new Date();
+        return datefyedString >= currentDate;
       },
       {
         message: 'Insira uma data válida',

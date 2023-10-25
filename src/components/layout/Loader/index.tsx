@@ -1,13 +1,12 @@
-import { View, ActivityIndicator, ActivityIndicatorProps } from 'react-native';
+import { View } from 'native-base';
+import { ActivityIndicator, ActivityIndicatorProps } from 'react-native';
 
 import { THEME } from '@/styles/theme.styles';
-
-import { styles } from './styles';
 
 interface iLoaderProps extends ActivityIndicatorProps {}
 
 const Loader: React.FC<iLoaderProps> = ({ size, ...rest }) => (
-  <View style={styles.container}>
+  <View>
     <ActivityIndicator
       color={THEME.colors.dark_text_color}
       size={size}

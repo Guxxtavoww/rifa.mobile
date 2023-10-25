@@ -14,7 +14,7 @@ export interface iInputProps
     'fontSize' | 'type' | 'onChangeText' | 'isInvalid' | 'defaultValue'
   > {
   name: string | number | symbol;
-  type?: 'text' | 'number' | 'password' | 'email';
+  type?: 'text' | 'number' | 'password' | 'email' | 'decimal';
   onChangeText?: (newValue: string | number) => void;
   errorMessage?: Maybe<string>;
   defaultValue?: Maybe<string>;
@@ -81,9 +81,7 @@ const Input: React.FC<iInputProps> = ({
             borderRadius="full"
             borderColor="black"
             backgroundColor={
-              themeType === 'dark'
-                ? 'gray.700'
-                : THEME.colors.screen_white_background
+              themeType === 'dark' ? 'gray.700' : THEME.colors.light_text_color
             }
             color={
               themeType === 'dark'
@@ -117,7 +115,7 @@ const Input: React.FC<iInputProps> = ({
             {...rest}
           />
           <FormControl.ErrorMessage ml="4" fontFamily={THEME.fonts.bold}>
-            {fieldError?.message?.toString() || ''}
+            {fieldError?.message?.toString()}
           </FormControl.ErrorMessage>
         </FormControl>
       )}

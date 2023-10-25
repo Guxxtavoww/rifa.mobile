@@ -13,6 +13,7 @@ export function mapInputs<T extends FieldValues>(
     case 'number':
     case 'text':
     case 'email':
+    case 'decimal':
       return <Input {...input} themeType={themeType} key={index} />;
     case 'password':
       return (

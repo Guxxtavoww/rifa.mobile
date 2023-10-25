@@ -20,4 +20,5 @@ interface iRaffle {
   raffle_title: string;
   raffle_id: string;
   due_date: string;
+  photos: { photo_url: string }[];
 }

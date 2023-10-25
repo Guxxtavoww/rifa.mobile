@@ -1,13 +1,15 @@
 import React from 'react';
-import { VStack } from 'native-base';
+import { HStack, Icon, VStack } from 'native-base';
 import { Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather, MaterialIcons } from '@expo/vector-icons';
 import {
   DrawerContentComponentProps,
   DrawerItemList,
 } from '@react-navigation/drawer';
 
 import { useRedux } from '@/hooks';
+import { signOut } from '@/utils/app.utils';
 import { THEME } from '@/styles/theme.styles';
 import { formatToDate } from '@/utils/date.utils';
 
@@ -82,6 +84,17 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             fontWeight="regular"
           />
         ) : null}
+        <TouchableOpacity onPress={() => signOut(true)}>
+          <HStack space={1} alignItems="center">
+            <Icon as={<MaterialIcons name="logout" />} color={THEME.colors.dark_text_color} />
+            <Text
+              content="Sair"
+              fontWeight="bold"
+              fontSize="small"
+              color={THEME.colors.dark_text_color}
+            />
+          </HStack>
+        </TouchableOpacity>
       </VStack>
       <DrawerItemList {...drawerProps} />
     </SafeAreaView>
