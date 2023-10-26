@@ -1,8 +1,8 @@
 import React from 'react';
-import { HStack, Icon, VStack } from 'native-base';
-import { Image, TouchableOpacity } from 'react-native';
+import { HStack, Icon, VStack, Avatar } from 'native-base';
+import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Feather, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import {
   DrawerContentComponentProps,
   DrawerItemList,
@@ -41,21 +41,13 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             drawerProps.navigation.closeDrawer();
           }}
         >
-          <Image
+          <Avatar
             source={{
               uri:
                 user_photo_url ||
                 'https://i.pinimg.com/564x/13/b4/08/13b408f0ad453542c0d8fa8e62602245.jpg',
             }}
-            defaultSource={{
-              uri: 'https://i.pinimg.com/564x/13/b4/08/13b408f0ad453542c0d8fa8e62602245.jpg',
-            }}
-            style={{
-              height: 130,
-              width: 130,
-              borderRadius: 65,
-              marginBottom: 10,
-            }}
+            size="lg"
           />
         </TouchableOpacity>
         <Text
@@ -86,7 +78,10 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
         ) : null}
         <TouchableOpacity onPress={() => signOut(true)}>
           <HStack space={1} alignItems="center">
-            <Icon as={<MaterialIcons name="logout" />} color={THEME.colors.dark_text_color} />
+            <Icon
+              as={<MaterialIcons name="logout" />}
+              color={THEME.colors.dark_text_color}
+            />
             <Text
               content="Sair"
               fontWeight="bold"
