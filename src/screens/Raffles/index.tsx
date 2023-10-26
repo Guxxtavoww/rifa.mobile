@@ -17,6 +17,7 @@ const Raffles: React.FC = () => {
         onPressSearchIcon={searchMutation}
         onSubmitKeyboard={searchMutation}
         isLoading={isLoading}
+        mb="1"
       />
       <ScrollView flex={1}>
         {isLoading ? (

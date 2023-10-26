@@ -62,6 +62,7 @@ const SearchInput: React.FC<iSearchInputProps> = ({
         }}
         placeholderTextColor={THEME.colors.subtitle_color}
         fontFamily={THEME.fonts.bold}
+        isDisabled={isLoading || nbInputProps.isDisabled}
         _focus={{
           borderWidth: 1.5,
           borderColor: THEME.colors.screen_dark_background,
