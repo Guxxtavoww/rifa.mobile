@@ -3,7 +3,7 @@ export interface iSearchRafflesResponse {
   meta: Meta;
 }
 
-interface Meta {
+export interface Meta {
   total: number;
   lastPage: number;
   currentPage: number;
@@ -12,7 +12,7 @@ interface Meta {
   next: number | null;
 }
 
-interface iRaffle {
+export interface iRaffle {
   owner_id: string;
   created_at: string;
   updated_at: string | null;
@@ -20,5 +20,6 @@ interface iRaffle {
   raffle_title: string;
   raffle_id: string;
   due_date: string;
-  photos: { photo_url: string }[];
+  raffle_subscription_price: number;
+  photos: [{ photo_url: string }];
 }

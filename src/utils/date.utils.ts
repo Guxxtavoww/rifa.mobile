@@ -1,6 +1,4 @@
-import * as Localization from 'expo-localization';
-
-const deviceLanguage = Localization.locale;
+import { deviceLanguage } from '@/constants';
 
 export const formatToDate = (
   currentDate: string | number | Date,

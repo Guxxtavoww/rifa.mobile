@@ -1,36 +1,45 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'native-base';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { Loader, SearchInput, Text } from '@/components';
-import { commonStyles } from '@/styles/common.styles';
+import { GoBackButton } from '@/components';
+import { THEME } from '@/styles/theme.styles';
 
-import { useRaffles } from './hook/raffles.hook';
+import Raffle from './Raffle';
+import SearchRaffles from './Search';
 
-const Raffles: React.FC = () => {
-  const { isLoading, searchMutation, searchRafflesResult } = useRaffles();
+const Stack = createStackNavigator();
 
-  return (
-    <View style={[commonStyles.screen_container_light]}>
-      <SearchInput
-        placeholder="Pesquise rifas..."
-        onPressSearchIcon={searchMutation}
-        onSubmitKeyboard={searchMutation}
-        isLoading={isLoading}
-        mb="1"
-      />
-      <ScrollView flex={1}>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Text
-            content={JSON.stringify(searchRafflesResult, null, 2)}
-            color="#000"
+const RafflesStack: React.FC = () => (
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: THEME.colors.screen_white_background,
+        shadowColor: 'transparent',
+      },
+      headerTitle: undefined,
+    }}
+  >
+    <Stack.Screen
+      name="search-raffles"
+      component={SearchRaffles as any}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="raffle"
+      component={Raffle as any}
+      options={({ navigation }) => ({
+        headerShown: true,
+        headerTitle: () => <></>,
+        headerLeft: () => (
+          <GoBackButton
+            onPress={() => navigation.push('search-raffles')}
+            color="black"
+            removeMarginLeft
           />
-        )}
-      </ScrollView>
-    </View>
-  );
-};
+        ),
+      })}
+    />
+  </Stack.Navigator>
+);
 
-export default Raffles;
+export default RafflesStack;

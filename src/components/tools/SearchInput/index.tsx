@@ -40,7 +40,7 @@ const SearchInput: React.FC<iSearchInputProps> = ({
   }, []);
 
   return (
-    <FormControl mb="2" w="full" h="12">
+    <FormControl mb={nbInputProps.mb ?? '2'} w="full" h="12">
       <NBInput
         w="full"
         h="full"
@@ -80,8 +80,7 @@ const SearchInput: React.FC<iSearchInputProps> = ({
             <Pressable
               onPress={() => {
                 focusOnInput();
-                if (onPressSearchIcon && inputValue)
-                  onPressSearchIcon(inputValue);
+                if (onPressSearchIcon) onPressSearchIcon(inputValue);
               }}
               p="1.5"
               mr="1"

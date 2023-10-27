@@ -43,7 +43,7 @@ export function useCreateRaffle() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
-      aspect: [4, 3],
+      aspect: [16, 9],
       quality: 1,
       selectionLimit: 10,
       allowsMultipleSelection: true,

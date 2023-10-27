@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { searchRafflesAPI } from '../api/raffles.api';
+import { searchRafflesAPI } from '../api/search-raffles.api';
 
-export function useRaffles() {
+export function useSearchRaffles() {
   const {
     data: searchRafflesResult,
     mutate: searchMutation,

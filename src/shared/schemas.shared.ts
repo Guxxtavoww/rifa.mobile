@@ -13,3 +13,8 @@ export const optionalEmailStringSchema = z
     },
     { message: 'Formato de email inválido' }
   );
+
+export const stringToNumberSchema = z
+  .string({ required_error: 'Insira um valor!' })
+  .transform((str) => +str)
+  .refine((str) => !Number.isNaN(str));

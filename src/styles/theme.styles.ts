@@ -7,6 +7,7 @@ export const THEME = {
     orange_color: '#e06e3fff',
     subtitle_color: '#C0C0C0',
     header_logo_color: '#1a1a29ff',
+    overlay: '#00000037',
   },
   fonts: {
     regular: 'Poppins-Regular',
@@ -15,6 +16,7 @@ export const THEME = {
     extraBold: 'Poppins-ExtraBold',
   },
   fontsSizes: {
+    extraSmall: 9,
     small: 12,
     normal: 14.5,
     normalLarge: 16,

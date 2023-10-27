@@ -27,6 +27,10 @@ declare global {
       pop(index?: number): void;
       popToTop(): void;
     };
+    route: {
+      name: string;
+      params: Record<string, any>;
+    };
   } & T;
 
   export type Children = {

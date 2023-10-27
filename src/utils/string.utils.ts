@@ -1,3 +1,5 @@
+import { deviceLanguage } from '@/constants';
+
 export function limitCharacters(
   text: string,
   maxStringLength?: number
@@ -28,4 +30,14 @@ export const isValidRegex = (
   if (!regex) return true;
 
   return new RegExp(regex).test(text);
+};
+
+export const formatToCurrency = (value: number | string) => {
+  const formater = new Intl.NumberFormat(deviceLanguage, {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 2,
+  });
+
+  return formater.format(+value);
 };

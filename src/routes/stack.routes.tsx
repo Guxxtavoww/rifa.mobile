@@ -1,10 +1,9 @@
-import { Feather } from '@expo/vector-icons';
-import { IconButton } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { THEME } from '@/styles/theme.styles';
 
 import { Login, Register } from '../screens';
+import { GoBackButton } from '@/components';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +19,7 @@ export default function StackRoutes() {
     >
       <Stack.Screen
         name="login"
-        component={Login}
+        component={Login as any}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -30,24 +29,7 @@ export default function StackRoutes() {
           headerShown: true,
           headerTitle: undefined,
           headerLeft: () => (
-            <IconButton
-              icon={<Feather name="arrow-left" size={25} />}
-              onPress={() => navigation.push('login')}
-              borderRadius="full"
-              _icon={{
-                color: THEME.colors.light_text_color,
-                size: 'lg',
-              }}
-              _pressed={{
-                bg: 'gray.600',
-                _ios: {
-                  _icon: {
-                    size: '2xl',
-                  },
-                },
-              }}
-              ml="2"
-            />
+            <GoBackButton onPress={() => navigation.push('login')} />
           ),
         })}
       />

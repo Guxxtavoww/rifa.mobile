@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { UserInfo, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
-import { Raffles, UserSettings, CreateRaffle } from '@/screens';
+import { RafflesStack, UserSettings, CreateRaffle } from '@/screens';
 
 const Drawer = createDrawerNavigator();
 
@@ -81,7 +81,7 @@ function DrawerRoutes() {
     >
       <Drawer.Screen
         name="raffles"
-        component={Raffles}
+        component={RafflesStack}
         options={{
           drawerLabel: 'Rifas',
           drawerIcon: ({ size, color, focused }) => (

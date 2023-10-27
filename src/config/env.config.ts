@@ -5,7 +5,7 @@ export const envSchema = z.object({
     .string()
     .min(0)
     .optional()
-    .default('http://192.168.100.143:5000/server'),
+    .default('http://192.168.15.145:5000/server'),
   EXPO_FIREBASE_API_KEY: z
     .string()
     .optional()

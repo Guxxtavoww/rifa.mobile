@@ -40,6 +40,9 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             drawerProps.navigation.navigate('user-settings');
             drawerProps.navigation.closeDrawer();
           }}
+          style={{
+            marginBottom: 5,
+          }}
         >
           <Avatar
             source={{
@@ -47,7 +50,7 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
                 user_photo_url ||
                 'https://i.pinimg.com/564x/13/b4/08/13b408f0ad453542c0d8fa8e62602245.jpg',
             }}
-            size="lg"
+            size="2xl"
           />
         </TouchableOpacity>
         <Text
