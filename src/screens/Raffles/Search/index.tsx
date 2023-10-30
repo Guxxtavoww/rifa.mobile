@@ -9,22 +9,22 @@ import RaffleWidget from './components/RaffleWidget';
 import { useSearchRaffles } from './hook/search-raffles.hook';
 
 const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
-  const { isLoading, searchMutation, searchRafflesResult } = useSearchRaffles();
+  const { isLoading, searchRafflesResult } = useSearchRaffles();
 
   return (
     <View style={[commonStyles.screen_container_light]}>
-      <SearchInput
+      {/* <SearchInput
         placeholder="Pesquise rifas..."
         onPressSearchIcon={searchMutation}
         onSubmitKeyboard={searchMutation}
         isLoading={isLoading}
         mb="4"
-      />
+      /> */}
       {isLoading ? (
         <Loader />
       ) : (
         <FlashList
-          data={searchRafflesResult?.data}
+          data={searchRafflesResult?.pages[0]?.data}
           renderItem={({ item, index }) => (
             <RaffleWidget data={item} push={navigation.push} key={index} />
           )}

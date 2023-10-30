@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, VStack, Image, Pressable } from 'native-base';
 
 import { Text } from '@/components';
@@ -12,6 +12,12 @@ interface iRaffleWidgetProps {
 }
 
 const RaffleWidget: React.FC<iRaffleWidgetProps> = ({ data, push }) => {
+  const onWidgetPress = useCallback(() => {
+    push('raffle', {
+      raffle_id: data.raffle_id,
+    });
+  }, [data.raffle_id, push]);
+
   return (
     <Pressable
       w="full"
@@ -21,13 +27,9 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({ data, push }) => {
         opacity: 0.85,
       }}
       mb="2"
-      onPress={() =>
-        push('raffle', {
-          raffle_id: data.raffle_id,
-        })
-      }
+      onPress={onWidgetPress}
     >
-      <View w="full" position="relative" borderRadius="md" shadow="1">
+      <View w="full" position="relative" borderRadius="md" overflow="hidden">
         <Image
           source={{ uri: data.photos[0].photo_url }}
           w="full"
