@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import {
@@ -99,4 +99,4 @@ const SearchInput: React.FC<iSearchInputProps> = ({
   );
 };
 
-export default SearchInput;
+export default memo(SearchInput);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, VStack } from 'native-base';
+import { VStack, FlatList } from 'native-base';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 
@@ -27,7 +27,7 @@ function Form<T extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <VStack width="full" mb="1">
+      <VStack width="full" mb="1" h="container">
         <FlatList
           data={inputs}
           keyExtractor={(_, index) => `${index}`}

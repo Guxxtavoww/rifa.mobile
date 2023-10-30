@@ -1,6 +1,7 @@
 import React from 'react';
+import { VStack } from 'native-base';
 import { View, Image } from 'react-native';
-import { VStack, FlatList } from 'native-base';
+import { FlashList } from '@shopify/flash-list';
 
 import { useRedux } from '@/hooks';
 import { Loader, Text } from '@/components';

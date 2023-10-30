@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { FlatList } from 'native-base';
+import { FlashList } from '@shopify/flash-list';
 
-import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 import { Loader, SearchInput, Text } from '@/components';
 
@@ -24,23 +23,16 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <FlatList
-          flex={1}
+        <FlashList
           data={searchRafflesResult?.data}
-          bg="transparent"
           renderItem={({ item, index }) => (
             <RaffleWidget data={item} push={navigation.push} key={index} />
           )}
           scrollEnabled
-          w="full"
-          px="0.5"
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={
-            <Text
-              content="Não há rifas!"
-              color={THEME.colors.dark_text_color}
-            />
-          }
+          showsVerticalScrollIndicator={true}
+          estimatedItemSize={100}
+          onEndReached={() => console.log('Chegou ao fim')}
+          onEndReachedThreshold={0.75}
         />
       )}
     </View>
