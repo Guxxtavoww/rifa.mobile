@@ -16,6 +16,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
     handleSearchQuery,
     hasNextPage,
     isFetchingNextPage,
+    fetchNextPage,
   } = useSearchRaffles();
 
   return (
@@ -48,7 +49,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
             scrollEnabled
             showsVerticalScrollIndicator={true}
             estimatedItemSize={100}
-            onEndReached={() => console.log('Chegou ao fim')}
+            onEndReached={fetchNextPage}
             onEndReachedThreshold={0.2}
             contentContainerStyle={{
               paddingBottom: 10,

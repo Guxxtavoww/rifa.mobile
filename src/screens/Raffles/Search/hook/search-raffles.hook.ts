@@ -11,6 +11,7 @@ export function useSearchRaffles() {
     isLoading,
     isFetchingNextPage,
     hasNextPage,
+    fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['search-raffles'],
     queryFn: ({ pageParam = 1 }) => searchRafflesAPI(pageParam, searchQuery),
@@ -31,5 +32,6 @@ export function useSearchRaffles() {
     isFetchingNextPage,
     hasNextPage,
     handleSearchQuery,
+    fetchNextPage,
   };
 }
