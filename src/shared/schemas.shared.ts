@@ -17,4 +17,4 @@ export const optionalEmailStringSchema = z
 export const stringToNumberSchema = z
   .string({ required_error: 'Insira um valor!' })
   .transform((str) => +str)
-  .refine((str) => !Number.isNaN(str));
+  .refine((str) => !Number.isNaN(str), { message: 'Insira um número válido' });
