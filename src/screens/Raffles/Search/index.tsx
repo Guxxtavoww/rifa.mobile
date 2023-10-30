@@ -32,7 +32,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
           showsVerticalScrollIndicator={true}
           estimatedItemSize={100}
           onEndReached={() => console.log('Chegou ao fim')}
-          onEndReachedThreshold={0.75}
+          onEndReachedThreshold={0.2}
         />
       )}
     </View>
