@@ -1,9 +1,8 @@
-import { validateApiCall } from '@/utils/validate-api-call.util';
+import api from '@/api';
 
-import { raffleResponseSchema } from '../types/responses.types';
+import { iRaffle } from '../types/responses.types';
 
 export const getRaffleDetails = async (raffle_id: string) =>
-  validateApiCall({
-    endpoint: `/raffles/${raffle_id}`,
-    zodSchema: raffleResponseSchema,
-  });
+  api
+    .get<iRaffle>(`/raffles/${raffle_id}`)
+    .then((res) => Promise.resolve(res.data));

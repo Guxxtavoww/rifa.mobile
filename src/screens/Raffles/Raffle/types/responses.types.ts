@@ -1,17 +1,21 @@
-import { z } from 'zod';
+export interface iRaffle {
+  created_at: string;
+  due_date: string;
+  owner_id: string;
+  photos: iPhoto[];
+  raffle_description: string;
+  raffle_id: string;
+  raffle_title: string;
+  subscribed_users: iSubscribedUser[];
+}
 
-export const raffleResponseSchema = z.object({
-  created_at: z.string(),
-  due_date: z.string(),
-  owner_id: z.string(),
-  photos: z.array(
-    z.object({
-      photo_url: z.string(),
-    })
-  ),
-  raffle_description: z.string(),
-  raffle_id: z.string(),
-  raffle_title: z.string(),
-});
+export interface iPhoto {
+  photo_url: string;
+}
 
-export type RaffleType = z.infer<typeof raffleResponseSchema>;
+export interface iSubscribedUser {
+  user_id: string;
+  user_email: string;
+  user_name: string;
+  user_photo_url: string;
+}
