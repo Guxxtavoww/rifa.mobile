@@ -13,10 +13,6 @@ export interface Meta {
 }
 
 export interface iRaffle {
-  owner_id: string;
-  created_at: string;
-  updated_at: string | null;
-  raffle_description: string;
   raffle_title: string;
   raffle_id: string;
   due_date: string;

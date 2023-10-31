@@ -2,21 +2,22 @@ import React from 'react';
 import { View } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
+import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 import { Loader, SearchInput, Text } from '@/components';
 
 import RaffleWidget from './components/RaffleWidget';
 import { useSearchRaffles } from './hook/search-raffles.hook';
-import { THEME } from '@/styles/theme.styles';
 
 const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
   const {
     isLoading,
     searchRafflesResult,
     handleSearchQuery,
-    hasNextPage,
     isFetchingNextPage,
-    fetchNextPage,
+    onEndReached,
+    searchQuery,
+    total,
   } = useSearchRaffles();
 
   return (
@@ -28,32 +29,53 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         isLoading={isLoading}
         mb="4"
       />
+      {isLoading ? null : (
+        <Text
+          content={`${total} resultado(s) encontrado(s)`}
+          color={THEME.colors.dark_text_color}
+          style={{
+            marginBottom: 8,
+            textAlign: 'left',
+            marginLeft: 4,
+          }}
+          fontWeight="medium"
+        />
+      )}
+      {searchQuery !== '' ? (
+        <Text
+          content={`Resultados para: ${searchQuery}`}
+          color={THEME.colors.dark_text_color}
+          fontWeight="bold"
+          style={{
+            marginBottom: 8,
+            textAlign: 'left',
+            marginLeft: 4,
+          }}
+          fontSize="normalLarge"
+        />
+      ) : null}
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <FlashList
             data={searchRafflesResult}
-            renderItem={({ item, index }) => (
-              <>
-                <RaffleWidget data={item} push={navigation.push} key={index} />
-                {searchRafflesResult?.length === index + 1 && !hasNextPage ? (
-                  <Text
-                    content="Não há mais resultados"
-                    color={THEME.colors.dark_text_color}
-                    fontWeight="bold"
+            renderItem={({ index: wrapperIndex, item }) => (
+              <View key={wrapperIndex}>
+                {item.data.map((raffle, index) => (
+                  <RaffleWidget
+                    data={raffle}
+                    push={navigation.push}
+                    key={index}
                   />
-                ) : null}
-              </>
+                ))}
+              </View>
             )}
             scrollEnabled
             showsVerticalScrollIndicator={true}
-            estimatedItemSize={100}
-            onEndReached={fetchNextPage}
-            onEndReachedThreshold={0.2}
-            contentContainerStyle={{
-              paddingBottom: 10,
-            }}
+            estimatedItemSize={1000}
+            onEndReached={onEndReached}
+            onEndReachedThreshold={0.1}
           />
           {isFetchingNextPage ? (
             <Loader

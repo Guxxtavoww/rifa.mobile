@@ -1,4 +1,4 @@
-import { View } from 'native-base';
+import { VStack } from 'native-base';
 import { ActivityIndicator, ActivityIndicatorProps } from 'react-native';
 
 import { THEME } from '@/styles/theme.styles';
@@ -10,15 +10,14 @@ interface iLoaderProps extends ActivityIndicatorProps {
 }
 
 const Loader: React.FC<iLoaderProps> = ({ size, textProps, ...rest }) => (
-  <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+  <VStack space={textProps ? 2 : undefined} alignItems="center">
     <ActivityIndicator
       color={THEME.colors.dark_text_color}
       size={size}
-      style={[rest.style, { marginBottom: textProps ? 8 : undefined }]}
       {...rest}
     />
     {textProps ? <Text {...textProps} /> : null}
-  </View>
+  </VStack>
 );
 
 export default Loader;

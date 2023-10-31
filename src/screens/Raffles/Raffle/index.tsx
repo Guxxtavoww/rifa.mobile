@@ -25,7 +25,9 @@ const Raffle: React.FC<ScreenProps> = ({ route }) => {
         <VStack>
           <Text
             content={`Dono da Rifa: ${
-              raffle?.owner_id === user_id ? 'Voce' : raffle?.owner_id!
+              raffle?.owner.user_id === user_id
+                ? 'Voce'
+                : raffle?.owner.user_name || raffle?.owner.user_email
             }`}
             color={THEME.colors.dark_text_color}
             style={{ marginBottom: 10 }}

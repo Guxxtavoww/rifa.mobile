@@ -13,7 +13,7 @@ export function useSearchRaffles() {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['search-raffles'],
+    queryKey: ['search-raffles', searchQuery],
     queryFn: ({ pageParam = 1 }) => searchRafflesAPI(pageParam, searchQuery),
     getNextPageParam: (lastPage) => lastPage.meta.next,
     getPreviousPageParam: (firstPage) => firstPage.meta.prev,
@@ -26,12 +26,20 @@ export function useSearchRaffles() {
     [setSearchQuery]
   );
 
+  const onEndReached = useCallback(() => {
+    if (hasNextPage) {
+      console.log('Caiu aqui');
+      fetchNextPage();
+    }
+  }, [hasNextPage, fetchNextPage]);
+
   return {
-    searchRafflesResult: searchRafflesResult?.pages[0]?.data,
+    searchRafflesResult: searchRafflesResult?.pages,
     isLoading,
     isFetchingNextPage,
-    hasNextPage,
     handleSearchQuery,
-    fetchNextPage,
+    onEndReached,
+    searchQuery,
+    total: searchRafflesResult?.pages[0]?.meta.total,
   };
 }
