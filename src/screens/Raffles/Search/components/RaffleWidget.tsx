@@ -4,7 +4,7 @@ import { View, VStack, Image, Pressable } from 'native-base';
 import { Text } from '@/components';
 import { formatToCurrency } from '@/utils/string.utils';
 
-import { iRaffle } from '../../types/responses.types';
+import { iRaffle } from '../types/responses.types';
 
 interface iRaffleWidgetProps {
   data: iRaffle;
