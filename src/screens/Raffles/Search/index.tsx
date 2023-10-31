@@ -61,7 +61,13 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         />
       ) : null}
       {isLoading ? (
-        <Loader />
+        <Loader
+          size={30}
+          textProps={{
+            content: 'Carregando Rifas...',
+            color: THEME.colors.dark_text_color,
+          }}
+        />
       ) : (
         <>
           <FlashList
