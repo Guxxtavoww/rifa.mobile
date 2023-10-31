@@ -31,6 +31,7 @@ const CreateRaffle: React.FC = () => {
         }}
       />
       <Form
+        // @ts-ignore
         zodSchema={createRaffleFormSchema}
         themeType="light"
         inputs={[

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { ZodSchema, ZodTypeDef } from 'zod';
 import { FieldValues } from 'react-hook-form';
 
 import { ButtonProps } from '@/components/layout/Button';
@@ -26,10 +26,14 @@ export type Input<T> =
       type: 'textarea';
     } & Omit<iTextAreaProps, 'name' | 'type'>);
 
-export interface iFormProps<T extends FieldValues> {
+export interface iFormProps<
+  T extends FieldValues = any,
+  TDef extends ZodTypeDef = ZodTypeDef,
+  TInput = T
+> {
   inputs: Input<T>[];
   handleSubmit: (data: T) => void | Promise<void>;
-  zodSchema?: z.Schema<T>;
+  zodSchema?: ZodSchema<T, TDef, TInput>;
   submitButtonText?: string;
   isLoading?: boolean;
   customAction1?: Omit<ButtonProps, 'isLoading'>;
