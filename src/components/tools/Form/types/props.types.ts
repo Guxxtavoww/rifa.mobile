@@ -26,6 +26,8 @@ export type Input<T> =
       type: 'textarea';
     } & Omit<iTextAreaProps, 'name' | 'type'>);
 
+type FormButtonProps = Omit<ButtonProps, 'isLoading' | 'mb'>;
+
 export interface iFormProps<
   T extends FieldValues = any,
   TDef extends ZodTypeDef = ZodTypeDef,
@@ -36,8 +38,8 @@ export interface iFormProps<
   zodSchema?: ZodSchema<T, TDef, TInput>;
   submitButtonText?: string;
   isLoading?: boolean;
-  customAction1?: Omit<ButtonProps, 'isLoading'>;
-  customAction2?: Omit<ButtonProps, 'isLoading'>;
+  customAction1?: FormButtonProps;
+  customAction2?: FormButtonProps;
   themeType?: iInputProps['themeType'];
   hideSubmitButton?: boolean;
 }
