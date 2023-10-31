@@ -6,7 +6,7 @@ import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 import { Loader, SearchInput, Text } from '@/components';
 
-import RaffleWidget from './components/RaffleWidget';
+import RaffleWidget from './components/RaffleWidget/RaffleWidget';
 import { useSearchRaffles } from './hook/search-raffles.hook';
 
 const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
