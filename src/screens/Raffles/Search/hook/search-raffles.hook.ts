@@ -1,7 +1,7 @@
+import { useCallback, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { searchRafflesAPI } from '../api/search-raffles.api';
-import { useCallback, useState } from 'react';
 
 export function useSearchRaffles() {
   const [searchQuery, setSearchQuery] = useState('');
