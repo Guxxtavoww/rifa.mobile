@@ -2,7 +2,7 @@ import { randomUUID, createCipheriv, scryptSync } from 'crypto';
 
 import { ENV_VARIABLES } from '@/config/env.config';
 
-const secretKey = ENV_VARIABLES.EXPO_ENCRYPTION_KEY;
+const secretKey = ENV_VARIABLES.EXPO_PUBLIC_ENCRYPTION_KEY;
 
 export const generateId = async (base?: string) => {
   if (base) {

@@ -5,7 +5,7 @@ import { signOut, toast } from '@/utils/app.utils';
 import { ENV_VARIABLES } from '@/config/env.config';
 
 const api = axios.create({
-  baseURL: ENV_VARIABLES.EXPO_BASE_API_URL,
+  baseURL: ENV_VARIABLES.EXPO_PUBLIC_BASE_API_URL,
 });
 
 function handleErrorStatus(
