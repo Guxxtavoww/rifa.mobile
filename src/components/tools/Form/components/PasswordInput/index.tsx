@@ -96,7 +96,7 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
                       name={isPasswordVisible ? 'visibility' : 'visibility-off'}
                     />
                   }
-                  size={5}
+                  size={8}
                   mr="2"
                   color="muted.400"
                 />

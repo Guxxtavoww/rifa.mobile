@@ -4,7 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { searchRafflesAPI } from '../api/search-raffles.api';
 
 export function useSearchRaffles() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const {
     data: searchRafflesResult,
@@ -17,6 +17,7 @@ export function useSearchRaffles() {
     queryFn: ({ pageParam = 1 }) => searchRafflesAPI(pageParam, searchQuery),
     getNextPageParam: (lastPage) => lastPage.meta.next,
     getPreviousPageParam: (firstPage) => firstPage.meta.prev,
+    refetchOnMount: true,
   });
 
   const handleSearchQuery = useCallback(
