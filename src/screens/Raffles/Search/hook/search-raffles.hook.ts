@@ -28,7 +28,6 @@ export function useSearchRaffles() {
 
   const onEndReached = useCallback(() => {
     if (hasNextPage) {
-      console.log('Caiu aqui');
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage]);
