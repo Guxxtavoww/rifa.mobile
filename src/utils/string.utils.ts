@@ -1,4 +1,6 @@
 import { deviceLanguage } from '@/constants';
+import { stringToNumberSchema } from '@/shared/schemas.shared';
+import { toast } from './app.utils';
 
 export function limitCharacters(
   text: string,
@@ -39,5 +41,15 @@ export const formatToCurrency = (value: number | string) => {
     minimumFractionDigits: 2,
   });
 
-  return formater.format(+value);
+  try {
+    const formatedValue = stringToNumberSchema.parse(value.toString());
+
+    return formater.format(formatedValue);
+  } catch (error) {
+    toast('Error, número inválido', {
+      status: 'error',
+    });
+
+    return '';
+  }
 };
