@@ -4,8 +4,8 @@ import { iSearchRafflesResponse } from '../types/responses.types';
 
 export const searchRafflesAPI = async (page: number, query?: string) => {
   const params = {
-    query: query || '',
-    page: page || 1,
+    query,
+    page,
   };
 
   return api
