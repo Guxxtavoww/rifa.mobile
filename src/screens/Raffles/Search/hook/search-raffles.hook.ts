@@ -39,6 +39,6 @@ export function useSearchRaffles() {
     handleSearchQuery,
     onEndReached,
     searchQuery,
-    total: searchRafflesResult?.pages[0]?.meta.total,
+    total: searchRafflesResult?.pages[0]?.meta.total ?? 0,
   };
 }

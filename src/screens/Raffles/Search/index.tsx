@@ -31,7 +31,13 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
       />
       {isLoading ? null : (
         <Text
-          content={`${total} resultado(s) encontrado(s)`}
+          content={
+            total > 1
+              ? `${total} resultados encontrados`
+              : total === 0
+              ? 'Nenhum resultado encontrado'
+              : `${total} resultado encontrado`
+          }
           color={THEME.colors.dark_text_color}
           style={{
             marginBottom: 8,
