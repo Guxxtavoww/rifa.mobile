@@ -45,11 +45,11 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
           }}
         >
           <Avatar
-            source={{
-              uri:
-                user_photo_url ||
-                'https://i.pinimg.com/564x/13/b4/08/13b408f0ad453542c0d8fa8e62602245.jpg',
-            }}
+            source={
+              user_photo_url
+                ? { uri: user_photo_url }
+                : require('../../../assets/jpg/no-profile-pic.jpg')
+            }
             size="2xl"
           />
         </TouchableOpacity>
