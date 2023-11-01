@@ -18,6 +18,8 @@ function DrawerRoutes() {
         },
         headerTitleAlign: 'center',
         drawerActiveTintColor: THEME.colors.orange_color,
+        drawerType: 'slide',
+        drawerStatusBarAnimation: 'slide',
         drawerItemStyle: {
           justifyContent: 'center',
         },
