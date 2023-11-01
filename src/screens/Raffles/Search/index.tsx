@@ -7,7 +7,7 @@ import { commonStyles } from '@/styles/common.styles';
 import { Loader, SearchInput, Text } from '@/components';
 
 import RaffleWidget from './components/RaffleWidget';
-import { useSearchRaffles } from './hook/search-raffles.hook';
+import { useSearchRaffles } from './hooks/search-raffles.hook';
 
 const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
   const {
