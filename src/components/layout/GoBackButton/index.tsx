@@ -29,7 +29,7 @@ const GoBackButton: React.FC<iGoBackButtonProps> = ({
       size: 'lg',
     }}
     _pressed={{
-      bg: 'gray.600',
+      bg: color === 'white' ? 'gray.600' : 'gray.300',
       _ios: {
         _icon: {
           size: '2xl',

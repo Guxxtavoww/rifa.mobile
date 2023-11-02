@@ -2,10 +2,10 @@ import React from 'react';
 import { VStack } from 'native-base';
 import { ScrollView } from 'react-native';
 
-import { Loader } from '@/components';
+import { GoBackButton, Loader } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
 
-import { useRaffle } from './hooks/raffles.hook';
+import { useRaffle } from './hooks/raffle.hook';
 import { PhotosSlider, SelectNames, RaffleDetails } from './components';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
@@ -13,11 +13,21 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
     useRaffle(route.params.raffle_id);
 
   return (
-    <ScrollView style={[commonStyles.screen_container_light]}>
+    <ScrollView
+      style={[commonStyles.screen_container_light]}
+      scrollEnabled
+      showsVerticalScrollIndicator={false}
+    >
       {isLoading ? (
         <Loader size={40} />
       ) : (
-        <VStack space={4} flex={1} pb="10">
+        <VStack space={4} flex={1} pb="10" alignItems="flex-start">
+          <GoBackButton
+            onPress={() => navigation.replace('search-raffles')}
+            iconSize={14}
+            color="black"
+            removeMarginLeft
+          />
           <PhotosSlider photos_urls={photos_urls} />
           <SelectNames
             maxAmountOfNames={raffle?.available_quantity!}

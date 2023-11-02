@@ -24,20 +24,20 @@ const RaffleDetails: React.FC<iRaffleDetailsProps> = ({ data }) => (
     backgroundColor="#fff"
     space={3}
   >
-    <HStack alignItems="center" w="full" justifyContent="flex-start" space={4}>
+    <HStack alignItems="center" w="full" justifyContent="flex-start" space={3}>
       <Avatar
         source={
           data.owner_photo_url
             ? { uri: data.owner_photo_url }
             : require('@/assets/jpg/no-profile-pic.jpg')
         }
-        size="md"
+        size="sm"
       />
       <Text
-        content={data.owner_name || ''}
+        content={`${data.owner_name} é o dono dessa rifa.`}
         color={THEME.colors.dark_text_color}
         fontWeight="bold"
-        fontSize="normalLarge"
+        fontSize="small"
       />
     </HStack>
     <VStack w="full" space={3} justifyContent="center" alignItems="flex-start">

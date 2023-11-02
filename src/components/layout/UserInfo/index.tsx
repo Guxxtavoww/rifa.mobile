@@ -20,8 +20,9 @@ interface iUserInfoProps {
 }
 
 const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
-  const { user_photo_url, user_email, user_name, created_at, updated_at } =
-    useRedux().useAppSelector((state) => state.auth.user_data!);
+  const { user_photo_url, user_email, user_name } = useRedux().useAppSelector(
+    (state) => state.auth.user_data!
+  );
 
   const handleAvatarPress = useCallback(() => {
     drawerProps.navigation.navigate('user-settings');
@@ -64,23 +65,6 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             marginBottom: 6,
           }}
         />
-        <Text
-          content={`Criado em: ${formatToDate(created_at, true)}`}
-          color={THEME.colors.subtitle_color}
-          fontSize="small"
-          fontWeight="regular"
-          style={{
-            marginBottom: 6,
-          }}
-        />
-        {updated_at ? (
-          <Text
-            content={`Editado em: ${formatToDate(updated_at, true)}`}
-            color={THEME.colors.subtitle_color}
-            fontSize="small"
-            fontWeight="regular"
-          />
-        ) : null}
       </VStack>
       <DrawerItemList {...drawerProps} />
       <View flex={1} justifyContent="flex-end" px="4" pb="24" mt="full">

@@ -8,7 +8,7 @@ interface iPhotosSliderProps {
 
 const windowDimensions = Dimensions.get('screen');
 
-const imageWidth = windowDimensions.width - 32;
+const imageWidth = windowDimensions.width - 32; // minus horizontal padding
 const imageHeight = 250;
 
 const PhotosSlider: React.FC<iPhotosSliderProps> = ({ photos_urls }) => (

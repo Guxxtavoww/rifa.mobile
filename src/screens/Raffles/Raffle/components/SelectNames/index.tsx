@@ -27,7 +27,7 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
           return prev < maxAmountOfNames ? prev + 1 : prev;
         }
 
-        return prev >= 0 ? prev - 1 : prev;
+        return prev > 0 ? prev - 1 : prev;
       });
     },
     [setNamesAmount, maxAmountOfNames]
