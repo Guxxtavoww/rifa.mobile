@@ -10,7 +10,7 @@ import { useRaffle } from './hooks/raffles.hook';
 import { PhotosSlider, SelectNames, RaffleDetails } from './components';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
-  const { isLoading, raffle } = useRaffle(route.params.raffle_id);
+  const { isLoading, raffle, photos_urls } = useRaffle(route.params.raffle_id);
 
   const user_id = useRedux().useAppSelector(
     (state) => state.auth.user_data!.user_id
@@ -22,9 +22,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
         <Loader size={40} />
       ) : (
         <VStack space={6} flex={1} pb="10">
-          <PhotosSlider
-            photos_urls={raffle?.photos.map((item) => item.photo_url)}
-          />
+          <PhotosSlider photos_urls={photos_urls} />
           <SelectNames
             maxAmountOfNames={raffle?.maximum_people_quantity!}
             onSelectNameAmount={(value) => console.log(value)}
