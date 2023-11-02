@@ -8,6 +8,7 @@ export const THEME = {
     subtitle_color: '#C0C0C0',
     header_logo_color: '#1a1a29ff',
     overlay: '#00000037',
+    grayColor: '#EAEAEA',
   },
   fonts: {
     regular: 'Poppins-Regular',

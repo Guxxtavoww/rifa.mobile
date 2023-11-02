@@ -65,6 +65,7 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
             type={isPasswordVisible ? 'text' : 'password'}
             value={field.value}
             autoCapitalize="none"
+            blurOnSubmit
             backgroundColor={
               isDarkTheme ? 'gray.700' : THEME.colors.light_text_color
             }
@@ -96,7 +97,7 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
                       name={isPasswordVisible ? 'visibility' : 'visibility-off'}
                     />
                   }
-                  size={8}
+                  size={7}
                   mr="2"
                   color="muted.400"
                 />

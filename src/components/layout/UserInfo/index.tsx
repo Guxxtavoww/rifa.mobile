@@ -1,5 +1,5 @@
-import React from 'react';
-import { HStack, Icon, VStack, Avatar } from 'native-base';
+import React, { useCallback } from 'react';
+import { HStack, Icon, VStack, Avatar, View } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -23,6 +23,11 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
   const { user_photo_url, user_email, user_name, created_at, updated_at } =
     useRedux().useAppSelector((state) => state.auth.user_data!);
 
+  const handleAvatarPress = useCallback(() => {
+    drawerProps.navigation.navigate('user-settings');
+    drawerProps.navigation.closeDrawer();
+  }, [drawerProps]);
+
   return (
     <SafeAreaView>
       <VStack
@@ -36,10 +41,7 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
         alignItems="center"
       >
         <TouchableOpacity
-          onPress={() => {
-            drawerProps.navigation.navigate('user-settings');
-            drawerProps.navigation.closeDrawer();
-          }}
+          onPress={handleAvatarPress}
           style={{
             marginBottom: 5,
           }}
@@ -79,22 +81,19 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
             fontWeight="regular"
           />
         ) : null}
+      </VStack>
+      <DrawerItemList {...drawerProps} />
+      <View flex={1} justifyContent="flex-end" px="4" pb="24" mt="full">
         <TouchableOpacity onPress={() => signOut(true)}>
           <HStack space={1} alignItems="center">
             <Icon
               as={<MaterialIcons name="logout" />}
               color={THEME.colors.dark_text_color}
-            />
-            <Text
-              content="Sair"
-              fontWeight="bold"
-              fontSize="small"
-              color={THEME.colors.dark_text_color}
+              size={8}
             />
           </HStack>
         </TouchableOpacity>
-      </VStack>
-      <DrawerItemList {...drawerProps} />
+      </View>
     </SafeAreaView>
   );
 };

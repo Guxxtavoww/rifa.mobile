@@ -27,17 +27,9 @@ const RafflesStack: React.FC = () => (
     <Stack.Screen
       name="raffle"
       component={Raffle as any}
-      options={({ navigation }) => ({
-        headerShown: true,
-        headerTitle: () => <></>,
-        headerLeft: () => (
-          <GoBackButton
-            onPress={() => navigation.push('search-raffles')}
-            color="black"
-            removeMarginLeft
-          />
-        ),
-      })}
+      options={{
+        headerShown: false,
+      }}
     />
   </Stack.Navigator>
 );

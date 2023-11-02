@@ -1,16 +1,15 @@
 import React from 'react';
 import { VStack } from 'native-base';
-import { View, Image } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
+import { ScrollView } from 'react-native';
 
 import { useRedux } from '@/hooks';
 import { Loader, Text } from '@/components';
-import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 
+import { PhotosSlider, SelectNames } from './components';
 import { useRaffle } from './hooks/raffles.hook';
 
-const Raffle: React.FC<ScreenProps> = ({ route }) => {
+const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
   const { isLoading, raffle } = useRaffle(route.params.raffle_id);
 
   const user_id = useRedux().useAppSelector(
@@ -18,35 +17,21 @@ const Raffle: React.FC<ScreenProps> = ({ route }) => {
   );
 
   return (
-    <View style={[commonStyles.screen_container_light]}>
+    <ScrollView style={[commonStyles.screen_container_light]}>
       {isLoading ? (
         <Loader size={40} />
       ) : (
         <VStack>
-          <Text
-            content={`Dono da Rifa: ${
-              raffle?.owner.user_id === user_id
-                ? 'Voce'
-                : raffle?.owner.user_name || raffle?.owner.user_email
-            }`}
-            color={THEME.colors.dark_text_color}
-            style={{ marginBottom: 10 }}
+          <PhotosSlider
+            photos_urls={raffle?.photos.map((item) => item.photo_url)}
           />
-          {raffle?.photos.map(({ photo_url }, index) => (
-            <Image
-              source={{ uri: photo_url }}
-              alt={`Rifa: ${index}`}
-              key={index}
-              style={{
-                backgroundColor: '#000',
-                width: 100,
-                height: 100,
-              }}
-            />
-          ))}
+          <SelectNames
+            maxAmountOfNames={raffle?.maximum_people_quantity!}
+            onSelectNameAmount={(value) => console.log(value)}
+          />
         </VStack>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
