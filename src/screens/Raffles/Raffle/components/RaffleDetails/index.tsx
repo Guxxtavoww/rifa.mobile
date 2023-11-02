@@ -1,17 +1,19 @@
 import React from 'react';
-import { VStack } from 'native-base';
+import { Avatar, HStack, VStack } from 'native-base';
+
 import { Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 
 interface iRaffleDetailsProps {
-  raffle_title: string | undefined;
-  raffle_description: string | undefined;
+  data: {
+    raffle_title: string | undefined;
+    raffle_description: string | undefined;
+    owner_name: string | undefined;
+    owner_photo_url: Maybe<string>;
+  };
 }
 
-const RaffleDetails: React.FC<iRaffleDetailsProps> = ({
-  raffle_description,
-  raffle_title,
-}) => (
+const RaffleDetails: React.FC<iRaffleDetailsProps> = ({ data }) => (
   <VStack
     w="full"
     borderRadius="2xl"
@@ -22,21 +24,39 @@ const RaffleDetails: React.FC<iRaffleDetailsProps> = ({
     backgroundColor="#fff"
     space={3}
   >
-    <Text
-      content={raffle_title || ''}
-      fontSize="large"
-      color={THEME.colors.orange_color}
-      fontWeight="bold"
-    />
-    <Text
-      content={raffle_description || ''}
-      color={THEME.colors.dark_text_color}
-      fontSize="normal"
-      fontWeight="regular"
-      style={{
-        textAlign: 'justify',
-      }}
-    />
+    <HStack alignItems="center" w="full" justifyContent="flex-start" space={4}>
+      <Avatar
+        source={
+          data.owner_photo_url
+            ? { uri: data.owner_photo_url }
+            : require('@/assets/jpg/no-profile-pic.jpg')
+        }
+        size="md"
+      />
+      <Text
+        content={data.owner_name || ''}
+        color={THEME.colors.dark_text_color}
+        fontWeight="bold"
+        fontSize="normalLarge"
+      />
+    </HStack>
+    <VStack w="full" space={3} justifyContent="center" alignItems="flex-start">
+      <Text
+        content={data.raffle_title || ''}
+        fontSize="large"
+        color={THEME.colors.orange_color}
+        fontWeight="bold"
+      />
+      <Text
+        content={data.raffle_description || ''}
+        color={THEME.colors.dark_text_color}
+        fontSize="normal"
+        fontWeight="regular"
+        style={{
+          textAlign: 'justify',
+        }}
+      />
+    </VStack>
   </VStack>
 );
 
