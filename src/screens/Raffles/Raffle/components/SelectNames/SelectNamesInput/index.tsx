@@ -19,11 +19,10 @@ const SelectNamesInput: React.FC<iSelectNamesInputProps> = ({
     <Input
       w="20"
       h="20"
-      borderRadius="3xl"
+      borderRadius="2xl"
       backgroundColor={THEME.colors.grayColor}
       color={THEME.colors.orange_color}
       fontFamily={THEME.fonts.bold}
-      pl="1.5"
       fontSize="2xl"
       placeholderTextColor={THEME.colors.dark_text_color}
       ref={namesInputRef}
@@ -41,6 +40,7 @@ const SelectNamesInput: React.FC<iSelectNamesInputProps> = ({
         color: THEME.colors.dark_text_color,
         borderColor: THEME.colors.orange_color,
       }}
+      pl={Number(value) > 10 ? '5' : '8'}
     />
   );
 };

@@ -6,8 +6,8 @@ import { useRedux } from '@/hooks';
 import { Loader, Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
 
-import { PhotosSlider, SelectNames } from './components';
 import { useRaffle } from './hooks/raffles.hook';
+import { PhotosSlider, SelectNames, RaffleDetails } from './components';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
   const { isLoading, raffle } = useRaffle(route.params.raffle_id);
@@ -21,13 +21,17 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
       {isLoading ? (
         <Loader size={40} />
       ) : (
-        <VStack>
+        <VStack space={6} flex={1} pb="10">
           <PhotosSlider
             photos_urls={raffle?.photos.map((item) => item.photo_url)}
           />
           <SelectNames
             maxAmountOfNames={raffle?.maximum_people_quantity!}
             onSelectNameAmount={(value) => console.log(value)}
+          />
+          <RaffleDetails
+            raffle_description={raffle?.raffle_description}
+            raffle_title={raffle?.raffle_title}
           />
         </VStack>
       )}

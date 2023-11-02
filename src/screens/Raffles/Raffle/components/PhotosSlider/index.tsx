@@ -34,7 +34,6 @@ const PhotosSlider: React.FC<iPhotosSliderProps> = ({ photos_urls }) => (
     w="full"
     h="250px"
     snapToStart
-    mb="4"
     borderRadius="lg"
   />
 );
