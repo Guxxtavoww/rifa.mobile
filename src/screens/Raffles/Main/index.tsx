@@ -6,7 +6,7 @@ import { commonStyles } from '@/styles/common.styles';
 
 import { useMainRaffles } from './hooks/main-raffles.hook';
 
-const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
+const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
   const { handleSearchRaffle, handleCreateRaffleButtonPress } = useMainRaffles(
     navigation.push
   );
