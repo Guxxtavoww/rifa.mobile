@@ -17,6 +17,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         onSubmitKeyboard={handleSearchRaffle}
         onPressSearchIcon={handleSearchRaffle}
         placeholder="Pesquise Rifas..."
+        mb="6"
       />
       <Button
         content="Crie sua rifa"
