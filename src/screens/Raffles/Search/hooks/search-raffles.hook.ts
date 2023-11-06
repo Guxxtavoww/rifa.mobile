@@ -3,8 +3,8 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { searchRafflesAPI } from '../api/search-raffles.api';
 
-export function useSearchRaffles() {
-  const [searchQuery, setSearchQuery] = useState<string>('');
+export function useSearchRaffles(defaultSearch?: Maybe<string>) {
+  const [searchQuery, setSearchQuery] = useState<string>(defaultSearch || '');
 
   const {
     data: searchRafflesResult,

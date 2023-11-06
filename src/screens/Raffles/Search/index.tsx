@@ -9,7 +9,7 @@ import { Loader, SearchInput, Text } from '@/components';
 import RaffleWidget from './components/RaffleWidget';
 import { useSearchRaffles } from './hooks/search-raffles.hook';
 
-const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
+const SearchRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
   const {
     isLoading,
     searchRafflesResult,
@@ -18,7 +18,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
     onEndReached,
     searchQuery,
     total,
-  } = useSearchRaffles();
+  } = useSearchRaffles(route.params.query);
 
   return (
     <View style={[commonStyles.screen_container_light]}>
@@ -28,6 +28,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         onSubmitKeyboard={handleSearchQuery}
         isLoading={isLoading}
         mb="4"
+        defaultValue={route.params.query || undefined}
       />
       {isLoading ? null : (
         <Text

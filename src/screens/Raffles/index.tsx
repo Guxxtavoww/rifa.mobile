@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { GoBackButton } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 
 import Raffle from './Raffle';
+import MainRaffles from './Main';
 import SearchRaffles from './Search';
 
 const Stack = createStackNavigator();
@@ -19,6 +19,13 @@ const RafflesStack: React.FC = () => (
       headerTitle: undefined,
     }}
   >
+    <Stack.Screen
+      name="main-raffles"
+      component={MainRaffles as any}
+      options={{
+        headerShown: false,
+      }}
+    />
     <Stack.Screen
       name="search-raffles"
       component={SearchRaffles as any}
