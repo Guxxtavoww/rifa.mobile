@@ -1,6 +1,9 @@
 import { useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export function useMainRaffles(push: ScreenProps['navigation']['push']) {
+  const navigation = useNavigation();
+
   const handleSearchRaffle = useCallback(
     (query: string) => {
       push('search-raffles', {
@@ -11,8 +14,8 @@ export function useMainRaffles(push: ScreenProps['navigation']['push']) {
   );
 
   const handleCreateRaffleButtonPress = useCallback(() => {
-    push('');
-  }, []);
+    navigation.navigate('create-raffle' as never);
+  }, [navigation]);
 
   return { handleSearchRaffle, handleCreateRaffleButtonPress };
 }
