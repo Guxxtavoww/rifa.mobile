@@ -22,5 +22,6 @@ export interface iRaffle {
     user_name: string | null;
     user_email: string;
     user_photo_url: string | null;
+    user_id: string;
   };
 }

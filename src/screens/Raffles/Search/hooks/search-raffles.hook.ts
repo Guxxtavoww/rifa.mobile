@@ -1,9 +1,16 @@
 import { useCallback, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import { useRedux } from '@/hooks';
+
+import { iRaffle } from '../types/responses.types';
 import { searchRafflesAPI } from '../api/search-raffles.api';
 
 export function useSearchRaffles(defaultSearch?: Maybe<string>) {
+  const user_id = useRedux().useAppSelector(
+    (state) => state.auth.user_data!.user_id
+  );
+
   const [searchQuery, setSearchQuery] = useState<string>(defaultSearch || '');
 
   const {
@@ -19,6 +26,15 @@ export function useSearchRaffles(defaultSearch?: Maybe<string>) {
     getPreviousPageParam: (firstPage) => firstPage.meta.prev,
     refetchOnMount: true,
   });
+
+  const getOwnerWidgetContent = useCallback(
+    (ownerData: iRaffle['owner']) => {
+      if (ownerData.user_id === user_id) return 'Você';
+
+      return ownerData.user_name || ownerData.user_email;
+    },
+    [user_id]
+  );
 
   const handleSearchQuery = useCallback(
     (text: string) => {
@@ -41,5 +57,6 @@ export function useSearchRaffles(defaultSearch?: Maybe<string>) {
     onEndReached,
     searchQuery,
     total: searchRafflesResult?.pages[0]?.meta.total ?? 0,
+    getOwnerWidgetContent,
   };
 }

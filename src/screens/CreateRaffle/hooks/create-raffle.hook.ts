@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { toast } from '@/utils/app.utils';
 import { uploadMultipleImagesAsync } from '@/utils/upload-image-async.util';
+import { removeDuplicatedItemsFromArray } from '@/utils/remove-duplicated-items-from-array.util';
 
 import { CreateRaffleFormType } from '../types/form.types';
 import { createRaffleAPI } from '../api/create-raffle.api';
@@ -55,7 +56,10 @@ export function useCreateRaffle() {
 
     if (result.canceled) return;
 
-    setPhotosUrls(result.assets.map((asset) => asset.uri));
+    setPhotosUrls((prev) => [
+      ...prev,
+      ...result.assets.map((asset) => asset.uri),
+    ]);
   }, [toast]);
 
   const handleSubmit = useCallback(

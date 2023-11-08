@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image } from 'native-base';
+import { Image, Pressable } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface iPickerImagesProps {
   imagesUris: string[];
@@ -18,14 +19,27 @@ const PickedImages: React.FC<iPickerImagesProps> = ({
     pagingEnabled
     showsHorizontalScrollIndicator={false}
     estimatedItemSize={10}
+    snapToEnd
     renderItem={({ index, item: uri }) => (
       <TouchableOpacity
         onPress={() => onImagePress(uri)}
-        style={{ marginRight: 16 }}
+        style={{ marginRight: 16, position: 'relative' }}
+        key={index}
       >
+        <Pressable
+          position="absolute"
+          top="3"
+          right="2"
+          onPress={() => onImagePress(uri)}
+          zIndex={10}
+          alignItems="center"
+          justifyContent="center"
+          opacity={0.8}
+        >
+          <MaterialIcons name="delete" color="#fff" size={20} />
+        </Pressable>
         <Image
           source={{ uri }}
-          key={index}
           style={{
             width: 160,
             height: 118,
@@ -37,7 +51,8 @@ const PickedImages: React.FC<iPickerImagesProps> = ({
     )}
     contentContainerStyle={{
       paddingBottom: 10,
-      paddingHorizontal: 16,
+      paddingLeft: 16,
+      paddingRight: 40,
     }}
   />
 );

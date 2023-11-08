@@ -18,6 +18,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
     onEndReached,
     searchQuery,
     total,
+    getOwnerWidgetContent,
   } = useSearchRaffles(route.params.query);
 
   return (
@@ -81,6 +82,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
                     push={navigation.push}
                     key={index}
                     currentSearch={searchQuery}
+                    getOwnerWidgetContent={getOwnerWidgetContent}
                   />
                 ))}
               </View>

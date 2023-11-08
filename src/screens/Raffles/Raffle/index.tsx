@@ -2,12 +2,12 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Avatar, HStack, VStack, View } from 'native-base';
 
-import { GoBackButton, Loader, Text } from '@/components';
+import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
+import { GoBackButton, Loader, Text } from '@/components';
 
 import { useRaffle } from './hooks/raffle.hook';
 import { PhotosSlider, SelectNames, RaffleDetails } from './components';
-import { THEME } from '@/styles/theme.styles';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
   const { isLoading, raffle, photos_urls, owner_name, owner_photo_url } =
