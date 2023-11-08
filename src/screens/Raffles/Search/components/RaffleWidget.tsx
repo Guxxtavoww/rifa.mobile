@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { View, VStack, Image, Pressable } from 'native-base';
 
 import { Text } from '@/components';
@@ -8,15 +8,23 @@ import { iRaffle } from '../types/responses.types';
 
 interface iRaffleWidgetProps {
   data: iRaffle;
+  currentSearch?: Maybe<string>;
   push: ScreenProps['navigation']['push'];
 }
 
-const RaffleWidget: React.FC<iRaffleWidgetProps> = ({ data, push }) => {
+const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
+  data,
+  push,
+  currentSearch,
+}) => {
   const onWidgetPress = useCallback(() => {
     push('raffle', {
       raffle_id: data.raffle_id,
+      currentSearch,
     });
-  }, [data.raffle_id, push]);
+  }, [data.raffle_id, push, currentSearch]);
+
+  const photoUri = useMemo(() => data.photos[0]?.photo_url, [data.photos]);
 
   return (
     <Pressable
@@ -26,20 +34,22 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({ data, push }) => {
       _pressed={{
         opacity: 0.85,
       }}
-      mb="2"
+      mb="3"
       onPress={onWidgetPress}
     >
-      <View w="full" position="relative" borderRadius="md" overflow="hidden">
-        <Image
-          source={{ uri: data.photos[0].photo_url }}
-          w="full"
-          h="full"
-          borderRadius="md"
-          alt="Raffle Image"
-          style={{
-            objectFit: 'cover',
-          }}
-        />
+      <View w="full" position="relative" borderRadius="2xl" overflow="hidden">
+        {photoUri ? (
+          <Image
+            source={{ uri: photoUri }}
+            w="full"
+            h="full"
+            borderRadius="2xl"
+            alt="Raffle Image"
+            style={{
+              objectFit: 'cover',
+            }}
+          />
+        ) : null}
         <VStack
           h="1/2"
           w="full"

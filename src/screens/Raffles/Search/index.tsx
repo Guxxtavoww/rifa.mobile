@@ -28,7 +28,7 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
         onSubmitKeyboard={handleSearchQuery}
         isLoading={isLoading}
         mb="4"
-        defaultValue={route.params.query || undefined}
+        defaultValue={searchQuery}
       />
       {isLoading ? null : (
         <Text
@@ -80,12 +80,13 @@ const SearchRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
                     data={raffle}
                     push={navigation.push}
                     key={index}
+                    currentSearch={searchQuery}
                   />
                 ))}
               </View>
             )}
             scrollEnabled
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
             estimatedItemSize={1000}
             onEndReached={onEndReached}
             onEndReachedThreshold={0.1}

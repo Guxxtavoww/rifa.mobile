@@ -1,25 +1,28 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import { Form, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 
+import PickedImages from './components/PickedImages';
 import { createRaffleFormSchema } from './types/form.types';
 import { useCreateRaffle } from './hooks/create-raffle.hook';
 
 const CreateRaffle: React.FC = () => {
   const {
     handleSubmit,
-    clearPhotosUrls,
+    removePhoto,
     handlePickRafflesPhotos,
     isLoading,
     hasPhotos,
+    photosUrls,
+    clearPhotos,
   } = useCreateRaffle();
 
   return (
-    <View style={[commonStyles.screen_container_light]}>
+    <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
       <Text
         content="Crie Sua Rifa"
         fontSize="large"
@@ -34,6 +37,11 @@ const CreateRaffle: React.FC = () => {
         // @ts-ignore
         zodSchema={createRaffleFormSchema}
         themeType="light"
+        bottomFormElement={
+          hasPhotos ? (
+            <PickedImages imagesUris={photosUrls} onImagePress={removePhoto} />
+          ) : undefined
+        }
         inputs={[
           {
             name: 'raffle_title',
@@ -74,14 +82,11 @@ const CreateRaffle: React.FC = () => {
         handleSubmit={handleSubmit}
         isLoading={isLoading}
         submitButtonText="Criar Rifa"
+        onResetForm={clearPhotos}
+        resetAfterSubmit
         customAction1={
-          hasPhotos
+          !hasPhotos
             ? {
-                icon: <Feather name="trash" size={20} color="#fff" />,
-                content: 'Limpar Fotos',
-                onPress: clearPhotosUrls,
-              }
-            : {
                 content: 'Importe imagens da sua rifa',
                 onPress: handlePickRafflesPhotos,
                 icon: (
@@ -92,9 +97,10 @@ const CreateRaffle: React.FC = () => {
                   />
                 ),
               }
+            : undefined
         }
       />
-    </View>
+    </ScrollView>
   );
 };
 

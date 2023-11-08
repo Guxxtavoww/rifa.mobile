@@ -22,8 +22,12 @@ export function useCreateRaffle() {
     },
   });
 
-  const clearPhotosUrls = useCallback(() => {
+  const clearPhotos = useCallback(() => {
     setPhotosUrls([]);
+  }, []);
+
+  const removePhoto = useCallback((imageUri: string) => {
+    setPhotosUrls((prev) => prev.filter((image) => image !== imageUri));
   }, []);
 
   const handlePickRafflesPhotos = useCallback(async () => {
@@ -71,9 +75,11 @@ export function useCreateRaffle() {
 
   return {
     handleSubmit,
-    clearPhotosUrls,
+    removePhoto,
     handlePickRafflesPhotos,
     isLoading,
     hasPhotos: photosUrls.length > 0,
+    photosUrls,
+    clearPhotos,
   };
 }

@@ -42,4 +42,7 @@ export interface iFormProps<
   customAction2?: FormButtonProps;
   themeType?: iInputProps['themeType'];
   hideSubmitButton?: boolean;
+  bottomFormElement?: JSX.Element;
+  resetAfterSubmit?: boolean;
+  onResetForm?: () => void | Promise<void>;
 }
