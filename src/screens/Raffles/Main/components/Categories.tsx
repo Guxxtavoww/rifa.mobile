@@ -26,11 +26,15 @@ const Categories: React.FC<iCategoriesProps> = ({
       data={categories}
       horizontal
       showsHorizontalScrollIndicator={false}
+      mb="3"
+      maxHeight="10"
+      w="full"
       renderItem={({ item, index }) => (
         <Pressable
           key={index}
           w="container"
-          h="45px"
+          h="10"
+          maxHeight="10"
           onPress={() => onCategoryPress(item.raffle_category_name)}
           bg={THEME.colors.secondary_dark_text_color}
           borderRadius="2xl"
@@ -52,7 +56,6 @@ const Categories: React.FC<iCategoriesProps> = ({
           />
         </Pressable>
       )}
-      w="full"
     />
   );
 };

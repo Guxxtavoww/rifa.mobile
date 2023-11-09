@@ -1,14 +1,14 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { View as RNView } from 'react-native'
+import { VStack, View } from 'native-base';
 import { FlashList } from '@shopify/flash-list';
 
-import { Button, Loader, SearchInput } from '@/components';
+import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
+import { Button, Loader, SearchInput, Text } from '@/components';
 
 import Categories from './components/Categories';
 import { useMainRaffles } from './hooks/main-raffles.hook';
-import { THEME } from '@/styles/theme.styles';
-import { VStack, View } from 'native-base';
 import RaffleWidget from '../Search/components/RaffleWidget';
 
 const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
@@ -25,7 +25,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
   } = useMainRaffles(navigation.replace);
 
   return (
-    <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
+    <RNView style={[commonStyles.screen_container_light]}>
       <SearchInput
         onSubmitKeyboard={handleSearchRaffle}
         onPressSearchIcon={handleSearchRaffle}
@@ -54,6 +54,15 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         />
       ) : (
         <VStack flex={1} w="full">
+          <Text
+            content="Principais Rifas"
+            color={THEME.colors.secondary_dark_text_color}
+            fontWeight="medium"
+            fontSize="large"
+            style={{
+              marginBottom: 10,
+            }}
+          />
           <FlashList
             data={mainRafflesResult}
             renderItem={({ index: wrapperIndex, item }) => (
@@ -86,7 +95,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
           ) : null}
         </VStack>
       )}
-    </ScrollView>
+    </RNView>
   );
 };
 
