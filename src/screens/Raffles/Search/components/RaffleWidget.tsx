@@ -12,6 +12,7 @@ interface iRaffleWidgetProps {
   currentSearch?: Maybe<string>;
   push: ScreenProps['navigation']['push'];
   getOwnerWidgetContent: (ownerData: iRaffle['owner']) => string;
+  origin?: string;
 }
 
 const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
@@ -19,13 +20,19 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
   push,
   currentSearch,
   getOwnerWidgetContent,
+  origin = 'raffle',
 }) => {
   const onWidgetPress = useCallback(() => {
-    push('raffle', {
-      raffle_id: data.raffle_id,
-      currentSearch,
-    });
-  }, [data.raffle_id, push, currentSearch]);
+    push(
+      origin,
+      origin !== 'raffle'
+        ? undefined
+        : {
+            raffle_id: data.raffle_id,
+            currentSearch,
+          }
+    );
+  }, [data.raffle_id, push, currentSearch, origin]);
 
   const photoUri = useMemo(() => data.photos[0]?.photo_url, [data.photos]);
 
