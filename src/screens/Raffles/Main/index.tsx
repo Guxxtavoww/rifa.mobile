@@ -1,18 +1,22 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { Button, SearchInput } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
 
+import Categories from './components/Categories';
 import { useMainRaffles } from './hooks/main-raffles.hook';
 
 const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
-  const { handleSearchRaffle, handleCreateRaffleButtonPress } = useMainRaffles(
-    navigation.push
-  );
+  const {
+    handleSearchRaffle,
+    handleCreateRaffleButtonPress,
+    categoriesResonse,
+    isLoadingCategories,
+  } = useMainRaffles(navigation.replace);
 
   return (
-    <View style={[commonStyles.screen_container_light]}>
+    <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
       <SearchInput
         onSubmitKeyboard={handleSearchRaffle}
         onPressSearchIcon={handleSearchRaffle}
@@ -24,8 +28,14 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
         textFontWeight="bold"
         borderRadius="full"
         onPress={handleCreateRaffleButtonPress}
+        mb="6"
       />
-    </View>
+      <Categories
+        categories={categoriesResonse}
+        onCategoryPress={handleSearchRaffle}
+        isLoading={isLoadingCategories}
+      />
+    </ScrollView>
   );
 };
 

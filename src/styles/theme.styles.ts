@@ -9,6 +9,7 @@ export const THEME = {
     header_logo_color: '#1a1a29ff',
     overlay: '#00000037',
     grayColor: '#EAEAEA',
+    secondary_dark_text_color: '#1A1A29',
   },
   fonts: {
     regular: 'Poppins-Regular',

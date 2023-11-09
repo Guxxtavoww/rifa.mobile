@@ -22,7 +22,7 @@ const SelectNamesIconButton: React.FC<iSelectNamesIconButtonProps> = ({
     icon={
       <Feather
         name={icon === 'add' ? 'plus' : 'minus'}
-        color="#1A1A29"
+        color={THEME.colors.secondary_dark_text_color}
         size={20}
       />
     }

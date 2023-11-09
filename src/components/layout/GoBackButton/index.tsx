@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton } from 'native-base';
+import { IconButton, IIconButtonProps } from 'native-base';
 import { Feather } from '@expo/vector-icons';
 
 import { THEME } from '@/styles/theme.styles';
@@ -11,11 +11,15 @@ interface iGoBackButtonProps {
   removeMarginLeft?: boolean;
 }
 
-const GoBackButton: React.FC<iGoBackButtonProps> = ({
+type Props = Omit<IIconButtonProps, keyof iGoBackButtonProps> &
+  iGoBackButtonProps;
+
+const GoBackButton: React.FC<Props> = ({
   onPress,
   iconSize,
   color = 'white',
   removeMarginLeft,
+  ...rest
 }) => (
   <IconButton
     icon={<Feather name="arrow-left" size={iconSize || 25} />}
@@ -37,6 +41,7 @@ const GoBackButton: React.FC<iGoBackButtonProps> = ({
       },
     }}
     ml={removeMarginLeft ? '0' : '2'}
+    {...rest}
   />
 );
 
