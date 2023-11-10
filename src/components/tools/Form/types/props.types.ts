@@ -4,6 +4,7 @@ import { FieldValues } from 'react-hook-form';
 import { ButtonProps } from '@/components/layout/Button';
 
 import { iInputProps } from '../components/Input';
+import { iSelectProps } from '../components/Select';
 import { iTextAreaProps } from '../components/TextArea';
 import { iDateInputProps } from '../components/DateInput';
 import { iPasswordInputProps } from '../components/PasswordInput';
@@ -24,7 +25,8 @@ export type Input<T> =
   | ({
       name: keyof T;
       type: 'textarea';
-    } & Omit<iTextAreaProps, 'name' | 'type'>);
+    } & Omit<iTextAreaProps, 'name' | 'type'>)
+  | ({ name: keyof T; type: 'select' } & iSelectProps);
 
 type FormButtonProps = Omit<ButtonProps, 'isLoading' | 'mb'>;
 

@@ -1,31 +1,53 @@
 import { useCallback, useState } from 'react';
 import { Platform } from 'react-native';
+import { useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
-import { useMutation } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { toast } from '@/utils/app.utils';
 import { uploadMultipleImagesAsync } from '@/utils/upload-image-async.util';
-import { removeDuplicatedItemsFromArray } from '@/utils/remove-duplicated-items-from-array.util';
 
-import { CreateRaffleFormType } from '../types/form.types';
-import { createRaffleAPI } from '../api/create-raffle.api';
+import { createRaffleAPI, getCategoriesAPI } from '../api/create-raffle.api';
+import {
+  CreateRaffleFormType,
+  createRaffleFormSchema,
+} from '../types/form.types';
 
 export function useCreateRaffle() {
   const [photosUrls, setPhotosUrls] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<SelectOptions>(
+    []
+  );
+
+  const methods = useForm<CreateRaffleFormType>({
+    resolver: zodResolver(createRaffleFormSchema),
+  });
+
+  const { handleSubmit: handleHookFormSubmit, reset } = methods;
+
+  const { data: categoriesOptions, isLoading: isLoadingCategories } = useQuery({
+    queryFn: getCategoriesAPI,
+    queryKey: ['categories-options'],
+  });
 
   const { mutate: createRaffleMutation, isLoading } = useMutation({
-    mutationFn: async (data: CreateRaffleFormType) => {
+    mutationKey: ['create-raffle'],
+    mutationFn: async (
+      data: CreateRaffleFormType & { selectedCategories: SelectOptions }
+    ) => {
       const firebaseGeneratedPhotosUrls = await uploadMultipleImagesAsync(
         photosUrls
       );
 
-      return createRaffleAPI({ ...data, photos: firebaseGeneratedPhotosUrls });
+      return createRaffleAPI({
+        ...data,
+        photos: firebaseGeneratedPhotosUrls,
+      }).then(() => {
+        reset();
+      });
     },
   });
-
-  const clearPhotos = useCallback(() => {
-    setPhotosUrls([]);
-  }, []);
 
   const removePhoto = useCallback((imageUri: string) => {
     setPhotosUrls((prev) => prev.filter((image) => image !== imageUri));
@@ -62,6 +84,28 @@ export function useCreateRaffle() {
     ]);
   }, [toast]);
 
+  const handleDeleteCategory = useCallback((category_id: string) => {
+    setSelectedCategories((prev) =>
+      prev.filter((category) => category.value !== category_id)
+    );
+  }, []);
+
+  const handleSelectCategory = useCallback((category_id: string) => {
+    const foundedCategory = categoriesOptions?.find(
+      (category) => category.value === category_id
+    );
+
+    if (!foundedCategory) {
+      toast('Categoria Inválida', {
+        status: 'warning',
+      });
+
+      return;
+    }
+
+    setSelectedCategories((prev) => [...prev, foundedCategory]);
+  }, []);
+
   const handleSubmit = useCallback(
     async (data: CreateRaffleFormType) => {
       if (!photosUrls.length) {
@@ -70,20 +114,34 @@ export function useCreateRaffle() {
         });
 
         return;
+      } else if (!selectedCategories.length) {
+        toast('Insira alguma categoria', {
+          status: 'warning',
+        });
+
+        return;
       }
 
-      createRaffleMutation(data);
+      createRaffleMutation({ ...data, selectedCategories });
     },
-    [createRaffleMutation, photosUrls]
+    [createRaffleMutation, photosUrls, selectedCategories]
   );
 
+  const onSubmitButtonPress = useCallback(async () => {
+    handleHookFormSubmit(handleSubmit);
+  }, [handleHookFormSubmit, handleSubmit]);
+
   return {
-    handleSubmit,
     removePhoto,
     handlePickRafflesPhotos,
-    isLoading,
+    isLoading: isLoading || isLoadingCategories,
     hasPhotos: photosUrls.length > 0,
     photosUrls,
-    clearPhotos,
+    categoriesOptions,
+    onSubmitButtonPress,
+    methods,
+    handleSelectCategory,
+    selectedCategories,
+    handleDeleteCategory,
   };
 }

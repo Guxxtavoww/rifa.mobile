@@ -54,4 +54,11 @@ declare global {
   };
 
   export type ToastFuncType = (message: string, options?: ToastArgType) => void;
+
+  export interface iSelectOption {
+    label: string;
+    value: string;
+  }
+
+  export type SelectOptions = iSelectOption[];
 }

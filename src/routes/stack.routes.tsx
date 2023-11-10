@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { GoBackButton } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 
 import { Login, Register } from '../screens';
-import { GoBackButton } from '@/components';
 
 const Stack = createStackNavigator();
 
