@@ -71,41 +71,46 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
               marginBottom: 10,
             }}
           />
-          <FlashList
-            data={mainRafflesResult}
-            renderItem={({ index: wrapperIndex, item }) => (
-              <View key={wrapperIndex}>
-                {item.data.map((raffle, index) => (
-                  <RaffleWidget
-                    data={raffle}
-                    getOwnerWidgetContent={getOwnerWidgetContent}
-                    push={navigation.push}
-                    key={index}
-                  />
-                ))}
-              </View>
-            )}
-            scrollEnabled
-            showsVerticalScrollIndicator={false}
-            estimatedItemSize={100000}
-            onEndReached={onEndReached}
-            onEndReachedThreshold={0.1}
-            ListEmptyComponent={
-              <Text
-                content="Não há rifas"
-                color={THEME.colors.dark_text_color}
-              />
-            }
-          />
-          {isFetchingNextPage ? (
-            <Loader
-              size={30}
-              textProps={{
-                content: 'Carregando mais rifas...',
-                color: THEME.colors.dark_text_color,
-              }}
+          {mainRafflesResult && mainRafflesResult[0]?.meta.total === 0 ? (
+            <Text
+              content="Não há rifas"
+              color={THEME.colors.dark_text_color}
+              fontWeight="medium"
             />
-          ) : null}
+          ) : (
+            <>
+              <FlashList
+                data={mainRafflesResult}
+                renderItem={({ index: wrapperIndex, item }) => (
+                  <View key={wrapperIndex}>
+                    {item.data.map((raffle, index) => (
+                      <RaffleWidget
+                        data={raffle}
+                        getOwnerWidgetContent={getOwnerWidgetContent}
+                        push={navigation.push}
+                        key={index}
+                      />
+                    ))}
+                  </View>
+                )}
+                scrollEnabled
+                refreshing={isLoadingCategories}
+                showsVerticalScrollIndicator={false}
+                estimatedItemSize={100000}
+                onEndReached={onEndReached}
+                onEndReachedThreshold={0.1}
+              />
+              {isFetchingNextPage ? (
+                <Loader
+                  size={30}
+                  textProps={{
+                    content: 'Carregando mais rifas...',
+                    color: THEME.colors.dark_text_color,
+                  }}
+                />
+              ) : null}
+            </>
+          )}
         </VStack>
       )}
     </RNView>

@@ -56,7 +56,7 @@ export function useMainRaffles(defaultSearchText: string) {
     setSearchQueryText(query);
   }, []);
 
-  const handleCategoryPress = useCallback((category_id: number) => {
+  const handleCategoryPress = useCallback((category_id: number | undefined) => {
     setCurrentCategoryId(category_id);
   }, []);
 
@@ -69,6 +69,7 @@ export function useMainRaffles(defaultSearchText: string) {
       fetchNextPage();
     }
   }, [hasNextPage, fetchNextPage]);
+
 
   return {
     mainRafflesResult: mainRafflesResult?.pages,

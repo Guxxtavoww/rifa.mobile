@@ -10,8 +10,15 @@ import { useRaffle } from './hooks/raffle.hook';
 import { PhotosSlider, SelectNames, RaffleDetails } from './components';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
-  const { isLoading, raffle, photos_urls, owner_name, owner_photo_url } =
-    useRaffle(route.params.raffle_id);
+  const {
+    isLoading,
+    raffle,
+    photos_urls,
+    owner_name,
+    owner_photo_url,
+    buyNamesMutation,
+    isLoadingNamesBought,
+  } = useRaffle(route.params.raffle_id);
 
   return (
     <ScrollView
@@ -71,7 +78,9 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
           </View>
           <SelectNames
             maxAmountOfNames={raffle?.available_quantity!}
-            onSelectNameAmount={(value) => console.log(value)}
+            onSelectNameAmount={buyNamesMutation}
+            namePrice={raffle?.raffle_subscription_price}
+            isLoading={isLoadingNamesBought}
           />
           <RaffleDetails
             data={{

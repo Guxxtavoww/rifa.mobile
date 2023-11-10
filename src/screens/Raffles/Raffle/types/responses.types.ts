@@ -6,8 +6,8 @@ export interface iRaffle {
   raffle_description: string;
   raffle_id: string;
   raffle_title: string;
+  raffle_subscription_price: number;
   available_quantity: number;
-  maximum_people_quantity: number;
   subscribed_users: iSubscribedUser[];
 }
 

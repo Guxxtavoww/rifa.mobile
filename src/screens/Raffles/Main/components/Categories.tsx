@@ -8,7 +8,7 @@ import { iCategory } from '../types/responses.types';
 
 interface iCategoriesProps {
   currentCategoryId?: number | undefined;
-  onCategoryPress: (category_id: number) => void;
+  onCategoryPress: (category_id: number | undefined) => void;
   categories: iCategory[] | undefined;
   isLoading?: boolean;
 }
@@ -44,7 +44,13 @@ const Categories: React.FC<iCategoriesProps> = ({
             w="container"
             h="10"
             maxHeight="10"
-            onPress={() => onCategoryPress(item.raffle_category_id)}
+            onPress={() =>
+              onCategoryPress(
+                currentCategoryId === item.raffle_category_id
+                  ? undefined
+                  : item.raffle_category_id
+              )
+            }
             bg={
               currentCategoryId === item.raffle_category_id
                 ? THEME.colors.orange_color

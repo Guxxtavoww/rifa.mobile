@@ -7,11 +7,13 @@ import { THEME } from '@/styles/theme.styles';
 interface iSelectNamesIconButtonProps {
   onPress: () => void;
   icon: 'add' | 'subtract';
+  isDisabled?: boolean;
 }
 
 const SelectNamesIconButton: React.FC<iSelectNamesIconButtonProps> = ({
   onPress,
   icon,
+  isDisabled,
 }) => (
   <IconButton
     w="12"
@@ -19,6 +21,7 @@ const SelectNamesIconButton: React.FC<iSelectNamesIconButtonProps> = ({
     borderRadius="full"
     justifyContent="center"
     alignItems="center"
+    isDisabled={isDisabled}
     icon={
       <Feather
         name={icon === 'add' ? 'plus' : 'minus'}

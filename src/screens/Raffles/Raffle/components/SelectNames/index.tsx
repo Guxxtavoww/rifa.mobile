@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, VStack, HStack } from 'native-base';
 
-import { Text } from '@/components';
+import { Button, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
+import { formatToCurrency } from '@/utils/string.utils';
 
 import SelectNamesInput from './SelectNamesInput';
 import SelectNamesIconButton from './SelectNamesIconButton';
@@ -10,13 +11,17 @@ import SelectNamesIconButton from './SelectNamesIconButton';
 interface iSelectNamesProps {
   defaultAmount?: number;
   maxAmountOfNames: number;
+  namePrice: number | undefined;
   onSelectNameAmount: (amount: number) => void;
+  isLoading: boolean;
 }
 
 const SelectNames: React.FC<iSelectNamesProps> = ({
   onSelectNameAmount,
   defaultAmount = 1,
   maxAmountOfNames,
+  namePrice,
+  isLoading,
 }) => {
   const [namesAmount, setNamesAmount] = useState(defaultAmount);
 
@@ -44,10 +49,6 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
     [setNamesAmount, maxAmountOfNames]
   );
 
-  useEffect(() => {
-    onSelectNameAmount(namesAmount);
-  }, [namesAmount, onSelectNameAmount]);
-
   return (
     <View
       w="full"
@@ -73,6 +74,7 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
           <SelectNamesIconButton
             icon="subtract"
             onPress={() => handleIconsPress('subtract')}
+            isDisabled={isLoading === true}
           />
           <SelectNamesInput
             value={namesAmount.toString()}
@@ -81,8 +83,33 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
           <SelectNamesIconButton
             icon="add"
             onPress={() => handleIconsPress('add')}
+            isDisabled={isLoading === true}
           />
         </HStack>
+        <VStack alignItems="flex-start" w="full" space={2}>
+          <Text
+            content={`Total: ${formatToCurrency(
+              namesAmount * (namePrice ?? 1)
+            )}`}
+            color={THEME.colors.dark_text_color}
+            fontSize="normalLarge"
+            fontWeight="medium"
+            style={{
+              marginLeft: 6,
+            }}
+          />
+          <Button
+            content="Comprar"
+            bg="#67AB76"
+            textFontWeight="bold"
+            _pressed={{
+              backgroundColor: 'green.200',
+            }}
+            onPress={() => onSelectNameAmount(namesAmount)}
+            isLoading={isLoading}
+            borderRadius="full"
+          />
+        </VStack>
       </VStack>
     </View>
   );

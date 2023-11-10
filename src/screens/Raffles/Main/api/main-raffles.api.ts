@@ -18,7 +18,7 @@ export const getMainRafflesAPI = async (
       params: {
         page,
         query: raffleQuery,
-        raffle_category_code: raffleCategoryCode,
+        raffleCategory: raffleCategoryCode,
       },
     })
     .then((res) => Promise.resolve(res.data));

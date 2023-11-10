@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
 
@@ -10,6 +10,16 @@ export function useRaffle(raffle_id: string) {
     queryKey: ['get-raffle'],
     queryFn: async () => getRaffleDetails(raffle_id),
   });
+
+  const { mutate: buyNamesMutation, isLoading: isLoadingNamesBought } =
+    useMutation({
+      mutationKey: ['buy-names'],
+      mutationFn: async (namesAmount: number) => {
+        console.log(namesAmount);
+
+        return namesAmount;
+      },
+    });
 
   const user_id = useRedux().useAppSelector(
     (state) => state.auth.user_data!.user_id
@@ -32,5 +42,7 @@ export function useRaffle(raffle_id: string) {
     photos_urls,
     owner_name,
     owner_photo_url,
+    buyNamesMutation,
+    isLoadingNamesBought,
   };
 }
