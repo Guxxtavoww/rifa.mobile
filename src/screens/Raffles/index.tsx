@@ -5,7 +5,6 @@ import { THEME } from '@/styles/theme.styles';
 
 import Raffle from './Raffle';
 import MainRaffles from './Main';
-import SearchRaffles from './Search';
 
 const Stack = createStackNavigator();
 
@@ -25,11 +24,6 @@ const RafflesStack: React.FC = () => (
       options={{
         headerShown: false,
       }}
-    />
-    <Stack.Screen
-      name="search-raffles"
-      component={SearchRaffles as any}
-      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="raffle"

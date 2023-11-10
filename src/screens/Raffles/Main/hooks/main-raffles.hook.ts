@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
@@ -10,7 +10,10 @@ import {
 } from '../api/main-raffles.api';
 import { iMainRaffle } from '../types/responses.types';
 
-export function useMainRaffles(replace: ScreenProps['navigation']['replace']) {
+export function useMainRaffles(defaultSearchText: string) {
+  const [currentCategoryId, setCurrentCategoryId] = useState<number>();
+  const [searchQueryText, setSearchQueryText] = useState(defaultSearchText);
+
   const user_id = useRedux().useAppSelector(
     (state) => state.auth.user_data!.user_id
   );
@@ -18,6 +21,8 @@ export function useMainRaffles(replace: ScreenProps['navigation']['replace']) {
   const { data: categoriesResonse, isLoading: isLoadingCategories } = useQuery({
     queryKey: ['raffles-categories'],
     queryFn: getRaffleCategoriesAPI,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
   });
 
   const {
@@ -27,11 +32,13 @@ export function useMainRaffles(replace: ScreenProps['navigation']['replace']) {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['get-main-raffles'],
-    queryFn: ({ pageParam = 1 }) => getMainRafflesAPI(pageParam),
+    queryKey: ['get-main-raffles', searchQueryText, currentCategoryId],
+    queryFn: ({ pageParam = 1 }) =>
+      getMainRafflesAPI(pageParam, searchQueryText, currentCategoryId),
     getNextPageParam: (lastPage) => lastPage.meta.next,
     getPreviousPageParam: (firstPage) => firstPage.meta.prev,
     refetchOnMount: true,
+    refetchOnReconnect: true,
   });
 
   const navigation = useNavigation();
@@ -45,14 +52,13 @@ export function useMainRaffles(replace: ScreenProps['navigation']['replace']) {
     [user_id]
   );
 
-  const handleSearchRaffle = useCallback(
-    (query: string) => {
-      replace('search-raffles', {
-        query,
-      });
-    },
-    [replace]
-  );
+  const handleSearchRaffle = useCallback((query: string) => {
+    setSearchQueryText(query);
+  }, []);
+
+  const handleCategoryPress = useCallback((category_id: number) => {
+    setCurrentCategoryId(category_id);
+  }, []);
 
   const handleCreateRaffleButtonPress = useCallback(() => {
     navigation.navigate('create-raffle' as never);
@@ -74,5 +80,8 @@ export function useMainRaffles(replace: ScreenProps['navigation']['replace']) {
     getOwnerWidgetContent,
     isLoadingMainRaffles,
     isFetchingNextPage,
+    searchQueryText,
+    handleCategoryPress,
+    currentCategoryId,
   };
 }

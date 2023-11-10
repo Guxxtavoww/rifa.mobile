@@ -1,5 +1,5 @@
 import React from 'react';
-import { View as RNView } from 'react-native'
+import { View as RNView } from 'react-native';
 import { VStack, View } from 'native-base';
 import { FlashList } from '@shopify/flash-list';
 
@@ -8,10 +8,10 @@ import { commonStyles } from '@/styles/common.styles';
 import { Button, Loader, SearchInput, Text } from '@/components';
 
 import Categories from './components/Categories';
+import RaffleWidget from './components/RaffleWidget';
 import { useMainRaffles } from './hooks/main-raffles.hook';
-import RaffleWidget from '../Search/components/RaffleWidget';
 
-const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
+const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
   const {
     handleSearchRaffle,
     handleCreateRaffleButtonPress,
@@ -22,7 +22,10 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
     isLoadingMainRaffles,
     mainRafflesResult,
     onEndReached,
-  } = useMainRaffles(navigation.replace);
+    searchQueryText,
+    handleCategoryPress,
+    currentCategoryId,
+  } = useMainRaffles(String(route.params?.query || ''));
 
   return (
     <RNView style={[commonStyles.screen_container_light]}>
@@ -41,8 +44,9 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
       />
       <Categories
         categories={categoriesResonse}
-        onCategoryPress={handleSearchRaffle}
+        onCategoryPress={handleCategoryPress}
         isLoading={isLoadingCategories}
+        currentCategoryId={currentCategoryId}
       />
       {isLoadingMainRaffles ? (
         <Loader
@@ -55,7 +59,11 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
       ) : (
         <VStack flex={1} w="full">
           <Text
-            content="Principais Rifas"
+            content={
+              !searchQueryText
+                ? 'Principais Rifas'
+                : `Resultados para: ${searchQueryText}`
+            }
             color={THEME.colors.secondary_dark_text_color}
             fontWeight="medium"
             fontSize="large"
@@ -72,7 +80,6 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
                     data={raffle}
                     getOwnerWidgetContent={getOwnerWidgetContent}
                     push={navigation.push}
-                    origin="main-raffles"
                     key={index}
                   />
                 ))}
@@ -83,6 +90,12 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation }) => {
             estimatedItemSize={100000}
             onEndReached={onEndReached}
             onEndReachedThreshold={0.1}
+            ListEmptyComponent={
+              <Text
+                content="Não há rifas"
+                color={THEME.colors.dark_text_color}
+              />
+            }
           />
           {isFetchingNextPage ? (
             <Loader

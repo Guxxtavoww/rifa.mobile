@@ -21,7 +21,6 @@ export interface iMainRaffle {
   raffle_title: string;
   raffle_id: string;
   due_date: string;
-  raffle_subscription_price: number;
   photos: [{ photo_url: string }];
   owner: {
     user_name: string | null;

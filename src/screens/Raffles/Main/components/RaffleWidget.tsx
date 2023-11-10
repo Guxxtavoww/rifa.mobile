@@ -3,16 +3,14 @@ import { View, VStack, Image, Pressable, HStack, Avatar } from 'native-base';
 
 import { Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
-import { formatToCurrency } from '@/utils/string.utils';
 
-import { iRaffle } from '../types/responses.types';
+import { iMainRaffle } from '../types/responses.types';
 
 interface iRaffleWidgetProps {
-  data: iRaffle;
+  data: iMainRaffle;
   currentSearch?: Maybe<string>;
   push: ScreenProps['navigation']['push'];
-  getOwnerWidgetContent: (ownerData: iRaffle['owner']) => string;
-  origin?: string;
+  getOwnerWidgetContent: (ownerData: iMainRaffle['owner']) => string;
 }
 
 const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
@@ -20,19 +18,13 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
   push,
   currentSearch,
   getOwnerWidgetContent,
-  origin = 'raffle',
 }) => {
   const onWidgetPress = useCallback(() => {
-    push(
-      origin,
-      origin !== 'raffle'
-        ? undefined
-        : {
-            raffle_id: data.raffle_id,
-            currentSearch,
-          }
-    );
-  }, [data.raffle_id, push, currentSearch, origin]);
+    push('raffle', {
+      raffle_id: data.raffle_id,
+      currentSearch,
+    });
+  }, [data.raffle_id, push, currentSearch]);
 
   const photoUri = useMemo(() => data.photos[0]?.photo_url, [data.photos]);
 
@@ -91,7 +83,7 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
             h="1/2"
             w="full"
             shadow="9"
-            alignItems="flex-end"
+            alignItems="flex-start"
             py="1.5"
             px="2"
             zIndex={2}
@@ -101,14 +93,9 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
             borderBottomLeftRadius="md"
           >
             <Text
-              content={formatToCurrency(data.raffle_subscription_price)}
-              fontWeight="bold"
-              fontSize="extraSmall"
-            />
-            <Text
               content={data.raffle_title}
               fontWeight="bold"
-              fontSize="large"
+              fontSize="extraLarge"
             />
           </VStack>
         </View>

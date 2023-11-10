@@ -27,7 +27,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
             <HStack justifyContent="space-between" w="full">
               <GoBackButton
                 onPress={() =>
-                  navigation.replace('search-raffles', {
+                  navigation.replace('main-raffles', {
                     query: route.params?.currentSearch || '',
                   })
                 }
