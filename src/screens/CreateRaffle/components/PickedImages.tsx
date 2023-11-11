@@ -53,6 +53,7 @@ const PickedImages: React.FC<iPickerImagesProps> = ({
       paddingBottom: 10,
       paddingLeft: 16,
       paddingRight: 40,
+      paddingTop: 10,
     }}
   />
 );

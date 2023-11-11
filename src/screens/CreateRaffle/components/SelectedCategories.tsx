@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FlatList, Pressable } from 'native-base';
 
 import { Text } from '@/components';
@@ -17,6 +17,8 @@ const SelectedCategories: React.FC<iSelectedCategoriesProps> = ({
     data={selectedCategories}
     horizontal
     w="full"
+    mb="2"
+    mt="3"
     renderItem={({ index, item }) => (
       <Pressable
         alignItems="center"
@@ -26,8 +28,8 @@ const SelectedCategories: React.FC<iSelectedCategoriesProps> = ({
         mr="3"
         onPress={() => onSelectedCategoryPress(item.value)}
         key={index}
-        py="2"
-        px="1"
+        p="2"
+        bg="#C4C4C4"
       >
         <Text
           content={item.label}
@@ -39,4 +41,4 @@ const SelectedCategories: React.FC<iSelectedCategoriesProps> = ({
   />
 );
 
-export default SelectedCategories;
+export default memo(SelectedCategories);

@@ -3,7 +3,7 @@ import { toast } from '@/utils/app.utils';
 import { transformToSelectOptions } from '@/utils/transform-to-select-options.util';
 
 import { iCreateRaffleAPIPayload } from '../types/form.types';
-import { CategoriesResponse } from '../types/responses.types';
+import { CategoriesResponse, iCreateRaffleResponse } from '../types/responses.types';
 
 export const getCategoriesAPI = async () => {
   return api.get<CategoriesResponse>('/categories').then((res) =>
@@ -16,9 +16,7 @@ export const getCategoriesAPI = async () => {
   );
 };
 
-export const createRaffleAPI = async (
-  data: iCreateRaffleAPIPayload & { selectedCategories: SelectOptions }
-) => {
+export const createRaffleAPI = async (data: iCreateRaffleAPIPayload) => {
   const reqData = {
     raffle_title: data.raffle_title,
     raffle_description: data.raffle_description,
@@ -31,9 +29,11 @@ export const createRaffleAPI = async (
     })),
   };
 
-  return api.post('/raffles', reqData).then(({ data }) => {
-    toast('Rifa Criada com sucesso');
+  return api
+    .post<iCreateRaffleResponse>('/raffles', reqData)
+    .then(({ data }) => {
+      toast('Rifa Criada com sucesso');
 
-    return Promise.resolve(data);
-  });
+      return Promise.resolve(data);
+    });
 };

@@ -1,9 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Platform } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigation } from '@react-navigation/native';
 
 import { toast } from '@/utils/app.utils';
 import { uploadMultipleImagesAsync } from '@/utils/upload-image-async.util';
@@ -20,16 +21,38 @@ export function useCreateRaffle() {
     []
   );
 
+  const navigation = useNavigation();
+
   const methods = useForm<CreateRaffleFormType>({
     resolver: zodResolver(createRaffleFormSchema),
   });
 
-  const { handleSubmit: handleHookFormSubmit, reset } = methods;
+  const {
+    handleSubmit: handleHookFormSubmit,
+    reset,
+    formState: { errors },
+  } = methods;
 
-  const { data: categoriesOptions, isLoading: isLoadingCategories } = useQuery({
-    queryFn: getCategoriesAPI,
-    queryKey: ['categories-options'],
-  });
+  const { data: categoriesResponse, isLoading: isLoadingCategories } = useQuery(
+    {
+      queryFn: getCategoriesAPI,
+      queryKey: ['categories-options'],
+    }
+  );
+
+  const categoriesOptions = useMemo(
+    () =>
+      !selectedCategories.length
+        ? categoriesResponse
+        : categoriesResponse?.filter(
+            (categoryResponse) =>
+              !selectedCategories.find(
+                (selectedCategories) =>
+                  selectedCategories.value === categoryResponse.value
+              )
+          ),
+    [selectedCategories, categoriesResponse]
+  );
 
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle'],
@@ -43,8 +66,12 @@ export function useCreateRaffle() {
       return createRaffleAPI({
         ...data,
         photos: firebaseGeneratedPhotosUrls,
-      }).then(() => {
+      }).then((raffle) => {
         reset();
+        // @ts-ignore
+        navigation.navigate('raffle', {
+          raffle_id: raffle.raffle_id,
+        });
       });
     },
   });
@@ -90,21 +117,28 @@ export function useCreateRaffle() {
     );
   }, []);
 
-  const handleSelectCategory = useCallback((category_id: string) => {
-    const foundedCategory = categoriesOptions?.find(
-      (category) => category.value === category_id
-    );
+  const handleSelectCategory = useCallback(
+    (category_id: string) => {
+      const foundedCategory = categoriesOptions?.find(
+        (category) => category.value === category_id
+      );
 
-    if (!foundedCategory) {
-      toast('Categoria Inválida', {
-        status: 'warning',
-      });
+      if (!foundedCategory) {
+        toast('Categoria Inválida', {
+          status: 'warning',
+        });
 
-      return;
-    }
+        return;
+      }
 
-    setSelectedCategories((prev) => [...prev, foundedCategory]);
-  }, []);
+      setSelectedCategories((prev) =>
+        [...prev, foundedCategory].sort((a, b) =>
+          a.label.localeCompare(b.label)
+        )
+      );
+    },
+    [categoriesOptions]
+  );
 
   const handleSubmit = useCallback(
     async (data: CreateRaffleFormType) => {
@@ -127,10 +161,6 @@ export function useCreateRaffle() {
     [createRaffleMutation, photosUrls, selectedCategories]
   );
 
-  const onSubmitButtonPress = useCallback(async () => {
-    handleHookFormSubmit(handleSubmit);
-  }, [handleHookFormSubmit, handleSubmit]);
-
   return {
     removePhoto,
     handlePickRafflesPhotos,
@@ -138,10 +168,12 @@ export function useCreateRaffle() {
     hasPhotos: photosUrls.length > 0,
     photosUrls,
     categoriesOptions,
-    onSubmitButtonPress,
     methods,
     handleSelectCategory,
     selectedCategories,
     handleDeleteCategory,
+    handleHookFormSubmit,
+    handleSubmit,
+    hasErrors: !!errors,
   };
 }

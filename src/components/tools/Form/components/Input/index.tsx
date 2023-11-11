@@ -27,6 +27,7 @@ const Input: React.FC<iInputProps> = ({
   onChangeText,
   defaultValue,
   themeType = 'dark',
+  w,
   ...rest
 }) => {
   const stringfyedName = useMemo(() => name.toString(), [name]);
@@ -70,6 +71,8 @@ const Input: React.FC<iInputProps> = ({
           mb={rest.mb ?? !!fieldError?.message ? 8 : 4}
           h={rest.h || '12'}
           isInvalid={!!fieldError?.message}
+          w={w || 'full'}
+          flex={1}
         >
           <NBInput
             bg="gray.700"
@@ -78,6 +81,7 @@ const Input: React.FC<iInputProps> = ({
             isInvalid={!!fieldError?.message}
             secureTextEntry={type === 'password'}
             h="full"
+            w="full"
             borderRadius="full"
             borderColor="black"
             backgroundColor={

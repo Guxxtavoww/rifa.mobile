@@ -4,3 +4,7 @@ export interface iCategory {
 }
 
 export type CategoriesResponse = iCategory[];
+
+export interface iCreateRaffleResponse {
+  raffle_id: string;
+}

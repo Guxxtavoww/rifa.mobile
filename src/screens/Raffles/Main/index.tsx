@@ -25,6 +25,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
     searchQueryText,
     handleCategoryPress,
     currentCategoryId,
+    currentCategoryLabel,
   } = useMainRaffles(String(route.params?.query || ''));
 
   return (
@@ -71,6 +72,17 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
               marginBottom: 10,
             }}
           />
+          {currentCategoryLabel ? (
+            <Text
+              content={`Resultados para a categoria de: ${currentCategoryLabel}`}
+              color={THEME.colors.secondary_dark_text_color}
+              fontWeight="bold"
+              fontSize="small"
+              style={{
+                marginBottom: 10,
+              }}
+            />
+          ) : null}
           {mainRafflesResult && mainRafflesResult[0]?.meta.total === 0 ? (
             <Text
               content="Não há rifas"

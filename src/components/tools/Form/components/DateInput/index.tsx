@@ -4,8 +4,14 @@ import RNDateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import { MaterialIcons } from '@expo/vector-icons';
-import { FormControl, HStack, Icon, Pressable } from 'native-base';
 import { Controller, useFormContext } from 'react-hook-form';
+import {
+  FormControl,
+  HStack,
+  Icon,
+  Pressable,
+  IFormControlProps,
+} from 'native-base';
 
 import Text from '@/components/layout/Text';
 import { THEME } from '@/styles/theme.styles';
@@ -18,6 +24,7 @@ export interface iDateInputProps extends Omit<BaseProps, 'onChange' | 'value'> {
   defaultPickerShowing?: boolean;
   label?: string;
   defaultPickerValue?: Date;
+  formControlProps?: IFormControlProps;
 }
 
 const DateInput: React.FC<iDateInputProps> = ({
@@ -25,6 +32,7 @@ const DateInput: React.FC<iDateInputProps> = ({
   defaultPickerShowing,
   label,
   defaultPickerValue,
+  formControlProps,
   ...rest
 }) => {
   const [isDatePickerShowing, setIsDatePickerShowing] = useState(
@@ -44,7 +52,7 @@ const DateInput: React.FC<iDateInputProps> = ({
       if (event.type === 'set' && selectedDate) {
         const stringfyedValue = String(new Date(selectedDate ?? Date.now()));
 
-        clearErrors(stringfyedName);
+        clearErrors();
         setValue(stringfyedName, stringfyedValue);
       }
       setIsDatePickerShowing(false);
@@ -63,12 +71,16 @@ const DateInput: React.FC<iDateInputProps> = ({
       defaultValue={defaultPickerValue}
       render={({ field }) => (
         <FormControl
-          mb={!!fieldError?.message ? 8 : 4}
-          h={'12'}
+          mb={!!fieldError?.message ? 8 : formControlProps?.mb ?? 4}
+          h={formControlProps?.h || '12'}
           isInvalid={!!fieldError?.message}
-          alignItems="flex-start"
+          alignItems={formControlProps?.alignItems || 'flex-start'}
+          {...formControlProps}
         >
-          <HStack space={3} alignItems="center">
+          <HStack
+            space={3}
+            alignItems={formControlProps?.alignItems || 'center'}
+          >
             <Pressable
               onPress={() => {
                 setIsDatePickerShowing((prev) => {

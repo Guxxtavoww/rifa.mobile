@@ -23,14 +23,24 @@ const CreateRaffle: React.FC = () => {
     photosUrls,
     categoriesOptions,
     methods,
-    onSubmitButtonPress,
     handleSelectCategory,
     handleDeleteCategory,
     selectedCategories,
+    handleHookFormSubmit,
+    handleSubmit,
+    hasErrors,
   } = useCreateRaffle();
 
   return (
-    <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
+    <ScrollView
+      style={[
+        commonStyles.screen_container_light,
+        {
+          paddingBottom: 30,
+        },
+      ]}
+      scrollEnabled
+    >
       <Text
         content="Crie Sua Rifa"
         fontSize="large"
@@ -42,44 +52,56 @@ const CreateRaffle: React.FC = () => {
         }}
       />
       <FormProvider {...methods}>
-        <VStack space={4} w="full">
+        <VStack w="full">
           <Input
             name="raffle_title"
             type="text"
             placeholder="Insira o titulo da rifa"
             themeType="light"
+            mb="0"
           />
           <TextArea
             name="raffle_description"
             themeType="light"
             placeholder="Insira uma pequena descrição..."
+            mb="0"
           />
-          <HStack alignItems="center" w="full" space="1">
+          <HStack
+            alignItems="center"
+            justifyContent="center"
+            w="full"
+            space="2"
+          >
             <Input
               name="raffle_subscription_price"
               type="decimal"
               placeholder="Preço da rifa"
               themeType="light"
-              InputLeftElement={
-                <Text
-                  content="R$:"
-                  fontWeight="medium"
-                  color={THEME.colors.dark_text_color}
-                  style={{
-                    paddingLeft: 12,
-                  }}
-                />
-              }
+              flex={1}
             />
             <Input
               name="maximum_people_quantity"
               type="number"
-              placeholder="Número máximo de pessoas"
+              placeholder="N° de Nomes"
               themeType="light"
+              flex={1}
             />
           </HStack>
-          <HStack alignItems="center" w="full" space="1">
-            <DateInput name="due_date" label="Insira a data final" />
+          <HStack
+            alignItems="center"
+            justifyContent="center"
+            w="full"
+            space="2"
+            h="12"
+          >
+            <DateInput
+              name="due_date"
+              label="Insira a data final"
+              formControlProps={{
+                justifyContent: 'flex-end',
+                flex: 1,
+              }}
+            />
             <SelectCategory
               categoriesOptions={categoriesOptions}
               isLoading={isLoading}
@@ -96,21 +118,17 @@ const CreateRaffle: React.FC = () => {
             <Button
               content="Importe imagens da sua rifa"
               onPress={handlePickRafflesPhotos}
-              icon={
-                <Feather
-                  name={!hasPhotos ? 'upload' : 'check'}
-                  size={20}
-                  color="#fff"
-                />
-              }
+              mt="3"
+              icon={<Feather name="camera" size={20} color="#fff" />}
             />
           ) : (
             <PickedImages imagesUris={photosUrls} onImagePress={removePhoto} />
           )}
           <Button
-            onPress={onSubmitButtonPress}
+            onPress={handleHookFormSubmit(handleSubmit)}
             isLoading={isLoading}
             content="Criar Rifa"
+            mt="3"
           />
         </VStack>
       </FormProvider>
