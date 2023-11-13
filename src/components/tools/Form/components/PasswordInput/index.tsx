@@ -90,7 +90,12 @@ const PasswordInput: React.FC<iPasswordInputProps> = ({
               clearErrors();
             }}
             InputRightElement={
-              <Pressable onPress={() => setIsPasswordVisible((prev) => !prev)}>
+              <Pressable
+                onPress={() => {
+                  setIsPasswordVisible((prev) => !prev);
+                  return false;
+                }}
+              >
                 <Icon
                   as={
                     <MaterialIcons

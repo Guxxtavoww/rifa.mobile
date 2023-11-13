@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { iUpdateUserResponse } from '@/screens/UserSettings/types/responses.types';
-
-import { AuthResponseType, AuthStateType } from './auth.types';
+import {
+  AuthResponseType,
+  AuthStateType,
+  iUpdateUserResponse,
+} from './auth.types';
 
 const authSlice = createSlice({
   name: 'auth',

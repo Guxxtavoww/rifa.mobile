@@ -53,7 +53,7 @@ const UserInfo: React.FC<iUserInfoProps> = ({ drawerProps }) => {
                 ? { uri: user_photo_url }
                 : require('../../../assets/jpg/no-profile-pic.jpg')
             }
-            size="2xl"
+            size="2xl"            
           />
         </TouchableOpacity>
         <Text

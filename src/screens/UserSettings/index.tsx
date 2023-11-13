@@ -1,117 +1,63 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Feather } from '@expo/vector-icons';
-import { View as NBView } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
+import { HStack } from 'native-base';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { THEME } from '@/styles/theme.styles';
-import { Button, Form, Text } from '@/components';
 import { commonStyles } from '@/styles/common.styles';
 
-import { editUserFormSchema } from './types/form.types';
-import DeleteUserModal from './components/DeleteUserModal';
+import UserSettingsStacks from './stacks';
+import UserAvatar from './components/UserAvatar';
+import UserStackWidget from './components/UserStackWidget';
 import { useUserSettings } from './hooks/user-settings.hook';
 
 const UserSettings: React.FC = () => {
   const {
-    handlePickUserImage,
+    avatarSource,
+    updateUserPhoto,
     isLoading,
-    user_email,
-    user_name,
-    handleUpdateUser,
-    hasPhoto,
-    clearUserPhotoUri,
-    handleCloseConfirmationModal,
-    isConfirmationModalOpen,
-    handleOpenConfirmationModal,
-    setWasFormEdited,
-    wasFormEdited,
+    currentStack,
+    handleUserWidgetPress,
   } = useUserSettings();
 
   return (
-    <View
-      style={[commonStyles.screen_container_light, { alignItems: 'center' }]}
+    <KeyboardAvoidingView
+      style={[
+        commonStyles.screen_container_light,
+        {
+          alignItems: 'center',
+        },
+      ]}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Text
-        content="Editar Usuário"
-        color={THEME.colors.dark_text_color}
-        fontSize="extraLarge"
-        fontWeight="bold"
-        style={{ marginBottom: 10 }}
-      />
-      <Form
-        inputs={[
-          {
-            name: 'user_email',
-            type: 'email',
-            defaultValue: user_email,
-            placeholder: 'Email',
-            onChangeText: () => setWasFormEdited(true),
-          },
-          {
-            name: 'user_name',
-            type: 'text',
-            defaultValue: user_name,
-            placeholder: 'Nome de Usuário',
-            onChangeText: () => setWasFormEdited(true),
-          },
-        ]}
-        zodSchema={editUserFormSchema}
-        handleSubmit={handleUpdateUser}
-        hideSubmitButton={!wasFormEdited}
-        themeType="light"
-        customAction1={{
-          icon: (
-            <Feather
-              name={!hasPhoto ? 'upload' : 'check'}
-              size={20}
-              color="#fff"
-            />
-          ),
-          onPress: handlePickUserImage,
-          isDisabled: hasPhoto,
-          content: !hasPhoto
-            ? 'Importar foto de usuário'
-            : 'Foto Importada com sucesso',
-        }}
-        customAction2={
-          hasPhoto
-            ? {
-                icon: <Feather name="trash" size={20} color="#fff" />,
-                content: 'Limpar Foto',
-                onPress: clearUserPhotoUri,
-              }
-            : undefined
-        }
+      <UserAvatar
+        avatarSource={avatarSource}
         isLoading={isLoading}
-        submitButtonText="Salvar Alterações"
+        updateUserPhoto={updateUserPhoto}
       />
-      <NBView
-        h="container"
-        flex="1"
-        pb={1}
+      <HStack
+        alignItems="center"
+        justifyContent="space-between"
+        space={3}
         w="full"
-        justifyContent="flex-end"
-        pt="5"
+        mb="4"
       >
-        <Button
-          content="Deletar Conta"
-          icon={<MaterialIcons name="delete" color="#fff" size={18} />}
-          bg="red.600"
-          borderColor="red.600"
-          borderWidth="1"
-          isLoading={isLoading}
-          onPress={handleOpenConfirmationModal}
-          _pressed={{
-            backgroundColor: 'red.700',
-          }}
+        <UserStackWidget
+          widgetType="shopping-cart"
+          currentStack={currentStack}
+          onPress={() => handleUserWidgetPress('bought-raffles')}
         />
-      </NBView>
-      <DeleteUserModal
-        handleClose={handleCloseConfirmationModal}
-        isOpen={isConfirmationModalOpen}
-      />
-    </View>
+        <UserStackWidget
+          widgetType="attach-money"
+          currentStack={currentStack}
+          onPress={() => handleUserWidgetPress('my-raffles')}
+        />
+        <UserStackWidget
+          widgetType="settings"
+          currentStack={currentStack}
+          onPress={() => handleUserWidgetPress('settings')}
+        />
+      </HStack>
+      <UserSettingsStacks currentStack={currentStack} />
+    </KeyboardAvoidingView>
   );
 };
 

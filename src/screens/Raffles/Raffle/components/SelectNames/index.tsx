@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { View, VStack, HStack } from 'native-base';
 
+import { useRedux } from '@/hooks';
 import { Button, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { formatToCurrency } from '@/utils/string.utils';
@@ -14,6 +15,7 @@ interface iSelectNamesProps {
   namePrice: number | undefined;
   onSelectNameAmount: (amount: number) => void;
   isLoading: boolean;
+  owner_id: string;
 }
 
 const SelectNames: React.FC<iSelectNamesProps> = ({
@@ -22,7 +24,12 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
   maxAmountOfNames,
   namePrice,
   isLoading,
+  owner_id,
 }) => {
+  const doesCurrentUserOwnsRaffle = useRedux().useAppSelector(
+    (state) => state.auth.user_data!.user_id === owner_id
+  );
+
   const [namesAmount, setNamesAmount] = useState(defaultAmount);
 
   const handleIconsPress = useCallback(
@@ -86,30 +93,32 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
             isDisabled={isLoading === true}
           />
         </HStack>
-        <VStack alignItems="flex-start" w="full" space={2}>
-          <Text
-            content={`Total: ${formatToCurrency(
-              namesAmount * (namePrice ?? 1)
-            )}`}
-            color={THEME.colors.dark_text_color}
-            fontSize="normalLarge"
-            fontWeight="medium"
-            style={{
-              marginLeft: 6,
-            }}
-          />
-          <Button
-            content="Comprar"
-            bg="#67AB76"
-            textFontWeight="bold"
-            _pressed={{
-              backgroundColor: 'green.200',
-            }}
-            onPress={() => onSelectNameAmount(namesAmount)}
-            isLoading={isLoading}
-            borderRadius="full"
-          />
-        </VStack>
+        {!doesCurrentUserOwnsRaffle ? (
+          <VStack alignItems="flex-start" w="full" space={2}>
+            <Text
+              content={`Total: ${formatToCurrency(
+                namesAmount * (namePrice ?? 1)
+              )}`}
+              color={THEME.colors.dark_text_color}
+              fontSize="normalLarge"
+              fontWeight="medium"
+              style={{
+                marginLeft: 6,
+              }}
+            />
+            <Button
+              content="Comprar"
+              bg="#67AB76"
+              textFontWeight="bold"
+              _pressed={{
+                backgroundColor: 'green.200',
+              }}
+              onPress={() => onSelectNameAmount(namesAmount)}
+              isLoading={isLoading}
+              borderRadius="full"
+            />
+          </VStack>
+        ) : null}
       </VStack>
     </View>
   );

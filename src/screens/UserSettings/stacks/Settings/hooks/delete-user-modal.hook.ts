@@ -1,7 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { deleteUserAPI } from '../api/user-settings.api';
+import { deleteUserAPI } from '../api/settings.api';
 import { DeleteUserFormType } from '../types/form.types';
 
 export function useDeleteUserModal(handleClose: Function) {

@@ -81,6 +81,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
             onSelectNameAmount={buyNamesMutation}
             namePrice={raffle?.raffle_subscription_price}
             isLoading={isLoadingNamesBought}
+            owner_id={raffle?.owner.user_id}
           />
           <RaffleDetails
             data={{

@@ -72,7 +72,7 @@ const Input: React.FC<iInputProps> = ({
           h={rest.h || '12'}
           isInvalid={!!fieldError?.message}
           w={w || 'full'}
-          flex={1}
+          flex={rest.flex ?? 1}
         >
           <NBInput
             bg="gray.700"

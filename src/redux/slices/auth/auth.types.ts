@@ -19,3 +19,13 @@ export type AuthStateType = {
   user_data: AuthResponseType['user_data'] | null;
   access_token: AuthResponseType['access_token'] | null;
 };
+
+export interface iUpdateUserResponse {
+  user_id: string;
+  created_at: string;
+  user_name: string | null;
+  user_email: string;
+  funds: number | null;
+  updated_at: string;
+  user_photo_url: string | null;
+}

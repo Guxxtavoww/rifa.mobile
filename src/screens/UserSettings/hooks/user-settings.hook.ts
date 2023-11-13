@@ -1,58 +1,36 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useMutation } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
 import { toast } from '@/utils/app.utils';
-import { uploadImageAsync } from '@/utils/upload-image-async.util';
 
-import { updateUserAPI } from '../api/user-settings.api';
-import { EditUserFormType } from '../types/form.types';
+import { updateUserPhotoAPI } from '../api/user-settings.api';
+import { iUserStackWidgetProps } from '../components/UserStackWidget';
 
 export function useUserSettings() {
-  const { user_email, user_name } = useRedux().useAppSelector(
+  const [currentStack, setCurrentStack] =
+    useState<iUserStackWidgetProps['widgetType']>('shopping-cart');
+
+  const { user_photo_url } = useRedux().useAppSelector(
     (state) => state.auth.user_data!
   );
 
-  const [userPhotoUri, setUserPhotoUri] = useState<string>();
-  const [wasFormEdited, setWasFormEdited] = useState(false);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-
-  const clearUserPhotoUri = useCallback(() => {
-    setUserPhotoUri(undefined);
-  }, [setUserPhotoUri]);
-
-  const handleCloseConfirmationModal = useCallback(() => {
-    setIsConfirmationModalOpen(false);
-  }, []);
-
-  const handleOpenConfirmationModal = useCallback(() => {
-    setIsConfirmationModalOpen(true);
-  }, []);
-
-  const { isLoading: isEditingUser, mutate: editUserMutation } = useMutation({
-    mutationFn: async (userPayload: EditUserFormType) => {
-      let user_photo_url: string = '';
-
-      if (userPhotoUri) {
-        user_photo_url = await uploadImageAsync(userPhotoUri).catch(() => {
-          toast('Falha ao enviar a foto', {
-            status: 'error',
-          });
-
-          return Promise.reject();
-        });
-      }
-
-      updateUserAPI({ ...userPayload, user_photo_url }).then(() => {
-        clearUserPhotoUri();
-        setWasFormEdited(false);
-      });
-    },
+  const { mutateAsync: updateUserPhotoMutation, isLoading } = useMutation({
+    mutationKey: ['update-user-photo-url'],
+    mutationFn: (photoUri: string) => updateUserPhotoAPI(photoUri),
   });
 
-  const handlePickUserImage = useCallback(async () => {
+  const avatarSource = useMemo(
+    () =>
+      user_photo_url
+        ? { uri: user_photo_url }
+        : require('@/assets/jpg/no-profile-pic.jpg'),
+    [user_photo_url]
+  );
+
+  const updateUserPhoto = useCallback(async () => {
     if (Platform.OS !== 'web') {
       const status = (await ImagePicker.requestMediaLibraryPermissionsAsync())
         .status;
@@ -76,29 +54,29 @@ export function useUserSettings() {
 
     if (result.canceled) return;
 
-    setUserPhotoUri(result.assets[0]!.uri);
-    setWasFormEdited(true);
-  }, [toast]);
+    const photoUri = result.assets[0]!.uri;
 
-  const handleUpdateUser = useCallback(
-    async (data: EditUserFormType) => {
-      editUserMutation(data);
+    await updateUserPhotoMutation(photoUri);
+  }, []);
+
+  const handleUserWidgetPress = useCallback(
+    (to: 'bought-raffles' | 'my-raffles' | 'settings') => {
+      setCurrentStack(
+        to === 'bought-raffles'
+          ? 'shopping-cart'
+          : to === 'settings'
+          ? 'settings'
+          : 'attach-money'
+      );
     },
-    [toast, userPhotoUri, clearUserPhotoUri]
+    [setCurrentStack]
   );
 
   return {
-    handlePickUserImage,
-    isLoading: isEditingUser,
-    user_email,
-    user_name,
-    handleUpdateUser,
-    hasPhoto: !!userPhotoUri,
-    clearUserPhotoUri,
-    handleCloseConfirmationModal,
-    isConfirmationModalOpen,
-    handleOpenConfirmationModal,
-    wasFormEdited,
-    setWasFormEdited,
+    avatarSource,
+    updateUserPhoto,
+    isLoading,
+    handleUserWidgetPress,
+    currentStack,
   };
 }

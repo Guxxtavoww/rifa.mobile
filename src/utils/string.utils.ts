@@ -23,7 +23,7 @@ export function capitalize(text: string): string {
     return firstLetter?.toLocaleUpperCase().concat(...rest);
   });
 
-  return mappedText.join(' ');
+  return mappedText?.join(' ');
 }
 
 export const isValidRegex = (
