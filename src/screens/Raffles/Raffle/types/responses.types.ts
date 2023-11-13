@@ -8,6 +8,9 @@ export interface iRaffle {
   raffle_title: string;
   raffle_subscription_price: number;
   available_quantity: number;
+  favorite_raffles?: {
+    favorited_by_id: string;
+  }[];
   subscribed_users: iSubscribedUser[];
 }
 

@@ -18,6 +18,9 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
     owner_photo_url,
     buyNamesMutation,
     isLoadingNamesBought,
+    isRaffleFavorited,
+    handleRaffleFavoritation,
+    isMutating,
   } = useRaffle(route.params.raffle_id);
 
   return (
@@ -81,7 +84,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
             onSelectNameAmount={buyNamesMutation}
             namePrice={raffle?.raffle_subscription_price}
             isLoading={isLoadingNamesBought}
-            owner_id={raffle?.owner.user_id}
+            owner_id={raffle?.owner.user_id || ''}
           />
           <RaffleDetails
             data={{
@@ -89,7 +92,11 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
               raffle_title: raffle?.raffle_title,
               owner_name,
               owner_photo_url,
+              owner_id: raffle?.owner.user_id,
             }}
+            isRaffleFavorited={isRaffleFavorited}
+            handleFavoriteIconPress={handleRaffleFavoritation}
+            isLoading={isMutating}
           />
         </VStack>
       )}

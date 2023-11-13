@@ -16,6 +16,8 @@ import { firebaseConfig } from '@/lib/firebase.lib';
 import { fetchFonts } from '@/utils/fetch-fonts.util';
 import { persistedStore, store } from '@/redux/store.redux';
 
+export const queryClient = new QueryClient();
+
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
 
@@ -53,7 +55,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistedStore}>
-        <QueryClientProvider client={new QueryClient()}>
+        <QueryClientProvider client={queryClient}>
           <NativeBaseProvider>
             <StatusBar
               animated
