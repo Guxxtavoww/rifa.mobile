@@ -75,7 +75,7 @@ const RaffleDetails: React.FC<iRaffleDetailsProps> = ({
             }}
             onPress={(e) => {
               if (isLoading) {
-                e.preventDefault();
+                return e.preventDefault();
               }
 
               handleFavoriteIconPress(!!isRaffleFavorited);

@@ -79,7 +79,6 @@ const SearchInput: React.FC<iSearchInputProps> = ({
           ) : (
             <Pressable
               onPress={() => {
-                focusOnInput();
                 if (onPressSearchIcon) onPressSearchIcon(inputValue);
               }}
               p="1.5"
