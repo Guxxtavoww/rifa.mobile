@@ -115,6 +115,7 @@ const CreateRaffle: React.FC = () => {
               onPress={handlePickRaffleVideo}
               mt="3"
               icon={<Feather name="video" size={20} color="#fff" />}
+              borderRadius="full"
             />
           ) : (
             <RaffleDemoVideo
@@ -128,6 +129,7 @@ const CreateRaffle: React.FC = () => {
               onPress={handlePickRafflesPhotos}
               mt="3"
               icon={<Feather name="camera" size={20} color="#fff" />}
+              borderRadius="full"
             />
           ) : (
             <PickedImages imagesUris={photosUrls} onImagePress={removePhoto} />
@@ -137,6 +139,7 @@ const CreateRaffle: React.FC = () => {
             isLoading={isLoading}
             content="Criar Rifa"
             mt="3"
+            borderRadius="full"
           />
         </VStack>
       </FormProvider>

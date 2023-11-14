@@ -15,7 +15,15 @@ const RaffleDemoVideo: React.FC<iRaffleDemoVideoProps> = ({
   videoUri,
   onClearButtonPress,
 }) => (
-  <View w="full" h="200px" position="relative" shadow="2" mt="3">
+  <View
+    w="full"
+    h="200px"
+    position="relative"
+    shadow="2"
+    mt="3"
+    borderWidth="1"
+    borderColor={THEME.colors.subtitle_color}
+  >
     <DemoVideo
       source={{ uri: videoUri }}
       style={{ width: Dimensions.get('window').width - 23, height: 200 }}
