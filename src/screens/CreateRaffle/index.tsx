@@ -13,6 +13,7 @@ import PickedImages from './components/PickedImages';
 import SelectCategory from './components/SelectCategory';
 import { useCreateRaffle } from './hooks/create-raffle.hook';
 import SelectedCategories from './components/SelectedCategories';
+import RaffleDemoVideo from './components/RaffleDemoVideo';
 
 const CreateRaffle: React.FC = () => {
   const {
@@ -28,19 +29,13 @@ const CreateRaffle: React.FC = () => {
     selectedCategories,
     handleHookFormSubmit,
     handleSubmit,
-    hasErrors,
+    handlePickRaffleVideo,
+    videoUri,
+    clearCurrentVideo,
   } = useCreateRaffle();
 
   return (
-    <ScrollView
-      style={[
-        commonStyles.screen_container_light,
-        {
-          paddingBottom: 30,
-        },
-      ]}
-      scrollEnabled
-    >
+    <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
       <Text
         content="Crie Sua Rifa"
         fontSize="large"
@@ -52,7 +47,7 @@ const CreateRaffle: React.FC = () => {
         }}
       />
       <FormProvider {...methods}>
-        <VStack w="full">
+        <VStack w="full" pb="6">
           <Input
             name="raffle_title"
             type="text"
@@ -114,6 +109,19 @@ const CreateRaffle: React.FC = () => {
               selectedCategories={selectedCategories}
             />
           ) : null}
+          {!videoUri ? (
+            <Button
+              content="Importe um vídeo para sua rifa"
+              onPress={handlePickRaffleVideo}
+              mt="3"
+              icon={<Feather name="video" size={20} color="#fff" />}
+            />
+          ) : (
+            <RaffleDemoVideo
+              onClearButtonPress={clearCurrentVideo}
+              videoUri={videoUri}
+            />
+          )}
           {!hasPhotos ? (
             <Button
               content="Importe imagens da sua rifa"

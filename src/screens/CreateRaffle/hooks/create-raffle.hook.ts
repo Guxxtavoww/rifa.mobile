@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Platform } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,15 +6,17 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 
 import { toast } from '@/utils/app.utils';
-import { uploadMultipleImagesAsync } from '@/utils/upload-image-async.util';
+import { handlePermission } from '@/screens/helpers/request-permission';
 
 import { createRaffleAPI, getCategoriesAPI } from '../api/create-raffle.api';
 import {
   CreateRaffleFormType,
   createRaffleFormSchema,
+  iCreateRaffleAPIPayload,
 } from '../types/form.types';
 
 export function useCreateRaffle() {
+  const [videoUri, setVideoUri] = useState<string>();
   const [photosUrls, setPhotosUrls] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<SelectOptions>(
     []
@@ -27,11 +28,7 @@ export function useCreateRaffle() {
     resolver: zodResolver(createRaffleFormSchema),
   });
 
-  const {
-    handleSubmit: handleHookFormSubmit,
-    reset,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit: handleHookFormSubmit, reset } = methods;
 
   const { data: categoriesResponse, isLoading: isLoadingCategories } = useQuery(
     {
@@ -56,18 +53,10 @@ export function useCreateRaffle() {
 
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle'],
-    mutationFn: async (
-      data: CreateRaffleFormType & { selectedCategories: SelectOptions }
-    ) => {
-      const firebaseGeneratedPhotosUrls = await uploadMultipleImagesAsync(
-        photosUrls
-      );
-
-      return createRaffleAPI({
-        ...data,
-        photos: firebaseGeneratedPhotosUrls,
-      }).then((raffle) => {
+    mutationFn: async (data: iCreateRaffleAPIPayload) => {
+      return createRaffleAPI(data, photosUrls, videoUri).then((raffle) => {
         reset();
+        setSelectedCategories([]);
         // @ts-ignore
         navigation.navigate('raffle', {
           raffle_id: raffle.raffle_id,
@@ -80,19 +69,41 @@ export function useCreateRaffle() {
     setPhotosUrls((prev) => prev.filter((image) => image !== imageUri));
   }, []);
 
-  const handlePickRafflesPhotos = useCallback(async () => {
-    if (Platform.OS !== 'web') {
-      const status = (await ImagePicker.requestMediaLibraryPermissionsAsync())
-        .status;
+  const clearCurrentVideo = useCallback(() => {
+    setVideoUri(undefined);
+  }, []);
 
-      if (status !== 'granted') {
-        toast('Por favor dê permissão para o aplicativo', {
-          status: 'warning',
-        });
+  const handlePickRaffleVideo = useCallback(async () => {
+    await handlePermission();
 
-        return;
-      }
+    const videoResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsMultipleSelection: false,
+      allowsEditing: false,
+      quality: 1,
+      selectionLimit: 1,
+      videoMaxDuration: 30,
+      videoQuality: ImagePicker.UIImagePickerControllerQualityType.Medium,
+    });
+
+    if (videoResult.canceled) return;
+
+    const chosenVideo = videoResult.assets[0]!;
+    const maxSizeInBytes = 40 * 1024 * 1024;
+
+    if (chosenVideo.fileSize && chosenVideo.fileSize > maxSizeInBytes) {
+      toast('Tamanho máximo de 40Mb execido!', {
+        status: 'warning',
+      });
+
+      return;
     }
+
+    setVideoUri(chosenVideo.uri);
+  }, []);
+
+  const handlePickRafflesPhotos = useCallback(async () => {
+    await handlePermission();
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -106,8 +117,7 @@ export function useCreateRaffle() {
     if (result.canceled) return;
 
     setPhotosUrls((prev) => [
-      ...prev,
-      ...result.assets.map((asset) => asset.uri),
+      ...new Set([...prev, ...result.assets.map((asset) => asset.uri)]),
     ]);
   }, [toast]);
 
@@ -156,7 +166,10 @@ export function useCreateRaffle() {
         return;
       }
 
-      createRaffleMutation({ ...data, selectedCategories });
+      createRaffleMutation({
+        ...data,
+        selectedCategories,
+      });
     },
     [createRaffleMutation, photosUrls, selectedCategories]
   );
@@ -174,6 +187,8 @@ export function useCreateRaffle() {
     handleDeleteCategory,
     handleHookFormSubmit,
     handleSubmit,
-    hasErrors: !!errors,
+    handlePickRaffleVideo,
+    videoUri,
+    clearCurrentVideo,
   };
 }

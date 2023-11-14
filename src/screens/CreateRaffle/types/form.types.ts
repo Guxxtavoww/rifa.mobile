@@ -30,6 +30,5 @@ export const createRaffleFormSchema = z.object({
 export type CreateRaffleFormType = z.infer<typeof createRaffleFormSchema>;
 
 export interface iCreateRaffleAPIPayload extends CreateRaffleFormType {
-  photos: string[];
   selectedCategories: SelectOptions;
 }

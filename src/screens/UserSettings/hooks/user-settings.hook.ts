@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useMutation } from '@tanstack/react-query';
 
 import { useRedux } from '@/hooks';
-import { toast } from '@/utils/app.utils';
+import { handlePermission } from '@/screens/helpers/request-permission';
 
 import { updateUserPhotoAPI } from '../api/user-settings.api';
 import { iUserStackWidgetProps } from '../components/UserStackWidget';
@@ -31,18 +30,7 @@ export function useUserSettings() {
   );
 
   const updateUserPhoto = useCallback(async () => {
-    if (Platform.OS !== 'web') {
-      const status = (await ImagePicker.requestMediaLibraryPermissionsAsync())
-        .status;
-
-      if (status !== 'granted') {
-        toast('Por favor dê permissão para o aplicativo', {
-          status: 'warning',
-        });
-
-        return;
-      }
-    }
+    await handlePermission();
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

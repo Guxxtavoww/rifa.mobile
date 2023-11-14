@@ -3,9 +3,11 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { store } from '@/redux/store.redux';
 
 export async function uploadImageAsync(
-  uri: string,
+  uri?: string,
   currentIndex?: number
-): Promise<string> {
+): Promise<string | void> {
+  if (!uri) return;
+
   const blob: Blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -35,6 +37,6 @@ export async function uploadImageAsync(
 
 export async function uploadMultipleImagesAsync(
   uris: string[]
-): Promise<string[]> {
+): Promise<(string | void)[]> {
   return await Promise.all(uris.map(uploadImageAsync));
 }

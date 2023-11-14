@@ -2,6 +2,7 @@ export { default as Button } from './layout/Button';
 export { default as Loader } from './layout/Loader';
 export { default as Text } from './layout/Text';
 export { default as UserInfo } from './layout/UserInfo';
+export { default as DemoVideo } from './layout/DemoVideo';
 export { default as GoBackButton } from './layout/GoBackButton';
 export { default as Form } from './tools/Form';
 export { default as Modal } from './tools/Modal';
