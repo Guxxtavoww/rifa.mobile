@@ -48,4 +48,4 @@ jobs:
           eas-cache: true
           token: ${{ secrets.EXPO_TOKEN }}
       - run: npm install
-      - run: eas build -p android --profile production
+      - run: eas build -p android --profile production --non-interactive
