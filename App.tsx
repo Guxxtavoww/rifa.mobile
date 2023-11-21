@@ -31,7 +31,7 @@ export default function App() {
         return;
       }
 
-      SplashScreen.preventAutoHideAsync();
+      // SplashScreen.preventAutoHideAsync();
 
       const { isAvailable } = await Updates.checkForUpdateAsync();
 
