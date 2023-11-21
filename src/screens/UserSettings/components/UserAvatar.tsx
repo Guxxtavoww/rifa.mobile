@@ -1,4 +1,5 @@
 import { Avatar, Pressable, VStack } from 'native-base';
+import { ImageSourcePropType } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Loader, Text } from '@/components';
@@ -8,7 +9,7 @@ import { useRedux } from '@/hooks';
 interface iUserAvatarProps {
   isLoading: boolean;
   updateUserPhoto: () => Promise<void>;
-  avatarSource: any;
+  avatarSource: ImageSourcePropType;
 }
 
 const UserAvatar: React.FC<iUserAvatarProps> = ({

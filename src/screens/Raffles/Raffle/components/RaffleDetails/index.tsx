@@ -85,9 +85,13 @@ const RaffleDetails: React.FC<iRaffleDetailsProps> = ({
               <Loader size={25} color={THEME.colors.dark_text_color} />
             ) : (
               <MaterialIcons
-                name={isRaffleFavorited ? 'star' : 'star-border'}
+                name={isRaffleFavorited ? 'favorite' : 'favorite-border'}
                 size={25}
-                color={THEME.colors.dark_text_color}
+                color={
+                  THEME.colors[
+                    isRaffleFavorited ? 'red_color' : 'dark_text_color'
+                  ]
+                }
               />
             )}
           </Pressable>

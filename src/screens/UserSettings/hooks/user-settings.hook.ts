@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { useMutation } from '@tanstack/react-query';
+import { ImageSourcePropType } from 'react-native';
 
 import { useRedux } from '@/hooks';
 import { handlePermission } from '@/screens/helpers/request-permission';
@@ -12,8 +13,8 @@ export function useUserSettings() {
   const [currentStack, setCurrentStack] =
     useState<iUserStackWidgetProps['widgetType']>('shopping-cart');
 
-  const { user_photo_url } = useRedux().useAppSelector(
-    (state) => state.auth.user_data!
+  const user_photo_url = useRedux().useAppSelector(
+    (state) => state.auth.user_data!.user_photo_url
   );
 
   const { mutateAsync: updateUserPhotoMutation, isLoading } = useMutation({
@@ -21,7 +22,7 @@ export function useUserSettings() {
     mutationFn: (photoUri: string) => updateUserPhotoAPI(photoUri),
   });
 
-  const avatarSource = useMemo(
+  const avatarSource: ImageSourcePropType = useMemo(
     () =>
       user_photo_url
         ? { uri: user_photo_url }

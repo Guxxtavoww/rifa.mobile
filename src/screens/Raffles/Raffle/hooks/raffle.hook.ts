@@ -20,7 +20,7 @@ export function useRaffle(raffle_id: string) {
       mutationKey: ['favorite-mutation'],
       mutationFn: async (data: {
         raffle_id: string;
-        isFavorited: true | false;
+        isFavorited: boolean;
       }) => handleRaffleFavoritationAPI(data.raffle_id, data.isFavorited),
       onSuccess: () => queryClient.refetchQueries(['get-raffle']),
     });

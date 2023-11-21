@@ -10,6 +10,7 @@ export const THEME = {
     overlay: '#00000037',
     grayColor: '#EAEAEA',
     secondary_dark_text_color: '#1A1A29',
+    red_color: '#B04E4E',
   },
   fonts: {
     regular: 'Poppins-Regular',
