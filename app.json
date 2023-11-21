@@ -48,15 +48,15 @@
         }
       ]
     ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "extra": {
       "eas": {
         "projectId": "0c121cc3-d186-4ede-8d11-bda4c4b4411d"
       }
     },
     "owner": "gustav0_w3b",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
     "updates": {
       "url": "https://u.expo.dev/0c121cc3-d186-4ede-8d11-bda4c4b4411d"
     }
