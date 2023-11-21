@@ -46,7 +46,7 @@ export function useUserSettings() {
     const photoUri = result.assets[0]!.uri;
 
     await updateUserPhotoMutation(photoUri);
-  }, []);
+  }, [updateUserPhotoMutation]);
 
   const handleUserWidgetPress = useCallback(
     (to: 'bought-raffles' | 'my-raffles' | 'settings') => {
