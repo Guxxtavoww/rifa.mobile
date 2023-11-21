@@ -134,7 +134,7 @@ const DateInput: React.FC<iDateInputProps> = ({
               {...rest}
             />
           ) : null}
-          <FormControl.ErrorMessage ml="4" fontFamily={THEME.fonts.bold}>
+          <FormControl.ErrorMessage fontFamily={THEME.fonts.bold} ml="4">
             {fieldError?.message?.toString()}
           </FormControl.ErrorMessage>
         </FormControl>
