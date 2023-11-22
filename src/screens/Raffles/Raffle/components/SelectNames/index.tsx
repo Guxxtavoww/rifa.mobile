@@ -77,7 +77,13 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
             textAlign: 'center',
           }}
         />
-        <HStack justifyContent="center" alignItems="center" space={8} w="full">
+        <HStack
+          justifyContent="center"
+          alignItems="center"
+          flexWrap="wrap"
+          space={8}
+          w="full"
+        >
           <SelectNamesIconButton
             icon="subtract"
             onPress={() => handleIconsPress('subtract')}

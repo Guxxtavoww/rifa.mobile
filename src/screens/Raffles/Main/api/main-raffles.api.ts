@@ -12,8 +12,8 @@ export const getMainRafflesAPI = async (
   page?: number,
   raffleQuery?: string,
   raffleCategoryCode?: number
-) =>
-  api
+) => {
+  return api
     .get<iMainRafflePaginatedResult>('/raffles/main-raffles', {
       params: {
         page,
@@ -22,3 +22,4 @@ export const getMainRafflesAPI = async (
       },
     })
     .then((res) => Promise.resolve(res.data));
+};
