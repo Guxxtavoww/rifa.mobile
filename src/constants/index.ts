@@ -3,8 +3,11 @@ import * as Localization from 'expo-localization';
 
 export const deviceLanguage = Localization.locale;
 
-export const WINDOW_WIDTH = Dimensions.get('window').width;
-export const WINDOW_HEIGHT = Dimensions.get('window').height;
+const screenHeight = Dimensions.get('screen');
+const windowDimentions = Dimensions.get('window');
 
-export const SCREEN_WIDTH = Dimensions.get('screen').width;
-export const SCREEN_HEIGHT = Dimensions.get('screen').height;
+export const WINDOW_WIDTH = windowDimentions.width;
+export const WINDOW_HEIGHT = windowDimentions.height;
+
+export const SCREEN_WIDTH = screenHeight.width;
+export const SCREEN_HEIGHT = screenHeight.height;
