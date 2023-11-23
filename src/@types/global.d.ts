@@ -22,8 +22,8 @@ declare global {
 
   export type ScreenProps<T extends object = {}> = {
     navigation: {
-      push(screen: string, payload?: any): void;
-      replace(screen: string, payload?: any): void;
+      push(screen: string, payload?: Record<string, any>): void;
+      replace(screen: string, payload?: Record<string, any>): void;
       pop(index?: number): void;
       popToTop(): void;
     };

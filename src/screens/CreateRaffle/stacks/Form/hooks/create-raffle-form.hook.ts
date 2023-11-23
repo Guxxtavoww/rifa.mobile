@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,15 +8,20 @@ import { useNavigation } from '@react-navigation/native';
 import { toast } from '@/utils/app.utils';
 import { handlePermission } from '@/screens/helpers/request-permission';
 
-import { createRaffleAPI, getCategoriesAPI } from '../api/create-raffle.api';
+import {
+  createRaffleAPI,
+  getCategoriesAPI,
+} from '../api/create-raffle-form.api';
 import {
   CreateRaffleFormType,
   createRaffleFormSchema,
   iCreateRaffleAPIPayload,
 } from '../types/form.types';
 
-export function useCreateRaffle() {
-  const [videoUri, setVideoUri] = useState<string>();
+export function useCreateRaffleForm(
+  video_uri: string,
+  replace: ScreenProps['navigation']['replace']
+) {
   const [photosUrls, setPhotosUrls] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<SelectOptions>(
     []
@@ -54,7 +59,7 @@ export function useCreateRaffle() {
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle'],
     mutationFn: async (data: iCreateRaffleAPIPayload) => {
-      return createRaffleAPI(data, photosUrls, videoUri).then((raffle) => {
+      return createRaffleAPI(data, photosUrls, video_uri).then((raffle) => {
         reset();
         setSelectedCategories([]);
         // @ts-ignore
@@ -67,39 +72,6 @@ export function useCreateRaffle() {
 
   const removePhoto = useCallback((imageUri: string) => {
     setPhotosUrls((prev) => prev.filter((image) => image !== imageUri));
-  }, []);
-
-  const clearCurrentVideo = useCallback(() => {
-    setVideoUri(undefined);
-  }, []);
-
-  const handlePickRaffleVideo = useCallback(async () => {
-    await handlePermission();
-
-    const videoResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
-      allowsMultipleSelection: false,
-      allowsEditing: false,
-      quality: 1,
-      selectionLimit: 1,
-      videoMaxDuration: 30,
-      videoQuality: ImagePicker.UIImagePickerControllerQualityType.Medium,
-    });
-
-    if (videoResult.canceled) return;
-
-    const chosenVideo = videoResult.assets[0]!;
-    const maxSizeInBytes = 40 * 1024 * 1024;
-
-    if (chosenVideo.fileSize && chosenVideo.fileSize > maxSizeInBytes) {
-      toast('Tamanho máximo de 40Mb execido!', {
-        status: 'warning',
-      });
-
-      return;
-    }
-
-    setVideoUri(chosenVideo.uri);
   }, []);
 
   const handlePickRafflesPhotos = useCallback(async () => {
@@ -174,6 +146,12 @@ export function useCreateRaffle() {
     [createRaffleMutation, photosUrls, selectedCategories]
   );
 
+  useEffect(() => {
+    if (!video_uri) {
+      replace('choose-video');
+    }
+  }, [video_uri, replace]);
+
   return {
     removePhoto,
     handlePickRafflesPhotos,
@@ -187,8 +165,5 @@ export function useCreateRaffle() {
     handleDeleteCategory,
     handleHookFormSubmit,
     handleSubmit,
-    handlePickRaffleVideo,
-    videoUri,
-    clearCurrentVideo,
   };
 }
