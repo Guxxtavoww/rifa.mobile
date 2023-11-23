@@ -21,8 +21,6 @@ export function useMainRaffles(defaultSearchText: string) {
   const { data: categoriesResonse, isLoading: isLoadingCategories } = useQuery({
     queryKey: ['raffles-categories'],
     queryFn: getRaffleCategoriesAPI,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
   });
 
   const {
