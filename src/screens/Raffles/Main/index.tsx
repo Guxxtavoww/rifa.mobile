@@ -84,6 +84,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
                 viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
                 snapToEnd
                 snapToAlignment="end"
+                pagingEnabled
                 renderItem={({ index: wrapperIndex, item }) => (
                   <View key={wrapperIndex}>
                     {item.data.map((raffle, index) => (
