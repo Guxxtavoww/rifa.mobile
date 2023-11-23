@@ -27,16 +27,11 @@ export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
       const chosenVideo = videoResult.assets[0]!;
       const maxSizeInBytes = 175 * 1024 * 1024;
 
-      if (!chosenVideo.fileSize || !chosenVideo.duration)
-        throw 'Erro! tente novamente';
-
-      if (chosenVideo.fileSize > maxSizeInBytes || chosenVideo.duration > 60) {
-        const message =
-          chosenVideo.fileSize > maxSizeInBytes
-            ? 'Tamanho máximo de 175Mb excedido!'
-            : 'Tamanho máximo do vídeo excedido';
-
-        toast(message, {
+      if (
+        (chosenVideo.fileSize && chosenVideo.fileSize > maxSizeInBytes) ||
+        (chosenVideo.duration && chosenVideo.duration > 60000)
+      ) {
+        toast('Tamanho do vídeo inválido', {
           status: 'warning',
         });
 
@@ -46,8 +41,8 @@ export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
       setVideoUri(chosenVideo.uri);
     } catch (error) {
       console.error('Error during video import:', error);
-      toast('An error occurred while importing the video', {
-        status: 'error',
+      toast('Um erro ocorreu: ' + error, {
+        status: 'warning',
       });
     }
   }, []);

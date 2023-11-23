@@ -47,7 +47,7 @@ const ChooseVideo: React.FC<ScreenProps> = ({ navigation }) => {
               }}
             />
             <Text
-              content="(Max 1min)"
+              content="(Max 1min & 175Mb)"
               fontSize="small"
               fontWeight="medium"
               color={THEME.colors.dark_text_color}

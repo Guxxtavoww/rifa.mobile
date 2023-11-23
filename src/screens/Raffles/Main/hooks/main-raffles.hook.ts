@@ -70,16 +70,6 @@ export function useMainRaffles(defaultSearchText: string) {
     }
   }, [hasNextPage, fetchNextPage]);
 
-  const currentCategoryLabel = useMemo(
-    () =>
-      currentCategoryId !== undefined
-        ? categoriesResonse?.find(
-            (category) => category.raffle_category_id === currentCategoryId
-          )?.raffle_category_name
-        : undefined,
-    [currentCategoryId, categoriesResonse]
-  );
-
   return {
     mainRafflesResult: mainRafflesResult?.pages,
     handleSearchRaffle,
@@ -93,6 +83,5 @@ export function useMainRaffles(defaultSearchText: string) {
     searchQueryText,
     handleCategoryPress,
     currentCategoryId,
-    currentCategoryLabel,
   };
 }

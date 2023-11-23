@@ -1,8 +1,10 @@
 import React from 'react';
-import { View } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Center, Pressable, View } from 'native-base';
 
 import { DemoVideo } from '@/components';
 import { WINDOW_WIDTH } from '@/constants';
+import { THEME } from '@/styles/theme.styles';
 
 interface iVideoPreviewProps {
   videoUri: string;
@@ -13,7 +15,37 @@ const VideoPreview: React.FC<iVideoPreviewProps> = ({
   onClearButtonPress,
   videoUri,
 }) => (
-  <View w="full" position="relative" h="container" borderRadius="md">
+  <View
+    w="full"
+    position="relative"
+    minH="480px"
+    borderRadius="md"
+    borderColor={THEME.colors.subtitle_color}
+  >
+    <Pressable
+      p="2"
+      borderRadius="full"
+      _pressed={{
+        bg: 'gray.800',
+      }}
+      onPress={onClearButtonPress}
+      zIndex="12"
+      w="12"
+      h="12"
+      style={{
+        position: 'absolute',
+        top: -5,
+        right: -10,
+      }}
+    >
+      <Center>
+        <MaterialIcons
+          name="delete-forever"
+          color={THEME.colors.red_color}
+          size={25}
+        />
+      </Center>
+    </Pressable>
     <DemoVideo
       source={{ uri: videoUri }}
       style={{
