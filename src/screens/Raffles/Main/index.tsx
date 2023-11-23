@@ -93,6 +93,9 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
             <>
               <FlashList
                 data={mainRafflesResult}
+                viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
+                snapToEnd
+                snapToAlignment="end"
                 renderItem={({ index: wrapperIndex, item }) => (
                   <View key={wrapperIndex}>
                     {item.data.map((raffle, index) => (

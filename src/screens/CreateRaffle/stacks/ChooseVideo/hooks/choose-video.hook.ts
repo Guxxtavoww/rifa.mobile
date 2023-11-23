@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 
 import { toast } from '@/utils/app.utils';
@@ -43,13 +43,9 @@ export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
     replace('create-raffle-form', {
       video_uri: videoUri,
     });
-  }, [videoUri]);
+  }, [videoUri, replace]);
 
   const handleClearVideoUri = useCallback(() => {
-    setVideoUri(undefined);
-  }, []);
-
-  useEffect(() => {
     setVideoUri(undefined);
   }, []);
 

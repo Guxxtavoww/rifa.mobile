@@ -2,9 +2,9 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { FormProvider } from 'react-hook-form';
-import { HStack, VStack } from 'native-base';
+import { HStack, VStack, View } from 'native-base';
 
-import { Button, Text } from '@/components';
+import { Button, GoBackButton, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 import { Input, TextArea, DateInput } from '@/components/tools/Form/components';
@@ -32,16 +32,29 @@ const CreateRaffleForm: React.FC<ScreenProps> = ({ navigation, route }) => {
 
   return (
     <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>
-      <Text
-        content="Crie Sua Rifa"
-        fontSize="large"
-        fontWeight="bold"
-        color={THEME.colors.dark_text_color}
-        style={{
-          marginBottom: 10,
-          textAlign: 'center',
-        }}
-      />
+      <HStack
+        w="full"
+        justifyContent="space-between"
+        alignItems="center"
+        mb="5"
+      >
+        <GoBackButton
+          onPress={() => navigation.replace('choose-video')}
+          removeMarginLeft
+          iconSize={18}
+          color="black"
+        />
+        <Text
+          content="Crie Sua Rifa"
+          fontSize="large"
+          fontWeight="bold"
+          color={THEME.colors.dark_text_color}
+          style={{
+            textAlign: 'center',
+          }}
+        />
+        <View />
+      </HStack>
       <FormProvider {...methods}>
         <VStack w="full" pb="6">
           <Input

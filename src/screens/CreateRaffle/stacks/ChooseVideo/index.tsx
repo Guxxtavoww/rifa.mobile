@@ -31,7 +31,7 @@ const ChooseVideo: React.FC<ScreenProps> = ({ navigation }) => {
       <Text
         content="Crie Sua Rifa"
         color={THEME.colors.dark_text_color}
-        fontSize="large"
+        fontSize="extraLarge"
         fontWeight="bold"
       />
       {!videoUri ? (
