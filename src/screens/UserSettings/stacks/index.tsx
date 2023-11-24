@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import Settings from './Settings';
 import MyRaffles from './MyRaffles';
 import BoughtRaffles from './BoughtRaffles';
+import FavoriteRaffles from './FavoriteRaffles';
 import { iUserStackWidgetProps } from '../components/UserStackWidget';
 
 interface iUserSettingsStacksProps {
@@ -16,9 +17,10 @@ const UserSettingsStacks: React.FC<iUserSettingsStacksProps> = ({
   const stacksObject: {
     [K in iUserStackWidgetProps['widgetType']]: JSX.Element;
   } = {
-    'attach-money': <BoughtRaffles />,
-    'shopping-cart': <MyRaffles />,
-    'settings': <Settings />,
+    'Comprados': <BoughtRaffles />,
+    'Suas Rifas': <MyRaffles />,
+    'Perfil': <Settings />,
+    'Favoritos': <FavoriteRaffles />,
   };
 
   const content = useMemo(() => stacksObject[currentStack], [currentStack]);

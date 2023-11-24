@@ -35,25 +35,30 @@ const UserSettings: React.FC = () => {
       />
       <HStack
         alignItems="center"
-        justifyContent="space-between"
-        space={3}
+        justifyContent="space-evenly"
+        space={1}
         w="full"
         mb="4"
       >
         <UserStackWidget
-          widgetType="shopping-cart"
+          widgetType="Comprados"
           currentStack={currentStack}
-          onPress={() => handleUserWidgetPress('bought-raffles')}
+          onPress={() => handleUserWidgetPress('Comprados')}
         />
         <UserStackWidget
-          widgetType="attach-money"
+          widgetType="Suas Rifas"
           currentStack={currentStack}
-          onPress={() => handleUserWidgetPress('my-raffles')}
+          onPress={() => handleUserWidgetPress('Suas Rifas')}
         />
         <UserStackWidget
-          widgetType="settings"
+          widgetType="Favoritos"
           currentStack={currentStack}
-          onPress={() => handleUserWidgetPress('settings')}
+          onPress={() => handleUserWidgetPress('Favoritos')}
+        />
+        <UserStackWidget
+          widgetType="Perfil"
+          currentStack={currentStack}
+          onPress={() => handleUserWidgetPress('Perfil')}
         />
       </HStack>
       <UserSettingsStacks currentStack={currentStack} />

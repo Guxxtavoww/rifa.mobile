@@ -8,15 +8,6 @@ export interface iMainRafflePaginatedResult {
   meta: Meta;
 }
 
-export interface Meta {
-  total: number;
-  lastPage: number;
-  currentPage: number;
-  perPage: number;
-  prev: number | null;
-  next: number | null;
-}
-
 export interface iMainRaffle {
   raffle_title: string;
   raffle_id: string;

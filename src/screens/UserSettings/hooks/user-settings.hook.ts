@@ -11,7 +11,7 @@ import { iUserStackWidgetProps } from '../components/UserStackWidget';
 
 export function useUserSettings() {
   const [currentStack, setCurrentStack] =
-    useState<iUserStackWidgetProps['widgetType']>('shopping-cart');
+    useState<iUserStackWidgetProps['widgetType']>('Comprados');
 
   const user_photo_url = useRedux().useAppSelector(
     (state) => state.auth.user_data!.user_photo_url
@@ -49,14 +49,8 @@ export function useUserSettings() {
   }, [updateUserPhotoMutation]);
 
   const handleUserWidgetPress = useCallback(
-    (to: 'bought-raffles' | 'my-raffles' | 'settings') => {
-      setCurrentStack(
-        to === 'bought-raffles'
-          ? 'shopping-cart'
-          : to === 'settings'
-          ? 'settings'
-          : 'attach-money'
-      );
+    (to: iUserStackWidgetProps['widgetType']) => {
+      setCurrentStack(to);
     },
     [setCurrentStack]
   );

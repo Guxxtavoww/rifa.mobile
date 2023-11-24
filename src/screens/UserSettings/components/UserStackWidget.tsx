@@ -1,12 +1,13 @@
-import React from 'react';
-import { Pressable, VStack } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useEffect } from 'react';
+import { Animated } from 'react-native';
+import { Pressable } from 'native-base';
 
+import { Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 
 export interface iUserStackWidgetProps {
-  widgetType: 'shopping-cart' | 'attach-money' | 'settings';
-  currentStack: 'shopping-cart' | 'attach-money' | 'settings';
+  widgetType: 'Comprados' | 'Suas Rifas' | 'Favoritos' | 'Perfil';
+  currentStack: 'Comprados' | 'Suas Rifas' | 'Favoritos' | 'Perfil';
   onPress?: () => void;
 }
 
@@ -14,28 +15,65 @@ const UserStackWidget: React.FC<iUserStackWidgetProps> = ({
   widgetType,
   currentStack,
   onPress,
-}) => (
-  <VStack alignItems="center" space={1}>
+}) => {
+  const animatedValue = new Animated.Value(0);
+
+  useEffect(() => {
+    if (currentStack === widgetType) {
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+
+      return;
+    }
+
+    Animated.timing(animatedValue, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [currentStack, widgetType, animatedValue]);
+
+  return (
     <Pressable
-      alignItems="center"
-      justifyContent="center"
-      bg="#191928"
-      borderWidth="2"
-      w="16"
-      h="16"
-      borderRadius="full"
-      borderColor={
-        currentStack === widgetType ? THEME.colors.orange_color : '#191928'
-      }
       _pressed={{
         borderColor: 'white',
       }}
-      p="3"
+      py="3"
       onPress={onPress}
+      position="relative"
+      w="container"
     >
-      <MaterialIcons name={widgetType} color="#fff" size={35} />
+      <Text
+        content={widgetType}
+        fontSize="small"
+        color={
+          THEME.colors[
+            widgetType === currentStack ? 'orange_color' : 'dark_text_color'
+          ]
+        }
+        fontWeight="bold"
+        style={{ textAlign: 'center' }}
+      />
+      {currentStack === widgetType ? (
+        <Animated.View
+          style={{
+            width: '100%',
+            height: 2,
+            backgroundColor: THEME.colors.orange_color,
+            position: 'absolute',
+            bottom: 5,
+            left: animatedValue.interpolate({
+              inputRange: [0, 1],
+              outputRange: ['50%', '0%'],
+            }),
+          }}
+        />
+      ) : null}
     </Pressable>
-  </VStack>
-);
+  );
+};
 
 export default UserStackWidget;
