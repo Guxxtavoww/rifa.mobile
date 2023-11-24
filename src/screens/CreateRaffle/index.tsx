@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { ChooseVideo, CreateRaffleForm } from './stacks';
+import { ChooseVideo, CreateRaffleForm, ChooseBanner } from './stacks';
 
 const CreateRaffleStack = createStackNavigator();
 
@@ -10,6 +10,10 @@ const CreateRaffle: React.FC = () => (
     <CreateRaffleStack.Screen
       name="choose-video"
       component={ChooseVideo as any}
+    />
+    <CreateRaffleStack.Screen
+      name="choose-banner"
+      component={ChooseBanner as any}
     />
     <CreateRaffleStack.Screen
       name="create-raffle-form"

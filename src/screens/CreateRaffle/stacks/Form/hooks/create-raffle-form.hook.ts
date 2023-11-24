@@ -20,6 +20,7 @@ import {
 
 export function useCreateRaffleForm(
   video_uri: string,
+  banner_uri: string,
   replace: ScreenProps['navigation']['replace']
 ) {
   const [photosUrls, setPhotosUrls] = useState<string[]>([]);
@@ -59,14 +60,16 @@ export function useCreateRaffleForm(
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle'],
     mutationFn: async (data: iCreateRaffleAPIPayload) => {
-      return createRaffleAPI(data, photosUrls, video_uri).then((raffle) => {
-        reset();
-        setSelectedCategories([]);
-        // @ts-ignore
-        navigation.navigate('raffle', {
-          raffle_id: raffle.raffle_id,
-        });
-      });
+      return createRaffleAPI(data, photosUrls, video_uri, banner_uri).then(
+        (raffle) => {
+          reset();
+          setSelectedCategories([]);
+          // @ts-ignore
+          navigation.navigate('raffle', {
+            raffle_id: raffle.raffle_id,
+          });
+        }
+      );
     },
   });
 

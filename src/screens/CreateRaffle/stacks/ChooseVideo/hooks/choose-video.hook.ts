@@ -50,7 +50,7 @@ export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
   const handleNextButtonPress = useCallback(() => {
     if (!videoUri) return;
 
-    replace('create-raffle-form', {
+    replace('choose-banner', {
       video_uri: videoUri,
     });
   }, [videoUri, replace]);

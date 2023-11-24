@@ -26,12 +26,15 @@ export const getCategoriesAPI = async () => {
 export const createRaffleAPI = async (
   data: iCreateRaffleAPIPayload,
   photosUris: string[],
-  videoUri?: string
+  videoUri?: string,
+  main_raffle_photo_uri?: string
 ) => {
-  const [photos, raffle_demo_video_url] = await Promise.all([
-    uploadMultipleImagesAsync(photosUris),
-    uploadImageAsync(videoUri),
-  ]);
+  const [photos, raffle_demo_video_url, main_raffle_photo_url] =
+    await Promise.all([
+      uploadMultipleImagesAsync(photosUris),
+      uploadImageAsync(videoUri),
+      uploadImageAsync(main_raffle_photo_uri),
+    ]);
 
   const reqData = {
     raffle_title: data.raffle_title,
@@ -40,6 +43,7 @@ export const createRaffleAPI = async (
     raffle_subscription_price: data.raffle_subscription_price,
     photos,
     due_date: data.due_date,
+    main_raffle_photo_url,
     raffle_demo_video_url,
     raffle_categories: data.selectedCategories.map((category) => ({
       category_id: +category.value,
