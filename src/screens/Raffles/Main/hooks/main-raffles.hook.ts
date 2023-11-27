@@ -50,9 +50,12 @@ export function useMainRaffles(defaultSearchText: string) {
     [user_id]
   );
 
-  const handleSearchRaffle = useCallback((query: string) => {
-    setSearchQueryText(query);
-  }, [setSearchQueryText]);
+  const handleSearchRaffle = useCallback(
+    (query: string) => {
+      setSearchQueryText(query);
+    },
+    [setSearchQueryText]
+  );
 
   const handleCategoryPress = useCallback((category_id: number | undefined) => {
     setCurrentCategoryId(category_id);

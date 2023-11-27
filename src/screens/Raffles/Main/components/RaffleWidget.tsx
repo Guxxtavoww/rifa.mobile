@@ -26,8 +26,6 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
     });
   }, [data.raffle_id, push, currentSearch]);
 
-  const photoUri = useMemo(() => data.photos[0]?.photo_url, [data.photos]);
-
   return (
     <VStack w="full" h="container" alignItems="flex-start">
       <HStack
@@ -67,18 +65,16 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
         onPress={onWidgetPress}
       >
         <View w="full" position="relative" borderRadius="2xl" overflow="hidden">
-          {photoUri ? (
-            <Image
-              source={{ uri: photoUri }}
-              w="full"
-              h="full"
-              borderRadius="2xl"
-              alt="Raffle Image"
-              style={{
-                objectFit: 'cover',
-              }}
-            />
-          ) : null}
+          <Image
+            source={{ uri: data.main_raffle_photo_url || '' }}
+            w="full"
+            h="full"
+            borderRadius="2xl"
+            alt="Raffle Image"
+            style={{
+              objectFit: 'cover',
+            }}
+          />
           <VStack
             h="1/2"
             w="full"

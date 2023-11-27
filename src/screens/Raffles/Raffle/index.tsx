@@ -7,7 +7,12 @@ import { commonStyles } from '@/styles/common.styles';
 import { GoBackButton, Loader, Text } from '@/components';
 
 import { useRaffle } from './hooks/raffle.hook';
-import { PhotosSlider, SelectNames, RaffleDetails } from './components';
+import {
+  PhotosSlider,
+  SelectNames,
+  RaffleDetails,
+  RaffleVideo,
+} from './components';
 
 const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
   const {
@@ -75,6 +80,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
               </HStack>
               <VStack />
             </HStack>
+            <RaffleVideo uri={raffle?.raffle_demo_video_url} />
             {photos_urls?.length ? (
               <PhotosSlider photos_urls={photos_urls} />
             ) : null}

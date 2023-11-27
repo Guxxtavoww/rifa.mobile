@@ -7,6 +7,6 @@ export interface iFavoriteRaffle {
   raffle_id: string;
   raffle_title: string;
   raffle_status: RaffleStatus;
-  photos: [{ photo_url: string }];
+  main_raffle_photo_url: string | null;;
   raffle_demo_video_url: string | null;
 }

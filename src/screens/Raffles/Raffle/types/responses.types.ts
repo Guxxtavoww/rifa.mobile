@@ -8,6 +8,7 @@ export interface iRaffle {
   raffle_title: string;
   raffle_subscription_price: number;
   available_quantity: number;
+  raffle_demo_video_url: string | null;
   favorite_raffles?: {
     favorited_by_id: string;
   }[];
