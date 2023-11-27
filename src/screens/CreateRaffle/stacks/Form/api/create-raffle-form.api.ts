@@ -36,22 +36,20 @@ export const createRaffleAPI = async (
       uploadImageAsync(main_raffle_photo_uri),
     ]);
 
-  const reqData = {
-    raffle_title: data.raffle_title,
-    raffle_description: data.raffle_description,
-    maximum_people_quantity: data.maximum_people_quantity,
-    raffle_subscription_price: data.raffle_subscription_price,
-    photos,
-    due_date: data.due_date,
-    main_raffle_photo_url,
-    raffle_demo_video_url,
-    raffle_categories: data.selectedCategories.map((category) => ({
-      category_id: +category.value,
-    })),
-  };
-
   return api
-    .post<iCreateRaffleResponse>('/raffles', reqData)
+    .post<iCreateRaffleResponse>('/raffles', {
+      raffle_title: data.raffle_title,
+      raffle_description: data.raffle_description,
+      maximum_people_quantity: data.maximum_people_quantity,
+      raffle_subscription_price: data.raffle_subscription_price,
+      photos,
+      due_date: data.due_date,
+      main_raffle_photo_url,
+      raffle_demo_video_url,
+      raffle_categories: data.selectedCategories.map((category) => ({
+        category_id: +category.value,
+      })),
+    })
     .then(({ data }) => {
       toast('Rifa Criada com sucesso');
 
