@@ -1,7 +1,7 @@
 import api from '@/api';
 import { store } from '@/redux/store.redux';
 
-import { iRafflesResponse } from '../types/responses.types';
+import { iRafflesResponse } from '../../shared/types.shared';
 
 export const getMyRafflesAPI = async (page: number, toFinalize?: boolean) => {
   const user_id = store.getState().auth.user_data!.user_id;

@@ -2,11 +2,11 @@ import React from 'react';
 import { HStack, View } from 'native-base';
 import { FlashList } from '@shopify/flash-list';
 
-import { Button, Loader, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
+import { Button, Loader, Text } from '@/components';
 
-import MyRaffle from './components/MyRaffle';
 import { useMyRaffles } from './hooks/my-raffles.hook';
+import RaffleWidget from '../shared/components/RaffleWidget';
 
 const MyRaffles: React.FC = () => {
   const {
@@ -59,7 +59,7 @@ const MyRaffles: React.FC = () => {
             renderItem={({ item, index }) => (
               <View w="full" key={index}>
                 {item.data.map((raffle, idx) => (
-                  <MyRaffle
+                  <RaffleWidget
                     data={raffle}
                     key={idx}
                     onPressRaffle={handleRafflePress}
@@ -70,6 +70,7 @@ const MyRaffles: React.FC = () => {
             pagingEnabled
             onEndReached={onEndReached}
             onEndReachedThreshold={0.1}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               paddingBottom: 10,
             }}

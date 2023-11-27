@@ -38,7 +38,7 @@ const Raffle: React.FC<ScreenProps> = ({ route, navigation }) => {
         <Loader size={40} />
       ) : (
         <VStack space={4} flex={1} pb="10" alignItems="flex-start">
-          <View w="full" flexDirection="column" h="container">
+          <View w="full" flexDirection="column">
             <HStack justifyContent="space-between" w="full">
               <GoBackButton
                 onPress={() =>

@@ -5,14 +5,14 @@ import { TouchableOpacity } from 'react-native';
 import { Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 
-import { iRaffle } from '../types/responses.types';
+import { iRaffle } from '../../shared/types.shared';
 
-interface iMyRaffleProps {
+interface iRaffleWidgetProps {
   data: iRaffle;
   onPressRaffle: (raffle_id: string) => void;
 }
 
-const MyRaffle: React.FC<iMyRaffleProps> = ({ data, onPressRaffle }) => (
+const RaffleWidget: React.FC<iRaffleWidgetProps> = ({ data, onPressRaffle }) => (
   <TouchableOpacity
     onPress={() => onPressRaffle(data.raffle_id)}
     style={{
@@ -29,7 +29,7 @@ const MyRaffle: React.FC<iMyRaffleProps> = ({ data, onPressRaffle }) => (
           borderRadius="2xl"
         />
       </View>
-      <VStack flex={3}>
+      <VStack flex={3} alignItems="center">
         <Text
           content={data.raffle_title}
           color={THEME.colors.dark_text_color}
@@ -41,4 +41,4 @@ const MyRaffle: React.FC<iMyRaffleProps> = ({ data, onPressRaffle }) => (
   </TouchableOpacity>
 );
 
-export default MyRaffle;
+export default RaffleWidget;
