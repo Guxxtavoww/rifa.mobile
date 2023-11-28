@@ -26,8 +26,8 @@ export const getCategoriesAPI = async () => {
 export const createRaffleAPI = async (
   data: iCreateRaffleAPIPayload,
   photosUris: string[],
-  videoUri?: string,
-  main_raffle_photo_uri?: string
+  videoUri?: Maybe<string>,
+  main_raffle_photo_uri?: Maybe<string>
 ) => {
   const [photos, raffle_demo_video_url, main_raffle_photo_url] =
     await Promise.all([

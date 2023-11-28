@@ -9,11 +9,10 @@ const PhotosSlider: React.FC<iPhotosSliderProps> = ({ photos_urls }) => (
   <FlatList
     data={photos_urls}
     horizontal
-    pagingEnabled
     showsHorizontalScrollIndicator={true}
     overflow="hidden"
     keyExtractor={(_, index) => index.toString()}
-    mt="3"
+    mb="5"
     renderItem={({ item: uri, index }) => (
       <Image
         source={{ uri }}

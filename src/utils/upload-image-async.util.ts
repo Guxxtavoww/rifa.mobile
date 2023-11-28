@@ -3,7 +3,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { store } from '@/redux/store.redux';
 
 export async function uploadImageAsync(
-  uri?: string,
+  uri?: Maybe<string>,
   currentIndex?: number
 ): Promise<string | void> {
   if (!uri) return;

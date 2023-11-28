@@ -66,6 +66,7 @@ const SelectNames: React.FC<iSelectNamesProps> = ({
       px="3"
       py="3"
       backgroundColor="#fff"
+      mb="5"
     >
       <VStack w="full" alignItems="center" space={2}>
         <Text

@@ -16,7 +16,7 @@ const ChooseBanner: React.FC<ScreenProps> = ({ navigation, route }) => {
     handleChooseRaffleBanner,
     handleNextButtonPress,
     onClearBannerUri,
-  } = useChooseBanner(route.params.video_uri, navigation.replace);
+  } = useChooseBanner(navigation.replace);
 
   return (
     <ScrollView

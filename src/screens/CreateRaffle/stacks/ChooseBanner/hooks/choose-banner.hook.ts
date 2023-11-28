@@ -2,11 +2,10 @@ import { useCallback, useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 
 import { handlePermission } from '@/screens/helpers/request-permission';
+import { useCreateRaffle } from '@/screens/CreateRaffle/contexts/create-raffle.context';
 
-export function useChooseBanner(
-  video_uri: string,
-  replace: ScreenProps['navigation']['replace']
-) {
+export function useChooseBanner(replace: ScreenProps['navigation']['replace']) {
+  const { dispatch } = useCreateRaffle();
   const [bannerUri, setBannerUri] = useState<string>();
 
   const handleChooseRaffleBanner = useCallback(async () => {
@@ -29,11 +28,10 @@ export function useChooseBanner(
   const handleNextButtonPress = useCallback(() => {
     if (!bannerUri) return;
 
-    replace('create-raffle-form', {
-      video_uri,
-      main_raffle_photo_uri: bannerUri,
-    });
-  }, [bannerUri, video_uri]);
+    dispatch({ type: 'add-main-photo-uri', payload: bannerUri });
+
+    replace('create-raffle-form');
+  }, [bannerUri]);
 
   const onClearBannerUri = useCallback(() => {
     setBannerUri(undefined);

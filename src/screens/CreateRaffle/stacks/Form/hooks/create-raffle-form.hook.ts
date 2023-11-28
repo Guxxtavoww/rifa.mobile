@@ -2,11 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { toast } from '@/utils/app.utils';
 import { handlePermission } from '@/screens/helpers/request-permission';
+import { useCreateRaffle } from '@/screens/CreateRaffle/contexts/create-raffle.context';
 
 import {
   createRaffleAPI,
@@ -19,10 +20,13 @@ import {
 } from '../types/form.types';
 
 export function useCreateRaffleForm(
-  video_uri: string,
-  banner_uri: string,
   replace: ScreenProps['navigation']['replace']
 ) {
+  const {
+    state: { video_uri, main_raffle_photo_uri },
+    dispatch,
+  } = useCreateRaffle();
+
   const [photosUrls, setPhotosUrls] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<SelectOptions>(
     []
@@ -60,16 +64,20 @@ export function useCreateRaffleForm(
   const { mutate: createRaffleMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle'],
     mutationFn: async (data: iCreateRaffleAPIPayload) => {
-      return createRaffleAPI(data, photosUrls, video_uri, banner_uri).then(
-        (raffle) => {
-          reset();
-          setSelectedCategories([]);
-          // @ts-ignore
-          navigation.navigate('raffle', {
-            raffle_id: raffle.raffle_id,
-          });
-        }
-      );
+      return createRaffleAPI(
+        data,
+        photosUrls,
+        video_uri,
+        main_raffle_photo_uri
+      ).then((raffle) => {
+        reset();
+        setSelectedCategories([]);
+        dispatch({ type: 'reset' });
+        // @ts-ignore
+        navigation.navigate('raffle', {
+          raffle_id: raffle.raffle_id,
+        });
+      });
     },
   });
 
@@ -94,7 +102,7 @@ export function useCreateRaffleForm(
     setPhotosUrls((prev) => [
       ...new Set([...prev, ...result.assets.map((asset) => asset.uri)]),
     ]);
-  }, [toast]);
+  }, []);
 
   const handleDeleteCategory = useCallback((category_id: string) => {
     setSelectedCategories((prev) =>

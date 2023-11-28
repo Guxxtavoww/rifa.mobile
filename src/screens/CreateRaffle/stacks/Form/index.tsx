@@ -28,11 +28,7 @@ const CreateRaffleForm: React.FC<ScreenProps> = ({ navigation, route }) => {
     selectedCategories,
     handleHookFormSubmit,
     handleSubmit,
-  } = useCreateRaffleForm(
-    route.params.video_uri,
-    route.params.main_raffle_photo_uri,
-    navigation.replace
-  );
+  } = useCreateRaffleForm(navigation.replace);
 
   return (
     <ScrollView style={[commonStyles.screen_container_light]} scrollEnabled>

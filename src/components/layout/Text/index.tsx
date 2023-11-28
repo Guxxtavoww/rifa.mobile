@@ -31,6 +31,7 @@ const Text: React.FC<iTextProps> = ({
         alignItems: 'center',
       },
     ]}
+    allowFontScaling
     {...rest}
   >
     {content}

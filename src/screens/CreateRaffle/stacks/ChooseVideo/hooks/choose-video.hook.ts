@@ -3,8 +3,10 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { toast } from '@/utils/app.utils';
 import { handlePermission } from '@/screens/helpers/request-permission';
+import { useCreateRaffle } from '@/screens/CreateRaffle/contexts/create-raffle.context';
 
 export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
+  const { dispatch } = useCreateRaffle();
   const [videoUri, setVideoUri] = useState<string>();
 
   const handleImportVideo = useCallback(async () => {
@@ -50,10 +52,10 @@ export function useChooseVideo(replace: ScreenProps['navigation']['replace']) {
   const handleNextButtonPress = useCallback(() => {
     if (!videoUri) return;
 
-    replace('choose-banner', {
-      video_uri: videoUri,
-    });
-  }, [videoUri, replace]);
+    dispatch({ type: 'add-video-uri', payload: videoUri });
+
+    replace('choose-banner');
+  }, [videoUri, replace, dispatch]);
 
   const handleClearVideoUri = useCallback(() => {
     setVideoUri(undefined);

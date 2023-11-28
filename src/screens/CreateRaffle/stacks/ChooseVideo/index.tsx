@@ -7,8 +7,8 @@ import { Button, Text } from '@/components';
 import { THEME } from '@/styles/theme.styles';
 import { commonStyles } from '@/styles/common.styles';
 
-import { useChooseVideo } from './hooks/choose-video.hook';
 import VideoPreview from './components/VideoPreview';
+import { useChooseVideo } from './hooks/choose-video.hook';
 
 const ChooseVideo: React.FC<ScreenProps> = ({ navigation }) => {
   const {

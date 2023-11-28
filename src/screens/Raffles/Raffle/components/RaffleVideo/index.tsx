@@ -1,24 +1,49 @@
-import React from 'react';
-import { View } from 'native-base';
+import React, { useLayoutEffect, useRef } from 'react';
+import { Video, ResizeMode } from 'expo-av';
+import { View } from 'react-native';
 
-import { DemoVideo, Text } from '@/components';
 import { WINDOW_WIDTH } from '@/constants';
 
 interface iRaffleVideoProps {
   uri: Maybe<string>;
 }
 
-const RaffleVideo: React.FC<iRaffleVideoProps> = ({ uri }) => (
-  <View w="full" position="relative" minH="290px">
-    <DemoVideo
-      source={{ uri: uri || '' }}
-      videoStyle={{
-        borderRadius: 12,
+const RaffleVideo: React.FC<iRaffleVideoProps> = ({ uri }) => {
+  const videoRef = useRef<Video>(null);
+
+  useLayoutEffect(() => {
+    videoRef.current?.playAsync();
+  }, []);
+
+  if (!uri) return null;
+
+  return (
+    <View
+      style={{
         width: WINDOW_WIDTH - 32,
-        minHeight: 290,
+        height: 290,
+        marginBottom: 20,
+        borderRadius: 10,
       }}
-    />
-  </View>
-);
+    >
+      <Video
+        ref={videoRef}
+        useNativeControls={false}
+        source={{
+          uri,
+        }}
+        resizeMode={ResizeMode.COVER}
+        isLooping
+        isMuted
+        style={{
+          width: WINDOW_WIDTH - 32,
+          height: 290,
+          zIndex: 10,
+          borderRadius: 10,
+        }}
+      />
+    </View>
+  );
+};
 
 export default RaffleVideo;
