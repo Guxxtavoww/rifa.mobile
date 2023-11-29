@@ -11,6 +11,7 @@ export interface iMainRafflePaginatedResult {
 export interface iMainRaffle {
   raffle_title: string;
   raffle_id: string;
+  main_raffle_photo_url: string | null;
   owner: {
     user_name: string | null;
     user_email: string;
