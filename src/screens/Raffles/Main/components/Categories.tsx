@@ -38,41 +38,43 @@ const Categories: React.FC<iCategoriesProps> = ({
         mb="3"
         maxHeight="10"
         w="full"
-        renderItem={({ item, index }) => (
-          <Pressable
-            key={index}
-            w="container"
-            h="10"
-            maxHeight="10"
-            onPress={() =>
-              onCategoryPress(
-                currentCategoryId === item.raffle_category_id
-                  ? undefined
-                  : item.raffle_category_id
-              )
-            }
-            bg={
-              currentCategoryId === item.raffle_category_id
-                ? THEME.colors.orange_color
-                : THEME.colors.secondary_dark_text_color
-            }
-            borderRadius="2xl"
-            _pressed={{
-              opacity: 0.85,
-            }}
-            alignItems="center"
-            justifyContent="center"
-            mr="4"
-            px="2"
-          >
-            <Text
-              content={item.raffle_category_name}
-              color="#fff"
-              fontWeight="bold"
-              fontSize="normal"
-            />
-          </Pressable>
-        )}
+        renderItem={({ item, index }) => {
+          const isSelected = currentCategoryId === item.raffle_category_id;
+
+          return (
+            <Pressable
+              key={index}
+              w="container"
+              h="10"
+              maxHeight="10"
+              onPress={() =>
+                onCategoryPress(
+                  isSelected ? undefined : item.raffle_category_id
+                )
+              }
+              bg={
+                THEME.colors[
+                  isSelected ? 'orange_color' : 'secondary_dark_text_color'
+                ]
+              }
+              borderRadius="2xl"
+              _pressed={{
+                opacity: 0.85,
+              }}
+              alignItems="center"
+              justifyContent="center"
+              mr="4"
+              px="2"
+            >
+              <Text
+                content={item.raffle_category_name}
+                color="#fff"
+                fontWeight="bold"
+                fontSize="normal"
+              />
+            </Pressable>
+          );
+        }}
       />
     </VStack>
   );
