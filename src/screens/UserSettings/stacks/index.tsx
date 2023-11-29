@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
 
-  import Settings from './Settings';
+import Settings from './Settings';
 import MyRaffles from './MyRaffles';
 import BoughtRaffles from './BoughtRaffles';
 import FavoriteRaffles from './FavoriteRaffles';
