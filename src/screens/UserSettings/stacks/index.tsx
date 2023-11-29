@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { View } from 'react-native';
 
-import Settings from './Settings';
+  import Settings from './Settings';
 import MyRaffles from './MyRaffles';
 import BoughtRaffles from './BoughtRaffles';
 import FavoriteRaffles from './FavoriteRaffles';
@@ -25,7 +25,7 @@ const UserSettingsStacks: React.FC<iUserSettingsStacksProps> = ({
 
   const content = useMemo(() => stacksObject[currentStack], [currentStack]);
 
-  return <View style={{ flex: 1 }}>{content}</View>;
+  return <View style={{ flex: 1, width: '100%' }}>{content}</View>;
 };
 
 export default memo(UserSettingsStacks);

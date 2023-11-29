@@ -1,10 +1,10 @@
 import api from '@/api';
 
-import { iRafflesResponse } from '../../shared/types.shared';
+import { iBoughtRafflesResponse } from '../types/responses.type';
 
 export const getBoughtRafflesAPI = async (page: number) =>
   api
-    .get<iRafflesResponse>('/raffles/bought-raffles', {
+    .get<iBoughtRafflesResponse>('/raffles/bought-raffles', {
       params: {
         page,
       },

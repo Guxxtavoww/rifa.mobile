@@ -18,10 +18,8 @@ export function useRaffle(raffle_id: string) {
   const { mutateAsync: favoritationMutation, isLoading: isMutating } =
     useMutation({
       mutationKey: ['favorite-mutation'],
-      mutationFn: async (data: {
-        raffle_id: string;
-        isFavorited: boolean;
-      }) => handleRaffleFavoritationAPI(data.raffle_id, data.isFavorited),
+      mutationFn: async (data: { raffle_id: string; isFavorited: boolean }) =>
+        handleRaffleFavoritationAPI(data.raffle_id, data.isFavorited),
       onSuccess: () => queryClient.refetchQueries(['get-raffle']),
     });
 
@@ -62,9 +60,11 @@ export function useRaffle(raffle_id: string) {
 
   const handleRaffleFavoritation = useCallback(
     async (isFavorited: boolean | undefined) => {
+      if (!raffle) return;
+
       await favoritationMutation({
         isFavorited: !!isFavorited,
-        raffle_id: raffle!.raffle_id,
+        raffle_id: raffle.raffle_id,
       });
     },
     [raffle]

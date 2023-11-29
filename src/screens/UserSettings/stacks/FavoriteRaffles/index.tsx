@@ -15,12 +15,12 @@ const FavoriteRaffles: React.FC = () => {
     isFetchingNextPage,
     isLoadingFavoriteRaffles,
     onEndReached,
-    hasData
+    hasData,
   } = useFavoriteRaffles();
 
   return (
     <>
-     {isLoadingFavoriteRaffles ? (
+      {isLoadingFavoriteRaffles ? (
         <Loader />
       ) : hasData ? (
         <>
@@ -30,7 +30,7 @@ const FavoriteRaffles: React.FC = () => {
               <View w="full" key={index}>
                 {item.data.map((raffle, idx) => (
                   <RaffleWidget
-                    data={raffle}
+                    data={raffle.favorite_raffle}
                     key={idx}
                     onPressRaffle={handleFavoriteRaffleClick}
                   />
@@ -48,7 +48,10 @@ const FavoriteRaffles: React.FC = () => {
           {isFetchingNextPage ? <Loader /> : null}
         </>
       ) : (
-        <Text content="Não há rifas favoritadas" color={THEME.colors.dark_text_color} />
+        <Text
+          content="Não há rifas favoritadas"
+          color={THEME.colors.dark_text_color}
+        />
       )}
     </>
   );

@@ -19,7 +19,7 @@ const BoughtRaffles: React.FC = () => {
   } = useBoughtRaffles();
 
   return (
-    <>
+    <View flex={1}>
       {isLoading ? (
         <Loader />
       ) : hasData ? (
@@ -30,7 +30,7 @@ const BoughtRaffles: React.FC = () => {
               <View w="full" key={index}>
                 {item.data.map((raffle, idx) => (
                   <RaffleWidget
-                    data={raffle}
+                    data={raffle.raffle}
                     key={idx}
                     onPressRaffle={handleRafflePress}
                   />
@@ -53,7 +53,7 @@ const BoughtRaffles: React.FC = () => {
           color={THEME.colors.dark_text_color}
         />
       )}
-    </>
+    </View>
   );
 };
 
