@@ -2,32 +2,20 @@ import { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getMyRafflesAPI } from '../api/my-raffles.api';
+import { getBoughtRafflesAPI } from '../api/bought-raffles.api';
 
-export function useMyRaffles() {
+export function useBoughtRaffles() {
   const navigation = useNavigation();
 
-  const [isShowingRafflesToFinalize, setIsShowingRafflesToFinalize] =
-    useState(true);
-
-  const handleShowRafflesToFinalize = useCallback(() => {
-    setIsShowingRafflesToFinalize(true);
-  }, []);
-
-  const handleShowFinalizedRaffles = useCallback(() => {
-    setIsShowingRafflesToFinalize(false);
-  }, []);
-
   const {
-    data: myRafflesResult,
+    data: boughtRafflesResult,
     isLoading,
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['get-my-raffles', isShowingRafflesToFinalize],
-    queryFn: ({ pageParam = 1 }) =>
-      getMyRafflesAPI(pageParam, isShowingRafflesToFinalize),
+    queryKey: ['get-bought-raffles'],
+    queryFn: ({ pageParam = 1 }) => getBoughtRafflesAPI(pageParam),
     getNextPageParam: (lastPage) => lastPage.meta.next,
     getPreviousPageParam: (firstPage) => firstPage.meta.prev,
     refetchOnMount: true,
@@ -50,14 +38,11 @@ export function useMyRaffles() {
   }, [hasNextPage, fetchNextPage]);
 
   return {
-    isShowingRafflesToFinalize,
-    handleShowRafflesToFinalize,
-    handleShowFinalizedRaffles,
-    handleRafflePress,
-    onEndReached,
-    myRafflesResult: myRafflesResult?.pages || [],
+    boughtRafflesResult: boughtRafflesResult?.pages || [],
     isLoading,
     isFetchingNextPage,
-    hasData: myRafflesResult?.pages[0]?.meta.total !== 0,
+    handleRafflePress,
+    onEndReached,
+    hasData: boughtRafflesResult?.pages[0]?.meta.total !== 0,
   };
 }

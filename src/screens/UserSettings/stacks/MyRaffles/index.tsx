@@ -67,7 +67,6 @@ const MyRaffles: React.FC = () => {
                 ))}
               </View>
             )}
-            pagingEnabled
             onEndReached={onEndReached}
             onEndReachedThreshold={0.1}
             showsVerticalScrollIndicator={false}

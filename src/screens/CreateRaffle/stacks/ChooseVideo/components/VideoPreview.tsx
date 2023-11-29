@@ -1,4 +1,5 @@
 import React from 'react';
+import { ResizeMode } from 'expo-av';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Center, Pressable, View } from 'native-base';
 
@@ -34,8 +35,8 @@ const VideoPreview: React.FC<iVideoPreviewProps> = ({
       h="12"
       style={{
         position: 'absolute',
-        top: -5,
-        right: -10,
+        top: 5,
+        right: 5,
       }}
     >
       <Center>
@@ -48,6 +49,7 @@ const VideoPreview: React.FC<iVideoPreviewProps> = ({
     </Pressable>
     <DemoVideo
       source={{ uri: videoUri }}
+      resizeMode={ResizeMode.COVER}
       style={{
         width: WINDOW_WIDTH - 32,
         height: 480,

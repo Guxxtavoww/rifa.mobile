@@ -40,7 +40,7 @@ const DemoVideo: React.FC<iDemoVideoProps> = ({
       <Video
         ref={videoRef}
         useNativeControls
-        resizeMode={ResizeMode.CONTAIN}
+        resizeMode={rest.resizeMode ?? ResizeMode.CONTAIN}
         isLooping
         onPlaybackStatusUpdate={setVideoStatus}
         {...rest}

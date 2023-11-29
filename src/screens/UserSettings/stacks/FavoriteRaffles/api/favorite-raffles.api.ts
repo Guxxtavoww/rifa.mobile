@@ -1,10 +1,10 @@
 import api from '@/api';
 
-import { iFavoriteRafflesResponse } from '../types/responses.types';
+import { iRafflesResponse } from '../../shared/types.shared'
 
 export const getFavoriteRafflesAPI = async (page: number, user_id?: string) =>
   api
-    .get<iFavoriteRafflesResponse>('/raffles/favorite-raffles', {
+    .get<iRafflesResponse>('/raffles/favorite-raffles', {
       params: {
         page,
         user_id,

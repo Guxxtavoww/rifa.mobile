@@ -50,5 +50,6 @@ export function useFavoriteRaffles(incoming_user_id?: string) {
     favoriteRafflesResult: favoriteRafflesResult?.pages,
     isLoadingFavoriteRaffles,
     isFetchingNextPage,
+    hasData: favoriteRafflesResult?.pages[0]?.meta.total !== 0,
   };
 }

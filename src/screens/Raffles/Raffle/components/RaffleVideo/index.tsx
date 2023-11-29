@@ -4,13 +4,11 @@ import { View, StyleSheet } from 'react-native';
 import { Pressable } from 'native-base';
 import { Feather } from '@expo/vector-icons';
 
-import { WINDOW_WIDTH } from '@/constants';
+import { raffleVideoStyles } from './styles';
 
 interface iRaffleVideoProps {
   uri: Maybe<string>;
 }
-
-const VIDEO_WIDTH = WINDOW_WIDTH - 32;
 
 const RaffleVideo: React.FC<iRaffleVideoProps> = ({ uri }) => {
   const [videoStatus, setVideoStatus] = useState<{
@@ -42,30 +40,8 @@ const RaffleVideo: React.FC<iRaffleVideoProps> = ({ uri }) => {
   if (!uri) return null;
 
   return (
-    <View
-      style={{
-        width: VIDEO_WIDTH,
-        height: 290,
-        marginBottom: 20,
-        borderRadius: 10,
-        position: 'relative',
-      }}
-    >
-      <View
-        style={[
-          {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 14,
-          },
-          StyleSheet.absoluteFillObject,
-        ]}
-      >
+    <View style={raffleVideoStyles.videoContainer}>
+      <View style={[raffleVideoStyles.overlay, StyleSheet.absoluteFillObject]}>
         <Pressable
           onPress={() =>
             videoStatus?.isPlaying
@@ -96,12 +72,7 @@ const RaffleVideo: React.FC<iRaffleVideoProps> = ({ uri }) => {
         onPlaybackStatusUpdate={setVideoStatus}
         isLooping
         isMuted
-        style={{
-          width: VIDEO_WIDTH,
-          height: 290,
-          zIndex: 5,
-          borderRadius: 14,
-        }}
+        style={raffleVideoStyles.videoStyles}
       />
     </View>
   );
