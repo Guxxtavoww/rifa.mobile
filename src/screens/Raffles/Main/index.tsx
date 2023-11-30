@@ -82,8 +82,9 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
               <FlashList
                 data={mainRafflesResult}
                 viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
-                snapToEnd
-                snapToAlignment="end"
+                onViewableItemsChanged={({ viewableItems, changed }) =>
+                  console.log({ viewableItems, changed })
+                }
                 pagingEnabled
                 renderItem={({ index: wrapperIndex, item }) => (
                   <View key={wrapperIndex}>
@@ -100,7 +101,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
                 scrollEnabled
                 refreshing={isLoadingCategories}
                 showsVerticalScrollIndicator={false}
-                estimatedItemSize={100000}
+                estimatedItemSize={422}
                 onEndReached={onEndReached}
                 onEndReachedThreshold={0.1}
               />
