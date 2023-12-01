@@ -1,26 +1,57 @@
-import { useCallback } from 'react';
-import { ImageSourcePropType } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import { Animated, ImageSourcePropType } from 'react-native';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+
+import { useRedux } from '@/hooks';
+import { queryClient } from 'App';
 
 import {
   createRaffleCommentAPI,
   getRaffleCommentsAPI,
 } from '../api/main-raffles.api';
-import { useRedux } from '@/hooks';
 
 export function useRaffleComments(raffle_id: string) {
-  const user_photo_url: ImageSourcePropType = useRedux().useAppSelector(
-    ({ auth }) =>
-      auth.user_data!.user_photo_url
+  const [commentText, setCommentText] = useState('');
+
+  const animatedValue = new Animated.Value(0);
+
+  const user_photo_url_redux = useRedux().useAppSelector(
+    ({ auth }) => auth.user_data!.user_photo_url
+  );
+
+  const handleCommentInputChange = useCallback(
+    (text: string) => {
+      setCommentText((prev) => (prev.length <= 170 ? text : prev));
+    },
+    [setCommentText]
+  );
+
+  const getUserAvatarSource = useCallback(
+    (
+      user_photo_url?: Maybe<string>,
+      isCurrentUser?: boolean
+    ): ImageSourcePropType => {
+      if (isCurrentUser) {
+        return user_photo_url_redux
+          ? {
+              uri: user_photo_url_redux,
+            }
+          : require('@/assets/jpg/no-profile-pic.jpg');
+      }
+
+      return user_photo_url
         ? {
-            uri: auth.user_data!.user_photo_url,
+            uri: user_photo_url,
           }
-        : require('@/assets/jpg/no-profile-pic.jpg')
+        : require('@/assets/jpg/no-profile-pic.jpg');
+    },
+    []
   );
 
   const { mutateAsync: createRaffleCommentMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle-comment'],
     mutationFn: (text: string) => createRaffleCommentAPI(raffle_id, text),
+    onSuccess: () => queryClient.refetchQueries(['get-raffle-comments']),
   });
 
   const {
@@ -44,6 +75,22 @@ export function useRaffleComments(raffle_id: string) {
     }
   }, [hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+
+    setInterval(() => {
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+    }, 500);
+  }, [animatedValue]);
+
   return {
     createRaffleCommentMutation,
     isLoading: isLoading || isLoadingComments,
@@ -51,6 +98,9 @@ export function useRaffleComments(raffle_id: string) {
     hasComments: raffleCommentsResult?.pages[0]?.meta.total !== 0,
     onEndReached,
     isFetchingNextPage,
-    user_photo_url,
+    getUserAvatarSource,
+    animatedValue,
+    commentText,
+    handleCommentInputChange,
   };
 }

@@ -8,6 +8,7 @@ import { WINDOW_WIDTH } from '@/constants';
 import { THEME } from '@/styles/theme.styles';
 
 import { iMainRaffle } from '../../types/responses.types';
+import RaffleComments from './RaffleComments';
 
 interface iRaffleWidgetProps {
   data: iMainRaffle;
@@ -22,6 +23,7 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
   currentSearch,
   getOwnerWidgetContent,
 }) => {
+  const [isCommentSectionActive, setIsCommentSectionActive] = useState(false);
   const [videoStatus, setVideoStatus] = useState<{
     androidImplementation: string;
     audioPan: number;
@@ -122,6 +124,12 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
           </View>
         </View>
       </Pressable>
+      {isCommentSectionActive ? (
+        <RaffleComments
+          raffle_id={data.raffle_id}
+          handleClose={() => setIsCommentSectionActive(false)}
+        />
+      ) : null}
     </VStack>
   );
 };
