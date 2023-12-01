@@ -93,7 +93,8 @@ export function useRaffleComments(raffle_id: string) {
 
   return {
     createRaffleCommentMutation,
-    isLoading: isLoading || isLoadingComments,
+    isLoading,
+    isLoadingComments,
     raffleCommentsResult: raffleCommentsResult?.pages,
     hasComments: raffleCommentsResult?.pages[0]?.meta.total !== 0,
     onEndReached,

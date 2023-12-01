@@ -36,6 +36,7 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
     animatedValue,
     commentText,
     handleCommentInputChange,
+    isLoadingComments,
   } = useRaffleComments(raffle_id);
 
   return (
@@ -96,7 +97,9 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
         justifyContent="center"
         alignItems="center"
       >
-        {hasComments ? (
+        {isLoadingComments ? (
+          <Loader />
+        ) : hasComments ? (
           <>
             <FlatList
               data={raffleCommentsResult}
