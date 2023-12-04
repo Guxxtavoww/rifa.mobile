@@ -45,7 +45,7 @@ export function useRaffleComments(raffle_id: string) {
           }
         : require('@/assets/jpg/no-profile-pic.jpg');
     },
-    []
+    [user_photo_url_redux]
   );
 
   const { mutateAsync: createRaffleCommentMutation, isLoading } = useMutation({
