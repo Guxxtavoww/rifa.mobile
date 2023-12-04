@@ -34,6 +34,10 @@ const Button: React.FC<ButtonProps> = ({
       backgroundColor: buttonProps._pressed?.backgroundColor || 'orange.900',
       ...buttonProps._pressed,
     }}
+    _disabled={{
+      backgroundColor: buttonProps._disabled?.backgroundColor || 'orange.200',
+      ...buttonProps._disabled,
+    }}
     {...buttonProps}
   >
     <View
