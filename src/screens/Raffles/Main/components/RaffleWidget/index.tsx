@@ -121,6 +121,9 @@ const RaffleWidget: React.FC<iRaffleWidgetProps> = ({
               color="#D9D9D9"
               size={50}
             />
+            <Pressable onPress={() => setIsCommentSectionActive(true)}>
+              <Feather name="message-circle" size={40} color="#fff" />
+            </Pressable>
           </View>
         </View>
       </Pressable>

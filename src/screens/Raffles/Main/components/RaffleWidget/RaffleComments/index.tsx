@@ -45,20 +45,23 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
         width: '100%',
         backgroundColor: '#fff',
         borderRadius: 16,
-        height: '50%',
+        height: '75%',
         flexDirection: 'column',
         paddingHorizontal: 8,
         paddingVertical: 10,
         zIndex: 8,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
         opacity: animatedValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [0.75, 1],
+          outputRange: [0, 1],
         }),
         transform: [
           {
             translateY: animatedValue.interpolate({
               inputRange: [0, 1],
-              outputRange: ['50%', '0%'],
+              outputRange: [10, 0],
             }),
           },
         ],
@@ -78,6 +81,9 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
           content="Comentários"
           color={THEME.colors.dark_text_color}
           fontSize="large"
+          style={{
+            textAlign: 'center',
+          }}
         />
         <Pressable
           p="2"
@@ -87,16 +93,10 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
             bg: 'gray.100',
           }}
         >
-          <Feather name="x" color={THEME.colors.dark_text_color} />
+          <Feather name="x" color={THEME.colors.dark_text_color} size={25} />
         </Pressable>
       </HStack>
-      <View
-        w="full"
-        h="full"
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-      >
+      <View w="full" flex={1} justifyContent="center" alignItems="center">
         {isLoadingComments ? (
           <Loader />
         ) : hasComments ? (
@@ -108,18 +108,18 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
                   {item.data.map((raffle, index) => (
                     <HStack
                       key={index}
-                      space={2}
                       w="full"
                       alignItems="center"
                       justifyContent="flex-start"
+                      space={2}
                     >
                       <Avatar
                         source={getUserAvatarSource(
                           raffle.commented_by.user_photo_url
                         )}
-                        size="md"
+                        size="sm"
                       />
-                      <VStack alignItems="flex-start" space={2}>
+                      <VStack alignItems="flex-start">
                         <Text
                           content={
                             raffle.commented_by.user_name ||
@@ -144,16 +144,16 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
               showsVerticalScrollIndicator={false}
               onEndReached={onEndReached}
               onEndReachedThreshold={0.1}
+              pagingEnabled
               w="full"
               h="full"
               flex={1}
-              mb="1"
             />
             {isFetchingNextPage ? <Loader /> : null}
           </>
         ) : (
           <Text
-            content="Não comentários"
+            content="Não há comentários!"
             color={THEME.colors.dark_text_color}
             fontSize="large"
           />
@@ -166,8 +166,8 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
         borderTopWidth="1"
         justifyContent="flex-start"
       >
-        <HStack space={2} alignItems="center" flex={1}>
-          <Avatar source={getUserAvatarSource(undefined, true)} size="md" />
+        <HStack alignItems="center" flex={1}>
+          <Avatar source={getUserAvatarSource(undefined, true)} size="sm" />
           <Input
             flex={1}
             h="10"
@@ -177,10 +177,11 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
             color={THEME.colors.dark_text_color}
             borderWidth="0"
             value={commentText}
+            fontFamily={THEME.fonts.medium}
+            borderColor={THEME.colors.dark_text_color}
             onChangeText={handleCommentInputChange}
             _focus={{
-              borderBottomColor: THEME.colors.dark_text_color,
-              borderBottomWidth: '1',
+              bg: 'transparent',
             }}
           />
           <Text
@@ -197,6 +198,7 @@ const RaffleComments: React.FC<iRaffleCommentsProps> = ({
             _disabled={{
               bg: 'orange.100',
             }}
+            ml="1"
           >
             {isLoading ? (
               <Loader color="#fff" size={20} />

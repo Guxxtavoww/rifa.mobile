@@ -85,7 +85,7 @@ const MainRaffles: React.FC<ScreenProps> = ({ navigation, route }) => {
                 onViewableItemsChanged={({ viewableItems, changed }) =>
                   console.log({ viewableItems, changed })
                 }
-                pagingEnabled
+                // pagingEnabled
                 renderItem={({ index: wrapperIndex, item }) => (
                   <View key={wrapperIndex}>
                     {item.data.map((raffle, index) => (

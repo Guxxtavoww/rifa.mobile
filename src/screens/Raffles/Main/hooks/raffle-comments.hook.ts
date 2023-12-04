@@ -21,7 +21,7 @@ export function useRaffleComments(raffle_id: string) {
 
   const handleCommentInputChange = useCallback(
     (text: string) => {
-      setCommentText((prev) => (prev.length <= 170 ? text : prev));
+      setCommentText((prev) => (prev.length < 170 ? text : prev));
     },
     [setCommentText]
   );
@@ -50,7 +50,8 @@ export function useRaffleComments(raffle_id: string) {
 
   const { mutateAsync: createRaffleCommentMutation, isLoading } = useMutation({
     mutationKey: ['create-raffle-comment'],
-    mutationFn: (text: string) => createRaffleCommentAPI(raffle_id, text),
+    mutationFn: (text: string) =>
+      createRaffleCommentAPI(raffle_id, text).then(() => setCommentText('')),
     onSuccess: () => queryClient.refetchQueries(['get-raffle-comments']),
   });
 
@@ -78,18 +79,18 @@ export function useRaffleComments(raffle_id: string) {
   useEffect(() => {
     Animated.timing(animatedValue, {
       toValue: 0,
-      duration: 300,
+      duration: 210,
       useNativeDriver: false,
     }).start();
 
     setInterval(() => {
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 300,
+        duration: 210,
         useNativeDriver: false,
       }).start();
     }, 500);
-  }, [animatedValue]);
+  }, []);
 
   return {
     createRaffleCommentMutation,
