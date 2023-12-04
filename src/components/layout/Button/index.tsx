@@ -31,11 +31,11 @@ const Button: React.FC<ButtonProps> = ({
     justifyContent="center"
     textAlign="center"
     _pressed={{
-      backgroundColor: buttonProps._pressed?.backgroundColor || 'orange.900',
+      bg: buttonProps._pressed?.bg || 'orange.900',
       ...buttonProps._pressed,
     }}
     _disabled={{
-      backgroundColor: buttonProps._disabled?.backgroundColor || 'orange.200',
+      bg: buttonProps._disabled?.bg || 'orange.200',
       ...buttonProps._disabled,
     }}
     {...buttonProps}
